@@ -37,7 +37,7 @@
 - **本轮唯一目标**：把“Codex 负责开发、用户负责理解与验收”的新长期规则同步到项目文件，并建立 Stage 00 Git/GitHub 工作流。
 - **实际完成（OBSERVED）**：修订开发分工、重要功能讲解、用户代码/Trace 阅读考核和原评分门槛；同步 Stage 00–13 的计划与 Gate/阶段模板。用户确认仓库名 `harness2-agent-evaluation`、公开可见。初始化本地 Git、提交 `main` 初始脚手架、建立 `stage-00-setup`；创建公开 GitHub 仓库并 Push `main`。
 - **代码变更（Codex 实现 / 用户独立设计、审查或验收）**：Codex 修改 `AGENTS.md`、`MASTER_PLAN.md`、`CODEX_START_PROMPT.md`、`START_HERE.md`、`EVALUATION_SYSTEM_SPEC.md`、`interview/QUESTION_SCOPE.md`、学习模板及当前 Stage 记录；用户提出并确认新分工及公开仓库选择。未编写 Harness² 核心代码。
-- **实际命令、退出码、日志与证据路径**：`git init -b main` exit 0；`git add -A` exit 0；`git diff --cached --check` exit 0；敏感凭证模式搜索无匹配；`git commit -m "chore: bootstrap harness evaluation workspace"` exit 0，SHA `46ba3d2`；`git switch -c stage-00-setup` exit 0；`gh repo create lyxnbclass/harness2-agent-evaluation --public --source . --remote origin` exit 0；`git push -u origin main` exit 0。`gh auth status` 先前曾退出 1，但本轮实际创建/Push 成功。终端输出未另存日志。
+- **实际命令、退出码、日志与证据路径**：`git init -b main` exit 0；`git add -A` exit 0；`git diff --cached --check` exit 0；敏感凭证模式搜索无匹配；`git commit -m "chore: bootstrap harness evaluation workspace"` exit 0，SHA `46ba3d2`；`git switch -c stage-00-setup` exit 0；`gh repo create lyxnbclass/harness2-agent-evaluation --public --source . --remote origin` exit 0；`git push -u origin main` exit 0；`git commit -m "docs: record developer-led stage workflow"` exit 0，SHA `36c6eae`；`git push -u origin stage-00-setup` exit 0；`gh auth status` 复查 exit 0。终端输出未另存日志。
 - **新获得的概念理解（仅实际被考核的）**：无；本轮是规则和仓库工作，未评估用户知识掌握。
 - **面试题、独立回答与得分**：未考；上轮提出的手写环境脚本任务已取消，不计分。
 - **误区和变式复测要求**：无已知错题；仍待正式初测。
