@@ -2,7 +2,7 @@
   "schema_version": "2.0",
   "current_stage": "00",
   "last_updated": "2026-10-29",
-  "note": "Stage 00 首次离线环境盘点；无阶段通过、官方 Demo 或模型评测成绩",
+  "note": "Stage 00 已建立公开 GitHub 仓库与分支；官方源码、Demo 和考核仍未完成；Codex 负责实现，用户负责理解与验收",
   "stages": {
     "00": {
       "status": "IN_PROGRESS",
@@ -19,12 +19,14 @@
       "user_approved_next": false,
       "last_checked": "2026-10-29",
       "github": {
-        "branch": null,
-        "important_commits": [],
-        "remote": null,
+        "branch": "stage-00-setup",
+        "important_commits": ["46ba3d2"],
+        "remote": "https://github.com/lyxnbclass/harness2-agent-evaluation.git",
         "pr_url": null,
         "pr_status": "NOT_CREATED",
-        "auth_status": "INVALID_TOKEN"
+        "visibility": "public",
+        "main_pushed": true,
+        "auth_status": "STATUS_CHECK_FAILED_BUT_REPO_CREATE_AND_PUSH_SUCCEEDED"
       }
     },
     "01": {

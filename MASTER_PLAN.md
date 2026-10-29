@@ -202,7 +202,7 @@ Codex 负责本地 Git 初始化、远程仓库关联、每阶段独立 branch�
 **证据：** `experiments/memory_lab/`、`reports/memory_eval.md`、`learning/stages/11.md`。
 **通关方向：** Memory vs RAG？为什么不能只用 Redis 存全部历史？新旧记忆冲突怎么办？怎么识别污染？
 
-### Stage 12｜个人工程贡献（项目亮点）
+### Stage 12｜项目原创工程扩展（用户理解与验收）
 **任务：** 选一个并完整交付：
 - [ ] A. 具备 trace 证据链接的 Failure Classifier/Bad Case dashboard；或
 - [ ] B. Regression Gate（当改进版造成关键回归时自动拒绝采纳，**优先推荐**）；或
@@ -211,7 +211,7 @@ Codex 负责本地 Git 初始化、远程仓库关联、每阶段独立 branch�
 
 **做法：** Codex 用 1 页 spec 说明问题、目标、输入输出、设计替代方案、测试、风险、假设，亲自实现核心部分并运行 unit/integration、反例、对照实验；展示 README 与 commit diff，注明官方代码、Codex 实现和用户独立设计/验收的真实边界。
 **用户验收任务：** 阅读该模块的一处边界条件和测试，说明预期修改思路与验证方法；实际修改和运行由 Codex 完成。
-**证据：** `reports/my_contribution.md`、ADR、个人 commit、`learning/stages/12.md`。
+**证据：** `reports/my_contribution.md`、ADR、Codex 代码 commit、用户独立分析/验收记录、`learning/stages/12.md`。
 **通关方向：** 为什么选择这个改进？收益/副作用？相对官方有什么新贡献？如何验证不会伤害其他任务？
 
 ### Stage 13｜最终技术面试、README 与简历证据（终验收）
@@ -286,5 +286,5 @@ upstream/harness2/              # 官方代码 checkout（后续完成）
 - Stage 08：只表示公开 Coding Benchmark 的原生评测已跑通，**不代表 Harness² 能跑此集**。
 - Stage 09：能够说“自研 Adapter 连接公开 Coding Benchmark”，但 smoke test 不代表通用性能提升。
 - Stage 10：有对照数据才写量化结果，注明样本量和是否重复执行；无效/未评分单列。
-- Stage 11–12：属于个人扩展，不能冒充官方新增功能。
-- Stage 13：实际已交付/已验证的才进入简历。
+- Stage 11–12：属于项目原创扩展，不能冒充官方新增功能；记录由 Codex 编写的代码和用户独立完成的设计/审查/验收。
+- Stage 13：实际已交付/已验证的才进入简历；不得把 Codex 编写的代码声称为用户亲手实现。
