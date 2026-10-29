@@ -1,0 +1,226 @@
+{
+  "schema_version": "2.0",
+  "current_stage": "00",
+  "last_updated": "2026-10-29",
+  "note": "Stage 00 首次离线环境盘点；无阶段通过、官方 Demo 或模型评测成绩",
+  "stages": {
+    "00": {
+      "status": "IN_PROGRESS",
+      "gate": {
+        "concept_score": null,
+        "practical_score": null,
+        "diagnosis_score": null,
+        "communication_score": null,
+        "total_score": null,
+        "critical_errors": null,
+        "evaluation_record": null
+      },
+      "required_evidence": [],
+      "user_approved_next": false,
+      "last_checked": "2026-10-29",
+      "github": {
+        "branch": null,
+        "important_commits": [],
+        "remote": null,
+        "pr_url": null,
+        "pr_status": "NOT_CREATED",
+        "auth_status": "INVALID_TOKEN"
+      }
+    },
+    "01": {
+      "status": "LOCKED",
+      "gate": {
+        "concept_score": null,
+        "practical_score": null,
+        "diagnosis_score": null,
+        "communication_score": null,
+        "total_score": null,
+        "critical_errors": null,
+        "evaluation_record": null
+      },
+      "required_evidence": [],
+      "user_approved_next": false,
+      "last_checked": null
+    },
+    "02": {
+      "status": "LOCKED",
+      "gate": {
+        "concept_score": null,
+        "practical_score": null,
+        "diagnosis_score": null,
+        "communication_score": null,
+        "total_score": null,
+        "critical_errors": null,
+        "evaluation_record": null
+      },
+      "required_evidence": [],
+      "user_approved_next": false,
+      "last_checked": null
+    },
+    "03": {
+      "status": "LOCKED",
+      "gate": {
+        "concept_score": null,
+        "practical_score": null,
+        "diagnosis_score": null,
+        "communication_score": null,
+        "total_score": null,
+        "critical_errors": null,
+        "evaluation_record": null
+      },
+      "required_evidence": [],
+      "user_approved_next": false,
+      "last_checked": null
+    },
+    "04": {
+      "status": "LOCKED",
+      "gate": {
+        "concept_score": null,
+        "practical_score": null,
+        "diagnosis_score": null,
+        "communication_score": null,
+        "total_score": null,
+        "critical_errors": null,
+        "evaluation_record": null
+      },
+      "required_evidence": [],
+      "user_approved_next": false,
+      "last_checked": null
+    },
+    "05": {
+      "status": "LOCKED",
+      "gate": {
+        "concept_score": null,
+        "practical_score": null,
+        "diagnosis_score": null,
+        "communication_score": null,
+        "total_score": null,
+        "critical_errors": null,
+        "evaluation_record": null
+      },
+      "required_evidence": [],
+      "user_approved_next": false,
+      "last_checked": null
+    },
+    "06": {
+      "status": "LOCKED",
+      "gate": {
+        "concept_score": null,
+        "practical_score": null,
+        "diagnosis_score": null,
+        "communication_score": null,
+        "total_score": null,
+        "critical_errors": null,
+        "evaluation_record": null
+      },
+      "required_evidence": [],
+      "user_approved_next": false,
+      "last_checked": null
+    },
+    "07": {
+      "status": "LOCKED",
+      "gate": {
+        "concept_score": null,
+        "practical_score": null,
+        "diagnosis_score": null,
+        "communication_score": null,
+        "total_score": null,
+        "critical_errors": null,
+        "evaluation_record": null
+      },
+      "required_evidence": [],
+      "user_approved_next": false,
+      "last_checked": null
+    },
+    "08": {
+      "status": "LOCKED",
+      "gate": {
+        "concept_score": null,
+        "practical_score": null,
+        "diagnosis_score": null,
+        "communication_score": null,
+        "total_score": null,
+        "critical_errors": null,
+        "evaluation_record": null
+      },
+      "required_evidence": [],
+      "user_approved_next": false,
+      "last_checked": null
+    },
+    "09": {
+      "status": "LOCKED",
+      "gate": {
+        "concept_score": null,
+        "practical_score": null,
+        "diagnosis_score": null,
+        "communication_score": null,
+        "total_score": null,
+        "critical_errors": null,
+        "evaluation_record": null
+      },
+      "required_evidence": [],
+      "user_approved_next": false,
+      "last_checked": null
+    },
+    "10": {
+      "status": "LOCKED",
+      "gate": {
+        "concept_score": null,
+        "practical_score": null,
+        "diagnosis_score": null,
+        "communication_score": null,
+        "total_score": null,
+        "critical_errors": null,
+        "evaluation_record": null
+      },
+      "required_evidence": [],
+      "user_approved_next": false,
+      "last_checked": null
+    },
+    "11": {
+      "status": "LOCKED",
+      "gate": {
+        "concept_score": null,
+        "practical_score": null,
+        "diagnosis_score": null,
+        "communication_score": null,
+        "total_score": null,
+        "critical_errors": null,
+        "evaluation_record": null
+      },
+      "required_evidence": [],
+      "user_approved_next": false,
+      "last_checked": null
+    },
+    "12": {
+      "status": "LOCKED",
+      "gate": {
+        "concept_score": null,
+        "practical_score": null,
+        "diagnosis_score": null,
+        "communication_score": null,
+        "total_score": null,
+        "critical_errors": null,
+        "evaluation_record": null
+      },
+      "required_evidence": [],
+      "user_approved_next": false,
+      "last_checked": null
+    },
+    "13": {
+      "status": "LOCKED",
+      "gate": {
+        "concept_score": null,
+        "practical_score": null,
+        "diagnosis_score": null,
+        "communication_score": null,
+        "total_score": null,
+        "critical_errors": null,
+        "evaluation_record": null
+      },
+      "required_evidence": [],
+      "user_approved_next": false,
+      "last_checked": null
+    }
+  }
+}
