@@ -26,6 +26,15 @@
 - 用户原回答（2026-10-30，非正式理解检查）：CSV“属于输入”；执行后“到 answer.txt 中查看”；“Trajectory 中记录了执行过程”。三点正确。未独立解释 `csv.DictReader`、`subprocess` 或轨迹写入代码。
 - 错误/补课：此题未见错误；下一步补“脚本版本如何复制、修改、验证和执行”的代码链路。该基础子知识点暂记 `L1`（仅概念），整条 Demo 与正式 Gate 仍未评估。
 
+## Stage 00 · Demo 脚本版本替换与校验（子知识点）
+
+- 官方 SHA/源码：`1cfe254e…`；`core/context.py:build` 复制可编辑工作副本；`core/recursion.py:_run_stage/_accept_tree/_roll` 提议、校验、物化与执行；`harness2/demo.py:DemoProposer.call/DemoAdapter.execute` 执行确定性修改和本地脚本。
+- 已教学：ASCII 文件树及 `base → context/inv1/harness → harnesses/inv1 → executions/inv1` 链；相同 CSV 下基线脚本过滤负数得到 `105.25`，候选脚本删除过滤条件得到 `85.15`；组合阶段另行生成 `agg1`，不把它误说成机械复制 `inv1`。
+- 真实演示：本地 `experiments/raw_runs/stage00_demo_k1/` 中 `base/`、`context/inv1/harness/`、`harnesses/inv1/`、`harnesses/agg1/` 的 `scripts/summarize.py` 内容和基线/候选 `answer.txt` 已核对；本小节未重新运行 Demo。
+- 用户原回答（2026-10-30，非正式理解检查）：对“工作副本修改后校验失败应否直接执行”的回答为“记录错误并回退”。方向正确。补充精确源码边界：`_run_stage()` 最多再尝试一次；仍失败才返回 `fell_back=True` 和错误，未通过校验的工作副本不直接执行。
+- 最近结果与等级：该校验边界有一次正确概念回答，暂记 `L1`；完整源码路径和执行过程尚无用户独立复述证据，不升级 L2/L3。正式 Stage 00 Gate 未考。
+- 下一补课/任务：单独讲 CLI/`argparse` 的参数进入、转换、校验与退出码，再用新输入做 Trace 分析。
+
 ## 后续知识点模板
 
 每开始一个新知识点复制以下字段，不预填等级：

@@ -124,3 +124,11 @@
 - **记录修改与考核**：更新 `learning/KNOWLEDGE_MASTERY.md`、`learning/PROGRESS.md` 和本日志；正式 Stage 00 Gate 未考。未执行付费模型、Benchmark 或新实验。
 - **下次唯一任务**：用户理解此脚本替换链路后，继续 Stage 00 的 CLI/`argparse` 小节。
 - **批准状态**：Stage 00 IN_PROGRESS；Stage 01 未获批准，Stage 00 PR 未创建。
+
+### 2026-10-30 | Session 10 | Stage 00
+
+- **用户独立回答**：对“候选工作副本校验失败后是否直接执行”的回答是“记录错误并回退”，方向正确。Codex 补充源码细节：`_run_stage()` 最多再尝试一次修正，仍失败才返回 `fell_back=True` 与错误；不能把首次失败直接说成最终回退。
+- **掌握记录**：脚本候选校验与回退的基础概念暂记 L1；尚无完整函数分支或 Trace 的独立解释，不升级 L2/L3。正式 Stage 00 Gate 未考。
+- **本轮修改**：更新 `learning/KNOWLEDGE_MASTERY.md`、`learning/MASTERY_MATRIX.md`、`learning/PROGRESS.md`、本日志；未改官方代码、未重新运行 Demo/测试/Benchmark。
+- **下一唯一任务**：Stage 00 CLI/`argparse` 的命令输入、参数转换/校验、调用与退出码教学，再用新输入做理解检查。
+- **批准状态**：Stage 00 保持 IN_PROGRESS，无阶段 PR，无进入 Stage 01 批准。
