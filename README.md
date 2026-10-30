@@ -2,13 +2,13 @@
 
 An engineering project to reproduce Google Research Harness² and build an auditable evaluation workflow for coding agents. The central question is whether a harness change improves task outcomes **without hiding regressions, infrastructure failures, or extra cost**.
 
-> **Status (2026-10-30): Stage 00 in progress.** This repository currently contains the project plan, evidence records, a sample run manifest, and local progress-check scripts. The upstream Harness² checkout, official demo, public benchmark integration, custom evaluator modules, and agent-performance experiments have **not** been completed.
+> **Status (2026-10-30): Stage 00 in progress.** The official Harness² source is pinned as a submodule at commit `1cfe254e8d25b15f37048c3730134686abe60335`; its demo entry has been traced in source. The demo, public benchmark integration, custom evaluator modules, and agent-performance experiments have **not** been run or completed.
 
 ## Engineering scope
 
 | Track | Responsibility | Current state |
 | --- | --- | --- |
-| Official reproduction | Check out a pinned revision of [google-research/harness2](https://github.com/google-research/harness2), trace its runner/evaluator/report flow, and reproduce its demo and authorized single-task run | **In progress:** environment inventory started; upstream code and demo not yet verified |
+| Official reproduction | Check out a pinned revision of [google-research/harness2](https://github.com/google-research/harness2), trace its runner/evaluator/report flow, and reproduce its demo and authorized single-task run | **In progress:** source pinned; demo and evaluator behavior not yet run or verified |
 | Public coding benchmark | Select a benchmark (SWE-bench is the leading candidate), run its **native evaluator** independently, then build a Harness² adapter | **Planned:** benchmark selection and evaluator run have not occurred |
 | Project evaluation extensions | Implement metrics, trajectory validation, bad-case records, paired comparisons, a regression gate, and reproducible reports | **Planned:** specifications exist; implementation and tests do not |
 
@@ -85,16 +85,16 @@ A stage is checked only after its required implementation and tests have evidenc
 - [`scripts/resume.py`](scripts/resume.py) restores the recorded current stage; [`scripts/check_workspace.py`](scripts/check_workspace.py) checks record completeness. Both ran successfully in the Stage 00 workspace check. They do **not** validate agent quality or stage mastery.
 - [`learning/`](learning/) contains stage status, source/audit templates, interview gates, and command evidence.
 - [`experiments/manifests/EXAMPLE_MANIFEST.json`](experiments/manifests/EXAMPLE_MANIFEST.json) is a **sample schema**, not a completed experiment.
-- [`upstream/README.md`](upstream/README.md) documents the intended location for official source. `upstream/harness2/` is not present yet.
+- [`upstream/harness2/`](upstream/harness2/) is a Git submodule pinned to Google Research commit `1cfe254e…`. Its Apache 2.0 license remains in the upstream checkout. The local demo entry is declared in `pyproject.toml` as `harness2-demo = "harness2.cli.demo:main"`; source inspection found `DemoAdapter.execute()` writes local `answer.txt` and `trajectory.md`. These are source findings, **not observed demo output**.
 
-No project-specific Harness² install or demo command is published here yet: the upstream revision and its CLI have not been verified. The currently verified local record checks, run from the repository root, are:
+The upstream revision and demo CLI have been identified, but no project-specific demo command has been executed yet. The currently verified local record checks, run from the repository root, are:
 
 ```powershell
 python scripts/resume.py
 python scripts/check_workspace.py
 ```
 
-Both commands exited with code 0 in the latest recorded Stage 00 check. The second command checks documentation consistency only. Once the official checkout is available, this section will add pinned dependency versions, verified setup steps, executable demo commands, and artifact paths.
+Both commands exited with code 0 in the latest recorded Stage 00 check. The second command checks documentation consistency only. The upstream package requires Python `>=3.12,<3.14`; its setup guide recommends Linux and Python 3.12. Verified demo setup, execution commands, and artifact paths will be added after an isolated run.
 
 ## Experimental results
 

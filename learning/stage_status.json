@@ -2,7 +2,7 @@
   "schema_version": "2.0",
   "current_stage": "00",
   "last_updated": "2026-10-30",
-  "note": "Stage 00 已建立公开 GitHub 仓库、分支和正式英文 README；官方源码、Demo 和考核仍未完成；Codex 负责实现，用户负责理解与验收",
+  "note": "Stage 00 官方 Harness² 源码已作为 submodule 固定到 1cfe254e；Demo、测试与考核仍未完成；Codex 负责实现，用户负责理解与验收",
   "stages": {
     "00": {
       "status": "IN_PROGRESS",
@@ -15,7 +15,7 @@
         "critical_errors": null,
         "evaluation_record": null
       },
-      "required_evidence": [],
+      "required_evidence": ["upstream/harness2 @ 1cfe254e8d25b15f37048c3730134686abe60335", "learning/SOURCE_INDEX.md", "learning/OFFICIAL_EVAL_AUDIT.md"],
       "user_approved_next": false,
       "last_checked": "2026-10-30",
       "github": {

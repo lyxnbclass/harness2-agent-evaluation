@@ -59,3 +59,17 @@
 - **更新过的记录文件**：`README.md`、`AGENTS.md`、`MASTER_PLAN.md`、`CODEX_START_PROMPT.md`、`START_HERE.md`、`learning/PROGRESS.md`、`learning/stage_status.json`、`learning/stages/00.md`、`learning/gates/00.md`、`learning/SESSION_LOG.md`。
 - **下次唯一任务**：Codex checkout 官方 Harness² 到 `upstream/harness2/`，记录 SHA/remote/tree 并读取 README 确定 Demo 入口；讲解后由用户分析。
 - **是否正在等待用户批准进入下一阶段**：否，Stage 00 尚未考核。
+
+### 2026-10-30 10:00（Asia/Shanghai） | Session 4 | Stage 00
+- **起始状态**：IN_PROGRESS；`stage-00-setup` clean、无 PR；官方 checkout/Demo/Benchmark 尚无证据。
+- **本轮唯一目标**：从用户给定的 Google Research 官方仓库检出可复现源码，核实 SHA、License、Demo 入口和源码声明的数据流。
+- **实际完成（OBSERVED）**：官方仓库以 Git submodule 检出到 `upstream/harness2/`，remote 与 gitlink 均固定 `1cfe254e8d25b15f37048c3730134686abe60335`，checkout clean，Apache 2.0 `LICENSE` 保留。定位 `pyproject.toml:32` 的 `harness2-demo` → `harness2/cli/demo.py:main` → `harness2/core/schedule.py:run_domain` → `harness2/demo.py:DemoAdapter.execute` 的本地源码调用关系；`demo.json`、`answer.txt`、`trajectory.md` 只是源码声明的产物，尚未运行验证。
+- **代码变更（Codex 实现 / 用户独立设计、审查或验收）**：Codex 只添加官方 submodule 指针并更新项目笔记/README，未修改官方源码，未编写自研 Agent 代码；用户提供官方仓库和站点 URL 并要求开始 Stage 00。用户理解尚待回答验证。
+- **实际命令、退出码、日志与证据路径**：`git ls-remote https://github.com/google-research/harness2.git HEAD` exit 0，返回上述 SHA；`git submodule add https://github.com/google-research/harness2.git upstream/harness2` exit 0；`git -C upstream/harness2 rev-parse HEAD` exit 0，返回同 SHA；`git -C upstream/harness2 status --short --branch` 显示 clean `main...origin/main`；`git ls-files --stage upstream/harness2` 显示 mode `160000` 与相同 SHA。`uv python list --only-installed` 显示 Windows Python 3.12.13 可用；`docker info` exit 0 显示 Linux daemon 29.8.0，`docker image ls` 显示本地 `python:3.12-slim-trixie`。源码阅读证据见 `learning/SOURCE_INDEX.md` 和 `learning/stages/00.md`；未另存终端日志。
+- **新获得的概念理解（仅实际被考核的）**：无，尚未收到用户对调用链的独立解释。
+- **面试题、独立回答与得分**：尚未进行 Gate；本轮源码理解题待用户作答，不计分。
+- **误区和变式复测要求**：无已知错题；初测待进行。
+- **阻塞 / 未执行 / API 预算与授权**：未安装上游依赖、未运行官方 Demo/测试/Benchmark、未调用模型或收费 API。官方 `pyproject.toml` 要求 Python `<3.14`，本机默认 3.14.6 不符合；隔离 Docker Python 3.12 镜像可用于后续 Demo。
+- **更新过的记录文件**：`.gitmodules`、`upstream/harness2` gitlink、`upstream/README.md`、`README.md`、`learning/SOURCE_INDEX.md`、`learning/OFFICIAL_EVAL_AUDIT.md`、`learning/stages/00.md`、`learning/PROGRESS.md`、`learning/stage_status.json`、`learning/gates/00.md`、`learning/SESSION_LOG.md`。
+- **下次唯一任务**：Codex 在隔离 Docker Python 3.12 环境运行无模型凭证的官方 Demo，核对真实输出并让用户解释入口与产物关系。
+- **是否正在等待用户批准进入下一阶段**：否，Stage 00 远未通过。
