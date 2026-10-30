@@ -18,6 +18,14 @@
 - 基础补课（2026-10-30）：用户主动询问 `Trajectory` 和 `CSV` 的含义，说明此前解释默认了尚未建立的数据格式与轨迹概念；这不是答题错误。已核对真实 `ledger-1/ledger.csv` 与基线/修改后 `trajectory.md`，本轮从这两个文件及 `csv.DictReader`、`DemoAdapter.execute()` 的写入代码补讲。用户掌握仍为 `U`，待独立解释验证。
 - 下一补课/小节：待用户确认代码贯穿的整体 Demo 讲解可理解后，再单独深入 `harness2-demo` 入口与 `argparse` 的真实调用、异常与参数变式。
 
+## Stage 00 · CSV 与简化 Trajectory（基础子知识点）
+
+- 官方 SHA/源码：`1cfe254e…`；`upstream/harness2/harness2/demo.py:30–37` 的 CSV 读取，以及 `DemoAdapter.execute():86–105` 的答案与轨迹写入。
+- 已教学：真实 `ledger-1/ledger.csv` 是输入表；`csv.DictReader` 将 `amount` 列读成字典；`answer.txt` 存 stdout；这个 Demo 的 `trajectory.md` 用固定 `[ACTION]`/`[OBSERVATION]` 模板记录一次执行，不是完整 LLM Agent Trace。
+- 真实演示：`experiments/raw_runs/stage00_demo_k1/sources/ledger-1/ledger.csv`、`executions/demo-oc-agg1/ledger-1/base1/trajectory.md` 与 `agg1/trajectory.md` 均已核对。
+- 用户原回答（2026-10-30，非正式理解检查）：CSV“属于输入”；执行后“到 answer.txt 中查看”；“Trajectory 中记录了执行过程”。三点正确。未独立解释 `csv.DictReader`、`subprocess` 或轨迹写入代码。
+- 错误/补课：此题未见错误；下一步补“脚本版本如何复制、修改、验证和执行”的代码链路。该基础子知识点暂记 `L1`（仅概念），整条 Demo 与正式 Gate 仍未评估。
+
 ## 后续知识点模板
 
 每开始一个新知识点复制以下字段，不预填等级：

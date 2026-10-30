@@ -115,3 +115,12 @@
 - **记录与掌握**：更新 `learning/KNOWLEDGE_MASTERY.md`、`learning/PROGRESS.md`、本日志。用户尚未独立回答理解题，等级 U，正式 Gate 未考。
 - **下一唯一任务**：确认 CSV 与 Trajectory 的数据流理解后，再继续 Stage 00 的 CLI/`argparse` 小节。
 - **批准与阻塞**：Stage 00 IN_PROGRESS；无进入下一阶段批准；PR 未创建。
+
+### 2026-10-30 | Session 9 | Stage 00
+
+- **用户独立回答**：CSV 属于输入；到 `answer.txt` 看输出；Trajectory 记录执行过程。三点正确，基础子知识点暂记 L1；未测试 Python 读取/写入代码或完整 Trace，不升级整条 Demo 等级。
+- **用户新问题 / 唯一任务**：解释脚本如何被复制、更换和执行，提供整条链路的 ASCII 文件树。Codex 负责官方源码定位与运行产物核对。
+- **真实证据**：读取官方固定 SHA `1cfe254e…` 的 `core/context.py:build`、`core/recursion.py:_run_stage/_accept_tree/_roll`、`core/tree.py:read_tree/write_tree/validate` 和 `demo.py:DemoProposer.call/DemoAdapter.execute`。对照本地 `base/scripts/summarize.py`、`runs/demo-oc-agg1/ledger-1/context/inv1/harness/scripts/summarize.py`、`harnesses/inv1`、`harnesses/agg1`、基线/候选 `answer.txt`。未重新运行 Demo，未改官方源码。
+- **记录修改与考核**：更新 `learning/KNOWLEDGE_MASTERY.md`、`learning/PROGRESS.md` 和本日志；正式 Stage 00 Gate 未考。未执行付费模型、Benchmark 或新实验。
+- **下次唯一任务**：用户理解此脚本替换链路后，继续 Stage 00 的 CLI/`argparse` 小节。
+- **批准状态**：Stage 00 IN_PROGRESS；Stage 01 未获批准，Stage 00 PR 未创建。
