@@ -23,6 +23,7 @@
 
 ## 本工作区的关键文件
 - `AGENTS.md`：Codex 强制操作/教学/通关/记录约束
+- `README.md`：面向技术招聘人员的英文 GitHub 项目介绍；每个 Stage PR 合并后按证据更新
 - `MASTER_PLAN.md`：14 个阶段的完整学习、代码实验、Benchmark、面试要求
 - `CODEX_START_PROMPT.md`：第一轮与之后新会话的启动提示词
 - `learning/PROGRESS.md`：**先读它**，确定真实当前阶段
