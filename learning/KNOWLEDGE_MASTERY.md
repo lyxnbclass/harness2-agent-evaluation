@@ -15,6 +15,7 @@
 - 工程分析：`k=1` 每模式只有一个 final，源码走 trivial selection；预设 `DemoProposer` 不是 LLM；本地 `delivered()` 仅检查 `answer.txt` 存在，不能等同独立 evaluator 判分。详细替代方案、故障与权衡待逐节教学。
 - 理解检查/用户回答：尚无独立技术回答；最近一次考核：未考；等级：`U`。
 - 错误/未掌握：没有用户技术错误证据；概念、源码、执行和设计均待独立验证。
+- 基础补课（2026-10-30）：用户主动询问 `Trajectory` 和 `CSV` 的含义，说明此前解释默认了尚未建立的数据格式与轨迹概念；这不是答题错误。已核对真实 `ledger-1/ledger.csv` 与基线/修改后 `trajectory.md`，本轮从这两个文件及 `csv.DictReader`、`DemoAdapter.execute()` 的写入代码补讲。用户掌握仍为 `U`，待独立解释验证。
 - 下一补课/小节：待用户确认代码贯穿的整体 Demo 讲解可理解后，再单独深入 `harness2-demo` 入口与 `argparse` 的真实调用、异常与参数变式。
 
 ## 后续知识点模板

@@ -107,3 +107,11 @@
 - **掌握与考核**：用户提供教学反馈，没有技术题回答；等级仍 U，正式 Gate 未考、无分数。
 - **下一唯一任务**：待用户反馈代码贯穿讲解后，单独深入 CLI/`argparse` 的参数解析、调用和异常。
 - **批准与阻塞**：Stage 00 IN_PROGRESS；无进入 Stage 01 批准。真实 LLM Benchmark 仍未运行。
+
+### 2026-10-30 | Session 8 | Stage 00
+
+- **用户输入与当前任务**：用户询问 `Trajectory` 和 `CSV` 是什么；先补这两个基础概念，再继续代码链路，不把提问当成技术错误。
+- **真实证据**：重新读取本地官方 Demo 的 `experiments/raw_runs/stage00_demo_k1/sources/ledger-1/ledger.csv`（`amount` 表头与三个金额）以及基线、修改后 `trajectory.md`（观察值 `105.25` 与 `85.15`）；官方相关读取/写入代码位于固定 SHA `1cfe254e…` 的 `harness2/demo.py:30–37,86–105`。未重新执行 Demo、未改官方源码。
+- **记录与掌握**：更新 `learning/KNOWLEDGE_MASTERY.md`、`learning/PROGRESS.md`、本日志。用户尚未独立回答理解题，等级 U，正式 Gate 未考。
+- **下一唯一任务**：确认 CSV 与 Trajectory 的数据流理解后，再继续 Stage 00 的 CLI/`argparse` 小节。
+- **批准与阻塞**：Stage 00 IN_PROGRESS；无进入下一阶段批准；PR 未创建。

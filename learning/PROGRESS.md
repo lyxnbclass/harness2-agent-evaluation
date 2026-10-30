@@ -11,7 +11,7 @@
 - 已验证完成的阶段：无
 - 已验证的项目代码/实验：官方无模型 Demo `--k 1 --mode both` 在 Docker Linux/Python 3.12 退出 0；2 个账本任务 `ok`，详见 `learning/stages/00.md`。无自研 Agent 代码或模型实验。
 - 最近一次考核：尚未开始
-- 最近教学：2026-10-30 建立六步协议后，用户指出整体 Demo 讲解仍缺关键代码、参数/返回值及 ASCII 图；本轮补充代码贯穿讲解，尚待用户反馈。此前的 `--k 0` 问题撤回，尚无独立回答或评分。
+- 最近教学：2026-10-30 已补代码贯穿讲解；用户接着主动询问 `Trajectory` 与 `CSV`，本轮先用实际 `ledger-1` 文件和源码补这两个基础概念，再继续 Demo 调用链。此前的 `--k 0` 问题撤回，尚无独立回答或评分。
 - 已掌握的知识点（有无提示考核证据）：尚未评估
 - 尚未掌握/待验证的知识点：全部待初测
 - 阻塞：无模型调用需求；默认 Python 3.14.6 不满足上游 `<3.14` 要求，已用 Docker Python 3.12 完成无模型 Demo。官方 benchmark evaluator/judge/report 仍 UNKNOWN，真实模型运行未获批准。
@@ -19,7 +19,7 @@
 - GitHub：公开仓库 `https://github.com/lyxnbclass/harness2-agent-evaluation`；当前 branch `stage-00-setup`；官方源码固定提交 `0b1902d`、六步教学与 Demo 记录提交 `7dbb245` 均已 Push；正式根目录 README 已在 `main` 的 `f7a0ae1` 发布并经 GitHub API 核实；`gh pr list --head stage-00-setup` 返回空列表，Stage 00 PR `NONE`；当前 Stage 考核 `未考`。
 
 ## 当前唯一下一步
-Codex 用 ASCII 图、关键源码和真实输入/输出完成 Stage 00 整体 Demo 工作原理的系统讲解；待用户反馈当前讲解可理解，再在下一小节深入 `harness2-demo` 入口与 `argparse`。**不要求用户手写脚本，不运行收费模型，不跳到 Stage 01**。
+Codex 先完成 `CSV → Python 字典/Decimal → 脚本输出 → Trajectory` 的基础补课和理解检查；随后再沿 Demo 调用链深入 `harness2-demo` 入口与 `argparse`。**不要求用户手写脚本，不运行收费模型，不跳到 Stage 01**。
 
 ## 最近期真实证据
 - 2026-10-30 `docker run` 以 `python:3.12-slim-trixie`、`--network none`、只读源码挂载、隔离输出挂载执行 `python -m harness2.cli.demo --output /out/raw_runs/stage00_demo_k1 --k 1 --mode both`，退出 0；终端显示两个任务 `ok`。`demo.json` 记录 `done=2`、`failed=0`、`execution_count=14`、`editor_calls=16`。`ledger-1` 基线 `Total: 105.25`，parallel final 和 sequential final 均 `Total: 85.15`。本地原始产物在 `experiments/raw_runs/stage00_demo_k1/`（忽略目录），证据摘要在 `learning/stages/00.md`；无付费模型、无真实 Benchmark 判分。
