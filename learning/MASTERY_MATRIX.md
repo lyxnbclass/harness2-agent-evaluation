@@ -9,7 +9,7 @@
 | 官方 Demo 完整代码与执行链 | 00 | U | 已教学并真实运行，尚无用户独立源码/Trace 分析 | 先讲脚本复制、修改、校验和重跑 |
 | Demo 脚本候选的校验与回退 | 00 | L1 | 2026-10-30 用户回答“记录错误并回退”；已补充先重试一次的源码边界 | 待独立追踪 `_run_stage` 的分支及 `fell_back` |
 | Demo CLI/`argparse` 参数与退出码 | 00 | U | 源码与有效/无效参数运行证据已准备，本轮教学中 | 待独立分析 `--mode`、`--k` 与退出码的 Trace |
-| DemoAdapter 任务、Harness 选择与产物 | 00 | U | 官方源码已定位、直接基线/候选执行均退出 0；待用户独立分析 | 先解释 `harness_dir=None` 与候选目录的差别 |
+| DemoAdapter 任务、Harness 选择与产物 | 00 | L1 | 2026-10-30 用户正确辨认初始脚本与 CSV，但只答 `answer.txt`，遗漏 `run_id` 目录；详见知识记录 | 用新 `task_id/run_id` 变式复测路径 Trace |
 | Python 函数、字典、异常、测试 | 01 | U | 尚未考核 | 待验证 |
 | Agent Loop / Runtime / Executor | 00–01 | U | 尚未考核 | 待验证 |
 | Tool Call / Tool Result / Schema | 01–03 | U | 尚未考核 | 待验证 |

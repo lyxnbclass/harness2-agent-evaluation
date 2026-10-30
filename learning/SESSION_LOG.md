@@ -149,3 +149,11 @@
 - **掌握/考核**：DemoAdapter 小节尚待用户独立回答，U；此前 CSV/Trajectory 与候选校验基础各 L1；Stage 00 Gate 未考。
 - **记录与下一唯一任务**：更新 `learning/KNOWLEDGE_MASTERY.md`、`MASTERY_MATRIX.md`、`stages/00.md`、`PROGRESS.md`、本日志；待用户回答 DemoAdapter 的 `harness_dir`/产物 Trace，再继续 `run_domain()`。
 - **GitHub/批准**：Stage 00 IN_PROGRESS，PR 未创建，无进入下一阶段批准。
+
+### 2026-10-30 | Session 13 | Stage 00
+
+- **用户独立回答**：`execute('ledger-1', None, 'trial-a')` 选择初始错误脚本、原 CSV，两点正确；第三点只说 `answer.txt`，漏 `run_id='trial-a'` 的产物目录。不是已通过的完整路径 Trace。
+- **最小补课**：以官方固定 SHA `1cfe254e…` 的 `demo.py:76–105` 解释 `task_id` 选 CSV、`harness_dir` 选脚本、`run_id` 与 `self.root` 拼出 `run_dir`，再写 `run_dir/answer.txt`。举真实已执行 `direct-base` 的路径作对照；`trial-a` 路径只做源码推导，不冒充已生成文件。
+- **记录与掌握**：更新 `learning/KNOWLEDGE_MASTERY.md`、`MASTERY_MATRIX.md`、`MISTAKES.md`、`PROGRESS.md`、本日志。DemoAdapter 子点暂 L1，路径新变式待答；正式 Gate 未考。未改官方源码或重跑模型/Benchmark。
+- **下一唯一任务**：让用户独立分析 `execute('ledger-2', None, 'review-b')` 的脚本、CSV 与完整产物路径，再按回答决定是否进入 `run_domain()`。
+- **GitHub/批准**：Stage 00 IN_PROGRESS，无 PR，无 Stage 01 批准。

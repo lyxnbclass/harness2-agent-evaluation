@@ -12,14 +12,14 @@
 - 已验证的项目代码/实验：官方无模型 Demo `--k 1 --mode both` 在 Docker Linux/Python 3.12 退出 0；2 个账本任务 `ok`。直接调用 DemoAdapter 的基线/候选对照也退出 0，分别输出 105.25/85.15；详见 `learning/stages/00.md`。无自研 Agent 代码或模型实验。
 - 最近一次考核：尚未开始
 - 最近教学：2026-10-30 已补 CSV/Trajectory、脚本版本替换和 CLI/`argparse`。用户要求直接讲解 CLI 参数 Trace，不计独立回答；本轮进入 Stage 00 的 DemoAdapter 小节，并用直接调用的真实输出讲解任务、Harness 选择与产物。此前过早提出的 `--k 0` 考题撤回，不计分；该输入仅作故障演示。
-- 已掌握的知识点（有无提示考核证据）：CSV/简化 Trajectory 的输入、答案与过程记录边界，以及候选脚本校验失败不能直接执行、需记录错误并回退，各有一次独立正确回答，两个基础子知识点暂记 L1；整条 Demo 源码/执行理解未评估。
-- 尚未掌握/待验证的知识点：`_run_stage()` 最多一次修正重试的具体分支、脚本版本完整源码链、Demo 设计权衡及其他阶段知识点待验证。
+- 已掌握的知识点（有无提示考核证据）：CSV/简化 Trajectory、候选校验与回退各有一次正确基础回答，暂记 L1；DemoAdapter 初始脚本与 CSV 选择回答正确，但漏掉 `run_id` 产物目录，暂记 L1 且待变式复测。整条 Demo 源码/执行理解未评估。
+- 尚未掌握/待验证的知识点：`run_id` 与 `run_dir/answer.txt` 的路径 Trace（已补讲，待换题复测）；`_run_stage()` 重试分支、Demo 完整源码链与设计权衡待验证。
 - 阻塞：无模型调用需求；默认 Python 3.14.6 不满足上游 `<3.14` 要求，已用 Docker Python 3.12 完成无模型 Demo。官方 benchmark evaluator/judge/report 仍 UNKNOWN，真实模型运行未获批准。
 - 用户明确批准下一阶段：否
 - GitHub：公开仓库 `https://github.com/lyxnbclass/harness2-agent-evaluation`；当前 branch `stage-00-setup`；官方源码固定提交 `0b1902d`、六步教学与 Demo 记录提交 `7dbb245` 均已 Push；正式根目录 README 已在 `main` 的 `f7a0ae1` 发布并经 GitHub API 核实；`gh pr list --head stage-00-setup` 返回空列表，Stage 00 PR `NONE`；当前 Stage 考核 `未考`。
 
 ## 当前唯一下一步
-完成 Stage 00 DemoAdapter 的任务/执行接口源码讲解、ASCII 数据流和直接运行示例后，让用户独立分析一个新的 `harness_dir` 与产物 Trace；按回答补课或继续 `run_domain()` 小节。**不要求用户手写脚本，不运行收费模型，不跳到 Stage 01**。
+让用户用新 `task_id/run_id` 变式独立分析 DemoAdapter 的脚本、CSV 与完整产物路径；补齐后再进入 Stage 00 `run_domain()` 小节。**不要求用户手写脚本，不运行收费模型，不跳到 Stage 01**。
 
 ## 最近期真实证据
 - 2026-10-30 `docker run` 以 `python:3.12-slim-trixie`、`--network none`、只读源码挂载、隔离输出挂载执行 `python -m harness2.cli.demo --output /out/raw_runs/stage00_demo_k1 --k 1 --mode both`，退出 0；终端显示两个任务 `ok`。`demo.json` 记录 `done=2`、`failed=0`、`execution_count=14`、`editor_calls=16`。`ledger-1` 基线 `Total: 105.25`，parallel final 和 sequential final 均 `Total: 85.15`。本地原始产物在 `experiments/raw_runs/stage00_demo_k1/`（忽略目录），证据摘要在 `learning/stages/00.md`；无付费模型、无真实 Benchmark 判分。

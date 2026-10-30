@@ -52,7 +52,7 @@
 - 已教学准备：本轮会以 ASCII 图解释 `DemoAdapter(root)` 初始化源文件与 base Harness、`tasks/task_prompt/task_files` 提供输入、`execute(task_id,harness_dir,run_id)` 执行、`delivered/trajectory/deliverable_text` 读取产物。`score` 在通用 Protocol 中声明，但 DemoAdapter 没有实现，不能把它说成真实 benchmark judge。
 - 独立直接演示（2026-10-30）：隔离 Docker Python 3.12、无网络、官方只读源、输出挂 `experiments/`，直接创建 `DemoAdapter('/out/raw_runs/stage00_adapter_direct')`，`tasks()` 返回 `['ledger-1','ledger-2']`，`task_prompt('ledger-1')` 返回签名求和任务说明；`execute('ledger-1',None,'direct-base')` 的 `answer` 为 `Total: 105.25`，`delivered=True`，Trajectory 含固定 ACTION/OBSERVATION，`execution_count=1`，容器退出码 0。再在 `stage00_adapter_compare` 用同一输入分别执行 `harness_dir=None` 和已有 `harnesses/inv1`：输出 `105.25` 与 `85.15`，`execution_count=2`，容器退出码 0。两个原始输出目录均在忽略的 `experiments/raw_runs/` 下。
 - 工程权衡/限制：同一 `execute()` 通过 Harness 路径参数切换脚本，调度器无须读 CSV；Demo 用 `subprocess.run(check=True,timeout=10)` 和简化轨迹，`delivered()` 仅检查文件存在，不代表真值评分。错误时 `execute()` 可能抛异常，调度层记录失败。
-- 用户回答与等级：此小节尚无独立回答，`U`；Stage 00 正式 Gate 未考。下次在已教源码上做一题参数与产物 Trace。
+- 用户回答与等级：2026-10-30 非正式题 `execute('ledger-1', None, 'trial-a')`，用户答“选择一开始错误的脚本，读取一开始的CSV。answer.txt”。前两点正确；第三点只给文件名，遗漏 `run_id` 决定的 `executions/trial-a/` 目录。已用 `run_dir = self.root / 'executions' / run_id` 与 `run_dir / 'answer.txt'` 补讲；新变式待答。暂记该子知识点 `L1`（脚本/输入的概念），路径 Trace 未达 L2；Stage 00 正式 Gate 未考。
 
 ## 后续知识点模板
 
