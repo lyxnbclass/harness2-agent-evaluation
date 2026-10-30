@@ -30,6 +30,7 @@
 - `learning/stage_status.json`：机器可读的状态，不等同实际掌握
 - `learning/gates/`：每个阶段的问答/实操考核记录
 - `learning/MASTERY_MATRIX.md`：知识点是否能在无提示下说明
+- `learning/KNOWLEDGE_MASTERY.md`：逐知识点六步教学、官方源码/演示与 L1–L5 独立掌握证据；新会话先读，未讲完先教学再提问
 - `learning/SESSION_LOG.md`：每轮做了什么、没做什么、下一步
 - `learning/MISTAKES.md`：错误、纠正和变式复测结果
 - `experiments/manifests/`：实验可复现配置样板

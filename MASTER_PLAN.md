@@ -30,8 +30,8 @@
 2. **Implement：** Codex 编写/修改当前阶段的核心逻辑，配置环境并运行命令；用户负责阅读、理解、分析和验收，记录真实代码作者与用户的独立分析贡献。
 3. **Inject Failure：** Codex 安全地制造或选择一个失败，保存 trace；用户根据证据解释首次偏离、根因和可证伪假设，Codex 完成修复和验证。
 4. **Test：** Codex 保存命令、真实 exit code、日志路径、样本数量、PASS/FAIL/BLOCKED 结果。
-5. **Teach：** 每完成一个重要功能，Codex 分块讲清问题场景、架构位置、真实函数/参数/返回/变量/调用与数据流、设计取舍、真实输入输出、错误与修复，并给一段准确的面试口述示范；用户不懂时先用简单案例再回到项目代码。
-6. **Interview Gate：** 至少 5 道新原理题、两道深入追问、一题真实代码阅读或 Trace 分析、一题故障定位或工程设计；分批提问，**该题在用户独立回答前不透露答案**，不要求用户手写完整程序。
+5. **Teach：** 每个知识点按 `AGENTS.md` 六步教学：为什么学 → 架构与数据流 → 固定 SHA 的真实源码分段讲解 → Codex 运行并逐步对应 Trace/产物 → 工程权衡与面试口述 → 理解检查。Python 基础先讲小例子；一节只讲一个核心功能。缺真实运行时标 BLOCKED，待补演示后再考该执行细节。独立掌握证据写 `learning/KNOWLEDGE_MASTERY.md`，不得从代码通过测试推断用户等级。
+6. **Interview Gate：** 仅在阶段全部核心知识点完成上述系统教学、必须代码/测试/实验有真实证据后启动。至少 5 道新原理题、两道深入追问、一题真实代码阅读或 Trace 分析、一题故障定位或工程设计；分批提问，**该题在用户独立回答前不透露答案**，不要求用户手写完整程序。
 7. **Record：** 写进 `learning/gates/NN.md`、`MASTERY_MATRIX.md`、`MISTAKES.md`、`SESSION_LOG.md`、`PROGRESS.md`、`stage_status.json`；未经同意不开始下一阶段。
 
 ### 评分制度（每阶段相同）
@@ -70,6 +70,7 @@ Codex 负责本地 Git 初始化、远程仓库关联、每阶段独立 branch�
 - [ ] 画图解释 `CLI → Harness → Executor → task → artifact`，说明为什么跑通 Demo 不等于论文级复现。
 
 **用户验收任务：** 阅读 Codex 定位的一次 Demo 入口和一个真实输出文件，独立解释它们如何关联；源码定位和命令运行由 Codex 完成。
+**教学顺序：** 先用真实场景说明 Harness²、Harness 与自我改进的目标，以及无模型 Demo 的边界；再分别讲 `harness2-demo` 入口/`argparse`、`DemoAdapter`、`run_domain()`、本地执行与 Trajectory、修改前后和 `demo.json`。每小节遵循六步法并记录演示与掌握，不能只给调用链就提源码题。
 **故障注入：** 故意给错误的输出路径/依赖，读取异常并定位环境问题（不可删除用户文件）。
 **证据：** `learning/stages/00.md`、`learning/SOURCE_INDEX.md`、命令输出、git SHA、Demo 产物路径。
 **通关提问方向：** Harness vs Runtime；Codex 对话助手 vs Codex Executor；Demo vs model-backed run；Git SHA 的意义；环境失败和任务失败如何区分。

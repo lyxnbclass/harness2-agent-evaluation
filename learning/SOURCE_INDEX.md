@@ -4,12 +4,12 @@
 - 官方站点：https://harness2.github.io/（由官方 README 链接，本文源码结论仍以本地 commit 为准）
 - 本地检出目录：`upstream/harness2/`（Git submodule，已验证）
 - Commit SHA：`1cfe254e8d25b15f37048c3730134686abe60335`
-- 运行环境：源码尚未执行；本机 Docker Linux daemon 与 `python:3.12-slim-trixie` 镜像已核实，Demo 运行待验证
+- 运行环境：Docker Linux daemon + `python:3.12-slim-trixie`；无网络、只读源码挂载；官方无模型 Demo `--k 1 --mode both` 已退出 0，原始产物 `experiments/raw_runs/stage00_demo_k1/`
 
 | 主题 | 已验证源码路径 | 函数/类 | 调用者 → 被调用方 | commit SHA | 证据与测试 |
 |---|---|---|---|---|---|
 | CLI → Run | `pyproject.toml:26–32`; `harness2/cli/demo.py:27` | `main(argv=None)` | `harness2-demo` → `main()` → `run_domain()` | `1cfe254e` | 源码核实；未运行 |
-| Demo | `harness2/cli/demo.py:27–54`; `harness2/core/schedule.py:669`; `harness2/demo.py:41,67,86,123` | `main`, `run_domain`, `DemoAdapter.tasks/execute`, `DemoProposer.call` | CLI 构造 adapter/proposer → domain 调度 → 本地 Python 执行 → `answer.txt`/`trajectory.md` → `demo.json` | `1cfe254e` | 源码核实；产物路径为源码声明，实际产物未验证 |
+| Demo | `harness2/cli/demo.py:27–54`; `harness2/core/schedule.py:669`; `harness2/demo.py:41,67,86,123` | `main`, `run_domain`, `DemoAdapter.tasks/execute`, `DemoProposer.call` | CLI 构造 adapter/proposer → domain 调度 → 本地 Python 执行 → `answer.txt`/`trajectory.md` → `demo.json` | `1cfe254e` | 源码与实际运行均核实；`experiments/raw_runs/stage00_demo_k1/demo.json` 2 ok / 0 failed，`ledger-1` base 105.25 → final 85.15 |
 | Agent Executor | NOT_VERIFIED（真实模型执行器未审计） | | Demo 仅使用 `DemoAdapter.execute` 的本地子进程 | | 不得把本地 Demo 称为模型执行 |
 | Propose | NOT_VERIFIED | | | | |
 | Probe | NOT_VERIFIED | | | | |

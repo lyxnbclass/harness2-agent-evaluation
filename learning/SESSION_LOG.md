@@ -87,3 +87,13 @@
 - **更新过的记录文件**：`learning/stages/00.md`、`learning/gates/00.md`、`learning/PROGRESS.md`、`learning/stage_status.json`、`learning/SESSION_LOG.md`。
 - **下次唯一任务**：Codex 在隔离 Docker Python 3.12 环境运行无模型凭证 Demo，核对实际输出后再继续代码/Trace 教学。
 - **是否正在等待用户批准进入下一阶段**：否，Stage 00 未通过。
+
+### 2026-10-30 | Session 6 | Stage 00
+
+- **起始状态与唯一工程任务**：IN_PROGRESS；固定官方源码但无运行证据。按用户最新纠正，先建立六步深度教学协议并实际运行官方无模型 Demo，为“整体概念与 Demo 工作原理”教学提供真实输入/输出。
+- **Codex 实际修改**：更新 `AGENTS.md`、`MASTER_PLAN.md`、`START_HERE.md`、`learning/MASTERY_MATRIX.md`，新增独立 `learning/KNOWLEDGE_MASTERY.md`；更新 README 与 Stage 00 证据/进度记录。未改官方源码，未编写自研 Agent 模块；用户提出教学协议和 Stage 00 教学目标，尚未给技术题独立作答。
+- **真实命令与输出**：`python scripts/resume.py`、`python scripts/check_workspace.py` 退出 0（修改前）；`gh auth status` 退出 0，`gh pr list --head stage-00-setup` 返回 `[]`；`git submodule status` 为官方 SHA `1cfe254e…`。Docker `python:3.12-slim-trixie` 以 `--network none`、只读源挂载运行 `python -m harness2.cli.demo --output /out/raw_runs/stage00_demo_k1 --k 1 --mode both`，退出 0，两个账本 task `ok`。`demo.json`：2 done、0 failed、14 local executions、16 scripted editor calls；`ledger-1` base 105.25，parallel/sequential final 85.15。原始路径与完整命令见 `learning/stages/00.md`。
+- **掌握与考核**：整体教学在本轮开始，用户尚无独立技术回答；掌握等级保持 U；正式 Gate 未考。先前过早提出的 `--k 0` 问题继续撤回，不计分。
+- **限制/未完成**：Stage 00 故障注入、完整分节教学、用户 Trace 分析、正式 Gate、PR 尚未完成；模型 Benchmark、SWE-bench 与付费调用未运行。Demo 的 `ok` 不能推断模型成功率。
+- **下次唯一任务**：在整体图基础上详细讲解 CLI 入口与 `argparse`，先解释 Python 基础并对应已取得的真实 Demo 产物，再做少量理解检查。
+- **下一阶段批准**：无；Stage 00 保持 IN_PROGRESS。
