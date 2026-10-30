@@ -97,3 +97,4 @@
 - **限制/未完成**：Stage 00 故障注入、完整分节教学、用户 Trace 分析、正式 Gate、PR 尚未完成；模型 Benchmark、SWE-bench 与付费调用未运行。Demo 的 `ok` 不能推断模型成功率。
 - **下次唯一任务**：在整体图基础上详细讲解 CLI 入口与 `argparse`，先解释 Python 基础并对应已取得的真实 Demo 产物，再做少量理解检查。
 - **下一阶段批准**：无；Stage 00 保持 IN_PROGRESS。
+- **GitHub 保存**：`7dbb245 docs: establish deep teaching protocol and record demo run` 已 Push 至 `origin/stage-00-setup`；`gh pr list --head stage-00-setup` 返回 `[]`，正式 PR 尚未创建。

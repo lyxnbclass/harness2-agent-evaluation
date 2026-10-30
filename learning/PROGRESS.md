@@ -16,7 +16,7 @@
 - 尚未掌握/待验证的知识点：全部待初测
 - 阻塞：无模型调用需求；默认 Python 3.14.6 不满足上游 `<3.14` 要求，已用 Docker Python 3.12 完成无模型 Demo。官方 benchmark evaluator/judge/report 仍 UNKNOWN，真实模型运行未获批准。
 - 用户明确批准下一阶段：否
-- GitHub：公开仓库 `https://github.com/lyxnbclass/harness2-agent-evaluation`；当前 branch `stage-00-setup`；官方源码固定提交 `0b1902d` 已 Push；正式根目录 README 已在 `main` 的 `f7a0ae1` 发布并经 GitHub API 核实；Stage 00 PR `NONE`；当前 Stage 考核 `未考`。
+- GitHub：公开仓库 `https://github.com/lyxnbclass/harness2-agent-evaluation`；当前 branch `stage-00-setup`；官方源码固定提交 `0b1902d`、六步教学与 Demo 记录提交 `7dbb245` 均已 Push；正式根目录 README 已在 `main` 的 `f7a0ae1` 发布并经 GitHub API 核实；`gh pr list --head stage-00-setup` 返回空列表，Stage 00 PR `NONE`；当前 Stage 考核 `未考`。
 
 ## 当前唯一下一步
 Codex 完成 Stage 00 整体概念与官方无模型 Demo 的系统讲解，在用户理解当前整体图后，下一小节深入 `harness2-demo` 入口与 `argparse`。**不要求用户手写脚本，不运行收费模型，不跳到 Stage 01**。
