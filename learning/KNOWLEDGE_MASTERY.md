@@ -35,6 +35,16 @@
 - 最近结果与等级：该校验边界有一次正确概念回答，暂记 `L1`；完整源码路径和执行过程尚无用户独立复述证据，不升级 L2/L3。正式 Stage 00 Gate 未考。
 - 下一补课/任务：单独讲 CLI/`argparse` 的参数进入、转换、校验与退出码，再用新输入做 Trace 分析。
 
+## Stage 00 · Demo CLI 参数与退出码（当前教学小节）
+
+- 官方 SHA/源码：`1cfe254e…`；`upstream/harness2/pyproject.toml:32` 声明 `harness2-demo` 入口；`upstream/harness2/harness2/cli/demo.py:27–58` 的 `main(argv=None) -> int`；`core/schedule.py:48–55` 的 `mode_token()` 与 `:669–733` 的 `run_domain()`。
+- 为什么学：看清用户命令如何变成 Python 类型和调度参数，区分参数错误与任务执行错误；联系前节的脚本版本替换与结果文件。
+- ASCII/源码教学：本轮按 `命令 → __main__/入口 → parse_args → k 校验 → Path/模式转换 → adapter/proposer → run_domain → demo.json/exit code` 逐段解释。真实代码片段与各值在本轮回复展示；用户独立理解待检查。
+- 有效运行证据：之前 `--output /out/raw_runs/stage00_demo_k1 --k 1 --mode both` 在隔离 Docker/Python 3.12 容器退出 0；`demo.json` 记录 2 done、0 failed、14 executions、16 scripted editor calls。参数值由源码解析规则推得，不是 CLI 单独打印出的内部变量。
+- 新故障演示（2026-10-30）：同一容器、安全参数和官方源码，执行 `python -m harness2.cli.demo --output /tmp/invalid_k_demo --k 0 --mode both`；真实 stderr 为 `demo.py: error: --k must be positive`，捕获容器进程退出码 `2`。校验位于 `DemoAdapter(root)` 之前，因而此调用未进入任务调度。外层 PowerShell 在打印 `DEMO_EXIT_CODE=2` 后返回 0；二者不可混淆。
+- 工程分析：`argparse` 负责类型/choices 与帮助信息，`main()` 补充 `k >= 1` 语义校验；参数错误通过 `parser.error()` 抛出 `SystemExit(2)`，有效任务的汇总结果走 `return int(result["failed"] > 0)`。`--k 0` 是 CLI 参数坏例，不能替代 Stage 00 计划中的错误输出路径/依赖故障注入。
+- 用户回答与最近考核：尚未对本小节回答；等级 `U`；正式 Stage 00 Gate 未考。下一步做一题新的参数 Trace 理解检查，再视回答补课。
+
 ## 后续知识点模板
 
 每开始一个新知识点复制以下字段，不预填等级：

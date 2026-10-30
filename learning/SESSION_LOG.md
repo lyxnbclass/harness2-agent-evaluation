@@ -132,3 +132,11 @@
 - **本轮修改**：更新 `learning/KNOWLEDGE_MASTERY.md`、`learning/MASTERY_MATRIX.md`、`learning/PROGRESS.md`、本日志；未改官方代码、未重新运行 Demo/测试/Benchmark。
 - **下一唯一任务**：Stage 00 CLI/`argparse` 的命令输入、参数转换/校验、调用与退出码教学，再用新输入做理解检查。
 - **批准状态**：Stage 00 保持 IN_PROGRESS，无阶段 PR，无进入 Stage 01 批准。
+
+### 2026-10-30 | Session 11 | Stage 00
+
+- **当前唯一任务**：Stage 00 CLI/`argparse` 的参数解析、模式转换、调度调用与退出码教学；不推进阶段。
+- **源码与真实证据**：重新核对官方 SHA `1cfe254e…` 的 `pyproject.toml:32`、`harness2/cli/demo.py:27–58`、`core/schedule.py:48–55,669–733`。有效 `--k 1 --mode both` Demo 之前退出 0，`demo.json` 为 2 done/0 failed。新运行 `--k 0 --mode both` 的 Docker Python 3.12 无网络只读源码演示，stderr `--k must be positive`，Demo 进程退出码 2；外层 PowerShell 打印该值后退出 0。
+- **归属、掌握和考核**：Codex 负责命令与讲解，未改官方代码或调用模型；用户本轮只说“继续”，尚未回答此小节问题。CLI 知识点 U，Stage 00 Gate 未考。
+- **更新记录**：`learning/KNOWLEDGE_MASTERY.md`、`learning/MASTERY_MATRIX.md`、`learning/stages/00.md`、`learning/PROGRESS.md`、本日志。下一唯一任务为用户分析新参数 Trace，再针对性补课。
+- **批准与 GitHub**：Stage 00 IN_PROGRESS，无 PR，无 Stage 01 批准；有价值的教学/故障证据按分支规范提交。
