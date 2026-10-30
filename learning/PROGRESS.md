@@ -15,7 +15,7 @@
 - 尚未掌握/待验证的知识点：全部待初测
 - 阻塞：无模型调用需求；官方 Demo 尚未在隔离环境中执行。默认 Python 3.14.6 不满足上游 `<3.14` 要求；可用的 Docker Linux daemon 和本地 `python:3.12-slim-trixie` 镜像已核实。官方 benchmark evaluator/judge/report 仍 UNKNOWN。
 - 用户明确批准下一阶段：否
-- GitHub：公开仓库 `https://github.com/lyxnbclass/harness2-agent-evaluation`；当前 branch `stage-00-setup` 已 Push；正式根目录 README 已在 `main` 的 `f7a0ae1` 发布并经 GitHub API 核实，分支文档提交 `7f5d5e1` 已同步；Stage 00 PR `NONE`；当前 Stage 考核 `未考`。
+- GitHub：公开仓库 `https://github.com/lyxnbclass/harness2-agent-evaluation`；当前 branch `stage-00-setup`；官方源码固定提交 `0b1902d` 已 Push；正式根目录 README 已在 `main` 的 `f7a0ae1` 发布并经 GitHub API 核实；Stage 00 PR `NONE`；当前 Stage 考核 `未考`。
 
 ## 当前唯一下一步
 Codex 在隔离的 Python 3.12 Linux 容器中运行无需模型凭证的官方 Demo，并核对 `demo.json`、`answer.txt`、`trajectory.md` 的真实数据流；随后让用户解释入口与产物关系。**不要求用户手写脚本，不运行收费模型，不跳到 Stage 01**。
