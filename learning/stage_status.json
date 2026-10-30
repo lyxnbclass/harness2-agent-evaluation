@@ -1,7 +1,7 @@
 {
   "schema_version": "2.0",
   "current_stage": "00",
-  "last_updated": "2026-10-29",
+  "last_updated": "2026-10-30",
   "note": "Stage 00 已建立公开 GitHub 仓库与分支；官方源码、Demo 和考核仍未完成；Codex 负责实现，用户负责理解与验收",
   "stages": {
     "00": {
@@ -17,7 +17,7 @@
       },
       "required_evidence": [],
       "user_approved_next": false,
-      "last_checked": "2026-10-29",
+      "last_checked": "2026-10-30",
       "github": {
         "branch": "stage-00-setup",
         "important_commits": ["46ba3d2", "36c6eae"],

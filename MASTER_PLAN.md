@@ -53,6 +53,8 @@
 
 Codex 负责本地 Git 初始化、远程仓库关联、每阶段独立 branch、必要时的 Commit/Push 和阶段 PR；用户检查 PR 与阶段成果。仓库名和可见性在首次创建前由用户确认。每阶段原则上一个面向 `main` 的正式完成 PR，须在本阶段代码/实验与面试 Gate 通过后创建；不自动 Merge。进入下一阶段前，核实 PR 已合并、目标分支含本阶段提交，并取得用户明确批准。每轮记录 branch、重要 commit、PR 链接/状态、测试与考核证据。GitHub 认证或网络失败应记录为 BLOCKED，不得声称已 Push 或已建 PR。
 
+根目录英文 `README.md` 是正式 GitHub 项目介绍。Stage PR 合并后，Codex 必须核实 `main` 并同步 README 的完成阶段、真实功能/代码路径、测试与运行命令、实验结果和限制；未实现项继续标 `Planned` / `In progress`。详见 `AGENTS.md` 的 README 持续维护规则。
+
 ## C. 阶段计划（00–13，必做）
 
 ### Stage 00｜开发环境、仓库溯源与官方 Demo（基础）
@@ -235,6 +237,7 @@ Codex 负责本地 Git 初始化、远程仓库关联、每阶段独立 branch�
 
 ```
 AGENTS.md                      # 持久导师协议，每次优先读取
+README.md                      # 面向招聘人员的英文 GitHub 项目介绍，随已合并 Stage 更新
 MASTER_PLAN.md                 # 本计划，原始要求不可随意弱化
 CODEX_START_PROMPT.md          # 新会话引导
 learning/PROGRESS.md           # 人类可读的当前进度与下一唯一动作

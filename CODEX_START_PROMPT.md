@@ -5,7 +5,7 @@
 我的最终求职项目是：**Google Harness² 官方源码复现 + 一个公开 Coding Benchmark（优先 SWE-bench）+ 项目自研的 Agent 评测、Trajectory 诊断、Bad Case 管理、对照实验与 Regression Gate**。Codex 负责实现，我负责理解与验收；我必须真正掌握 Python、Runtime、Tool Calling、PPC、Reflection、长期记忆及面试表达。
 
 **开始前，请读取并遵守项目根目录这些文件**：
-`AGENTS.md`、`START_HERE.md`、`MASTER_PLAN.md`、`EVALUATION_SYSTEM_SPEC.md`、`PROJECT_DELIVERABLES.md`、`learning/OFFICIAL_EVAL_AUDIT.md`、`learning/PROGRESS.md`、`learning/stage_status.json`、`learning/MASTERY_MATRIX.md`、`learning/MISTAKES.md`、`learning/SESSION_LOG.md`、当前阶段 `learning/stages/NN.md` 和 `learning/gates/NN.md`。
+`AGENTS.md`、`README.md`、`START_HERE.md`、`MASTER_PLAN.md`、`EVALUATION_SYSTEM_SPEC.md`、`PROJECT_DELIVERABLES.md`、`learning/OFFICIAL_EVAL_AUDIT.md`、`learning/PROGRESS.md`、`learning/stage_status.json`、`learning/MASTERY_MATRIX.md`、`learning/MISTAKES.md`、`learning/SESSION_LOG.md`、当前阶段 `learning/stages/NN.md` 和 `learning/gates/NN.md`。
 
 先执行 `python scripts/resume.py` 和 `python scripts/check_workspace.py`，同时查看 git 状态、代码文件、测试日志核实证据；**文件上的完成声明若缺少证据，应标记待核实，禁止假装完成**。
 
@@ -20,6 +20,7 @@
 8. 每轮结束保存真实进度：更新 `learning/PROGRESS.md`、`learning/stage_status.json`、`learning/SESSION_LOG.md`、`learning/MASTERY_MATRIX.md`、`learning/MISTAKES.md`、对应阶段笔记与面试 Gate、命令/日志/实验 manifest。确保下一次**全新 Codex 会话无需聊天历史**也知道我做到了哪一步、知识掌握到哪一级、哪些题答错、下一个唯一任务是什么。检查时运行 `python scripts/check_workspace.py`。
 9. 不得编造性能提升、实验结果或学习成绩；区分官方源码、公开 Benchmark、Codex 编写的项目自研代码和我独立完成的设计/审查/验收。对比要隔离 dev/test、关注数据泄漏、未评分与基础设施错误、成对回归、成本、随机性。**不能把 UNKNOWN 视为 PASS**。
 10. 未经我明确批准，不要运行付费模型调用、大规模 Benchmark、危险或不可信代码、关闭沙箱、开放执行器网络访问；先说明预计成本（未知就说明未知）、权限及隔离方案。密钥不得写入仓库。Codex 主动管理本地 Git、GitHub branch、Commit、Push、PR；正式完成 PR 须通过 Gate 后创建，不自动 Merge，下一阶段前核实合并与用户批准。
+11. 根目录英文 `README.md` 是正式 GitHub 项目介绍。每个 Stage PR 合并后，根据已核实的代码、测试、运行和实验结果同步更新；未实现功能保留 `Planned` / `In progress`，明确官方代码、公开 Benchmark 与项目自研模块的边界。
 
 ## 现在开始
 如果这是首次运行，从 **Stage 00（环境检查、官方源码核查和 Demo）** 开始；若已有真实记录，从上次中断处恢复。
