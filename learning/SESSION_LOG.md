@@ -73,3 +73,17 @@
 - **更新过的记录文件**：`.gitmodules`、`upstream/harness2` gitlink、`upstream/README.md`、`README.md`、`learning/SOURCE_INDEX.md`、`learning/OFFICIAL_EVAL_AUDIT.md`、`learning/stages/00.md`、`learning/PROGRESS.md`、`learning/stage_status.json`、`learning/gates/00.md`、`learning/SESSION_LOG.md`。
 - **下次唯一任务**：Codex 在隔离 Docker Python 3.12 环境运行无模型凭证的官方 Demo，核对真实输出并让用户解释入口与产物关系。
 - **是否正在等待用户批准进入下一阶段**：否，Stage 00 远未通过。
+
+### 2026-10-30 11:12（Asia/Shanghai） | Session 5 | Stage 00
+- **起始状态**：IN_PROGRESS；官方源码固定并完成初步定位，Demo 未运行；用户尚未接受充分讲解就被提出源码题。
+- **本轮唯一目标**：纠正教学顺序，对 Stage 00 Demo 入口、参数、返回、真实调用和源代码构造数据进行详细讲解，不进行考核。
+- **实际完成（OBSERVED）**：重新阅读 `harness2/cli/demo.py`、`harness2/demo.py`、`harness2/core/schedule.py` 的 `run_task`/`run_domain`/`_run_one_mode` 及 `harness2/core/recursion.py` 的 adapter 调用位置；记录教学例子与源码/运行证据边界。撤回前次 `--k 0` 题，不计分。
+- **代码变更（Codex 实现 / 用户独立设计、审查或验收）**：没有代码实现或上游改动；Codex 更新学习记录。用户指出讲解深度不够，尚无技术作答。
+- **实际命令、退出码、日志与证据路径**：`Get-Content` 读取上述本地源码，均 exit 0；`git status --short --branch` 显示工作树原本 clean；教学细节记录在 `learning/stages/00.md`。官方 Demo/测试仍未执行。
+- **新获得的概念理解（仅实际被考核的）**：无，用户尚未独立回答。
+- **面试题、独立回答与得分**：未考；上轮题撤回，不计分。
+- **误区和变式复测要求**：无用户技术错误；需要先完成解释，再安排新题。
+- **阻塞 / 未执行 / API 预算与授权**：Demo、Benchmark、付费模型均未运行；无成本。
+- **更新过的记录文件**：`learning/stages/00.md`、`learning/gates/00.md`、`learning/PROGRESS.md`、`learning/stage_status.json`、`learning/SESSION_LOG.md`。
+- **下次唯一任务**：Codex 在隔离 Docker Python 3.12 环境运行无模型凭证 Demo，核对实际输出后再继续代码/Trace 教学。
+- **是否正在等待用户批准进入下一阶段**：否，Stage 00 未通过。

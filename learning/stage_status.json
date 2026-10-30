@@ -2,7 +2,7 @@
   "schema_version": "2.0",
   "current_stage": "00",
   "last_updated": "2026-10-30",
-  "note": "Stage 00 官方 Harness² 源码已作为 submodule 固定到 1cfe254e；Demo、测试与考核仍未完成；Codex 负责实现，用户负责理解与验收",
+  "note": "Stage 00 官方源码已固定到 1cfe254e 并开展详细源码教学；Demo、测试与考核仍未完成，用户掌握未评估",
   "stages": {
     "00": {
       "status": "IN_PROGRESS",
