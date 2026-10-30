@@ -30,7 +30,7 @@
 2. **Implement：** Codex 编写/修改当前阶段的核心逻辑，配置环境并运行命令；用户负责阅读、理解、分析和验收，记录真实代码作者与用户的独立分析贡献。
 3. **Inject Failure：** Codex 安全地制造或选择一个失败，保存 trace；用户根据证据解释首次偏离、根因和可证伪假设，Codex 完成修复和验证。
 4. **Test：** Codex 保存命令、真实 exit code、日志路径、样本数量、PASS/FAIL/BLOCKED 结果。
-5. **Teach：** 每个知识点按 `AGENTS.md` 六步教学：为什么学 → 架构与数据流 → 固定 SHA 的真实源码分段讲解 → Codex 运行并逐步对应 Trace/产物 → 工程权衡与面试口述 → 理解检查。Python 基础先讲小例子；一节只讲一个核心功能。缺真实运行时标 BLOCKED，待补演示后再考该执行细节。独立掌握证据写 `learning/KNOWLEDGE_MASTERY.md`，不得从代码通过测试推断用户等级。
+5. **Teach：** 每个知识点按 `AGENTS.md` 六步教学：为什么学 → ASCII 调用/数据流图 → 固定 SHA 的关键源码片段逐段讲解 → Codex 运行并把真实输入、中间值、Trace/产物逐项对应到代码 → 工程权衡与面试口述 → 理解检查。不能用函数路径清单或纯概念解释代替代码实现讲解。Python 基础先讲小例子；一节只讲一个核心功能。缺真实运行时标 BLOCKED，待补演示后再考该执行细节。独立掌握证据写 `learning/KNOWLEDGE_MASTERY.md`，不得从代码通过测试推断用户等级。
 6. **Interview Gate：** 仅在阶段全部核心知识点完成上述系统教学、必须代码/测试/实验有真实证据后启动。至少 5 道新原理题、两道深入追问、一题真实代码阅读或 Trace 分析、一题故障定位或工程设计；分批提问，**该题在用户独立回答前不透露答案**，不要求用户手写完整程序。
 7. **Record：** 写进 `learning/gates/NN.md`、`MASTERY_MATRIX.md`、`MISTAKES.md`、`SESSION_LOG.md`、`PROGRESS.md`、`stage_status.json`；未经同意不开始下一阶段。
 

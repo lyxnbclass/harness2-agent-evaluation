@@ -98,3 +98,12 @@
 - **下次唯一任务**：在整体图基础上详细讲解 CLI 入口与 `argparse`，先解释 Python 基础并对应已取得的真实 Demo 产物，再做少量理解检查。
 - **下一阶段批准**：无；Stage 00 保持 IN_PROGRESS。
 - **GitHub 保存**：`7dbb245 docs: establish deep teaching protocol and record demo run` 已 Push 至 `origin/stage-00-setup`；`gh pr list --head stage-00-setup` 返回 `[]`，正式 PR 尚未创建。
+
+### 2026-10-30 | Session 7 | Stage 00
+
+- **用户纠正**：上一轮系统讲解虽然覆盖概念和真实结果，但代码实现、参数/返回值及 ASCII 链路图不充分；用户明确表示代码设计层面仍不理解。不能把该知识点标教学完成或掌握。
+- **本轮唯一任务**：在同一 Stage 00 Demo 知识点补上真实源码关键片段、Python 基础解释、ASCII 调用/数据流图，以及 `ledger-1` 的逐步真实值；不推进新阶段。
+- **证据与修改**：重新读取官方 SHA `1cfe254e…` 的 `harness2/cli/demo.py`、`harness2/demo.py`、`harness2/core/schedule.py`、`harness2/core/recursion.py` 对应行，并复核已存在的 `demo.json` 和两份 Trajectory；改 `AGENTS.md`、`MASTER_PLAN.md`、`learning/KNOWLEDGE_MASTERY.md`、`learning/PROGRESS.md`、本日志。未新运行 Demo/Benchmark、未改官方代码或自研模块。
+- **掌握与考核**：用户提供教学反馈，没有技术题回答；等级仍 U，正式 Gate 未考、无分数。
+- **下一唯一任务**：待用户反馈代码贯穿讲解后，单独深入 CLI/`argparse` 的参数解析、调用和异常。
+- **批准与阻塞**：Stage 00 IN_PROGRESS；无进入 Stage 01 批准。真实 LLM Benchmark 仍未运行。

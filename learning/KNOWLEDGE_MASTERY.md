@@ -10,12 +10,12 @@
 - 源码位置：`upstream/harness2/README.md` 的项目定义；`pyproject.toml:32`；`harness2/cli/demo.py:main`；`harness2/demo.py:DemoAdapter` / `DemoProposer`；`harness2/core/schedule.py:run_domain` / `run_task`。详细源码教学按小节逐步展开。
 - 为什么学：辨认模型、Harness、执行器、调度和评测的边界；正确解释无模型 Demo 能证明什么。
 - 架构/数据流：`CLI → DemoAdapter 提供任务和初始 Harness → run_domain/run_task → 本地 Python 执行与预设修改 → 轨迹/答案 → summary.json → demo.json`。正式逐函数教学待继续。
-- 已讲内容：过去讲过 CLI 与 Demo 源码数据流；2026-10-30 本次重新组织整体概念教学并加入真实运行结果。用户指出此前讲解深度不足，原 `--k 0` 问题已撤回，不计分。
+- 已讲内容：过去讲过 CLI 与 Demo 源码数据流；2026-10-30 曾重新组织整体概念教学并加入真实运行结果。用户再次指出该讲解缺少关键代码、参数/返回值和 ASCII 调用图，因此**这部分不能标记教学完成**；本轮补充逐段代码与实际值对应。原 `--k 0` 问题已撤回，不计分。
 - 真实演示：2026-10-30 Docker Linux/Python 3.12、无网络、只读源码、无凭证，`--k 1 --mode both` 退出 0；产物在 `experiments/raw_runs/stage00_demo_k1/`（忽略的大型原始运行目录）。`demo.json`：2 个任务 `ok`、0 failed、14 次本地执行、16 次预设编辑器调用；`ledger-1` 基线 `105.25`、修改后 `85.15`。这不是模型 Benchmark 或用户掌握证据。
 - 工程分析：`k=1` 每模式只有一个 final，源码走 trivial selection；预设 `DemoProposer` 不是 LLM；本地 `delivered()` 仅检查 `answer.txt` 存在，不能等同独立 evaluator 判分。详细替代方案、故障与权衡待逐节教学。
 - 理解检查/用户回答：尚无独立技术回答；最近一次考核：未考；等级：`U`。
 - 错误/未掌握：没有用户技术错误证据；概念、源码、执行和设计均待独立验证。
-- 下一补课/小节：先完成 Harness² 与无模型 Demo 的整体直观讲解和温和理解检查，再讲 `harness2-demo` 入口与 `argparse` 的真实调用。
+- 下一补课/小节：待用户确认代码贯穿的整体 Demo 讲解可理解后，再单独深入 `harness2-demo` 入口与 `argparse` 的真实调用、异常与参数变式。
 
 ## 后续知识点模板
 
