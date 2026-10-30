@@ -140,3 +140,12 @@
 - **归属、掌握和考核**：Codex 负责命令与讲解，未改官方代码或调用模型；用户本轮只说“继续”，尚未回答此小节问题。CLI 知识点 U，Stage 00 Gate 未考。
 - **更新记录**：`learning/KNOWLEDGE_MASTERY.md`、`learning/MASTERY_MATRIX.md`、`learning/stages/00.md`、`learning/PROGRESS.md`、本日志。下一唯一任务为用户分析新参数 Trace，再针对性补课。
 - **批准与 GitHub**：Stage 00 IN_PROGRESS，无 PR，无 Stage 01 批准；有价值的教学/故障证据按分支规范提交。
+
+### 2026-10-30 | Session 12 | Stage 00
+
+- **用户指令与进度边界**：用户要求先讲解 CLI 参数 Trace 题，再“进入下一步”；按 Stage 00 内的下一教学小节 DemoAdapter 执行，不能视为批准 Stage 01。该题由 Codex 给答案，无独立回答或分数，CLI 掌握仍 U。
+- **本轮唯一工程/教学任务**：DemoAdapter 的任务/脚本/产物接口；对照官方固定 SHA `1cfe254e…` 的 `demo.py:41–117`、`core/spec.py:200–249` 与 CLI/调度调用方。
+- **真实运行**：两个隔离 Docker Python 3.12 直接调用演示均退出 0：`tasks()` 两题、`task_prompt` 签名求和；`execute('ledger-1',None,...)` 产 `105.25`、delivered True、计数 1；同一输入在新 Adapter 实例下使用 base 与已有 `harnesses/inv1` 候选脚本，产 `105.25`/`85.15`，计数 2。无网络、无模型、无官方源码修改。详细证据见 `learning/stages/00.md`，原始文件在被忽略的 `experiments/raw_runs/stage00_adapter_*`。
+- **掌握/考核**：DemoAdapter 小节尚待用户独立回答，U；此前 CSV/Trajectory 与候选校验基础各 L1；Stage 00 Gate 未考。
+- **记录与下一唯一任务**：更新 `learning/KNOWLEDGE_MASTERY.md`、`MASTERY_MATRIX.md`、`stages/00.md`、`PROGRESS.md`、本日志；待用户回答 DemoAdapter 的 `harness_dir`/产物 Trace，再继续 `run_domain()`。
+- **GitHub/批准**：Stage 00 IN_PROGRESS，PR 未创建，无进入下一阶段批准。

@@ -43,7 +43,16 @@
 - 有效运行证据：之前 `--output /out/raw_runs/stage00_demo_k1 --k 1 --mode both` 在隔离 Docker/Python 3.12 容器退出 0；`demo.json` 记录 2 done、0 failed、14 executions、16 scripted editor calls。参数值由源码解析规则推得，不是 CLI 单独打印出的内部变量。
 - 新故障演示（2026-10-30）：同一容器、安全参数和官方源码，执行 `python -m harness2.cli.demo --output /tmp/invalid_k_demo --k 0 --mode both`；真实 stderr 为 `demo.py: error: --k must be positive`，捕获容器进程退出码 `2`。校验位于 `DemoAdapter(root)` 之前，因而此调用未进入任务调度。外层 PowerShell 在打印 `DEMO_EXIT_CODE=2` 后返回 0；二者不可混淆。
 - 工程分析：`argparse` 负责类型/choices 与帮助信息，`main()` 补充 `k >= 1` 语义校验；参数错误通过 `parser.error()` 抛出 `SystemExit(2)`，有效任务的汇总结果走 `return int(result["failed"] > 0)`。`--k 0` 是 CLI 参数坏例，不能替代 Stage 00 计划中的错误输出路径/依赖故障注入。
-- 用户回答与最近考核：尚未对本小节回答；等级 `U`；正式 Stage 00 Gate 未考。下一步做一题新的参数 Trace 理解检查，再视回答补课。
+- 用户回答与最近考核：用户要求直接讲解 `--k 1 --mode parallel` 题并进入 Stage 00 下一小节，未独立作答；由源码可推 `k=1`、`modes=("agg",)`、任务由 `adapter.tasks()` 提供，不计分。等级 `U`；正式 Stage 00 Gate 未考。之后用不同参数再检查。
+
+## Stage 00 · DemoAdapter 的任务与执行边界（当前教学小节）
+
+- 官方 SHA/源码：`1cfe254e…`；`upstream/harness2/harness2/demo.py:41–117` 的 `DemoAdapter`；`core/spec.py:200–249` 的 `BenchmarkAdapter` Protocol；调用者 `cli/demo.py:36–47`、`core/schedule.py:465,617,669`。
+- 为什么学：Adapter 将通用任务调度与账本 CSV、脚本执行、产物格式隔开；联系前节 CLI 如何创建 Adapter、候选 Harness 如何由 `harness_dir` 切换。
+- 已教学准备：本轮会以 ASCII 图解释 `DemoAdapter(root)` 初始化源文件与 base Harness、`tasks/task_prompt/task_files` 提供输入、`execute(task_id,harness_dir,run_id)` 执行、`delivered/trajectory/deliverable_text` 读取产物。`score` 在通用 Protocol 中声明，但 DemoAdapter 没有实现，不能把它说成真实 benchmark judge。
+- 独立直接演示（2026-10-30）：隔离 Docker Python 3.12、无网络、官方只读源、输出挂 `experiments/`，直接创建 `DemoAdapter('/out/raw_runs/stage00_adapter_direct')`，`tasks()` 返回 `['ledger-1','ledger-2']`，`task_prompt('ledger-1')` 返回签名求和任务说明；`execute('ledger-1',None,'direct-base')` 的 `answer` 为 `Total: 105.25`，`delivered=True`，Trajectory 含固定 ACTION/OBSERVATION，`execution_count=1`，容器退出码 0。再在 `stage00_adapter_compare` 用同一输入分别执行 `harness_dir=None` 和已有 `harnesses/inv1`：输出 `105.25` 与 `85.15`，`execution_count=2`，容器退出码 0。两个原始输出目录均在忽略的 `experiments/raw_runs/` 下。
+- 工程权衡/限制：同一 `execute()` 通过 Harness 路径参数切换脚本，调度器无须读 CSV；Demo 用 `subprocess.run(check=True,timeout=10)` 和简化轨迹，`delivered()` 仅检查文件存在，不代表真值评分。错误时 `execute()` 可能抛异常，调度层记录失败。
+- 用户回答与等级：此小节尚无独立回答，`U`；Stage 00 正式 Gate 未考。下次在已教源码上做一题参数与产物 Trace。
 
 ## 后续知识点模板
 
