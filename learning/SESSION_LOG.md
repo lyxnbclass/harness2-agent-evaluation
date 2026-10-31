@@ -216,3 +216,11 @@
 - 原工作区 `stage-00-setup` 留有未提交的历史 Gate 修改，未覆盖或搬入新阶段。创建独立干净 checkout 基于合并后的 `origin/main`，先同步合并后 README，再开始 Stage 01 分支。
 - 用户选择进入下一阶段属于阶段确认；Stage 00 五道题此前由 Codex 讲解，没有用户独立完整作答，不能写成面试掌握。工程证据见 `reports/stage00_demo_smoke.md`。Stage 01 使用本地 FakeModel，暂无付费调用。
 - 当前主任务：实现并测试最小 Agent Runtime，随后用新七部分结构讲解。
+
+### 2026-10-31 | Stage 01 最小 Agent Runtime 实现与运行
+
+- 用户已明确要求进入 Stage 01；Stage 00 PR #1 合并、远端 main 合并提交与 README 收尾均已核实。`470e357 docs: close stage 00 after merged review` 已 Push 至 main，GitHub API 确认远端 README 写 `Stage 00 completed` 且不再写 draft PR。
+- 从该 main 建立独立 `stage-01-runtime` 分支；在独立 checkout 初始化官方子模块，固定 SHA `1cfe254e8d25b15f37048c3730134686abe60335`。原工作区未提交的历史 Gate 文件保留原处。
+- Codex 实现 `experiments/toy_agent/runtime.py`、`test_runtime.py`、`demo.py`，保存 `reports/stage01_toy_agent_demo.json` 与 `reports/stage01_runtime_smoke.md`。官方源码定位到 `substrate/base.py:Substrate.execute/RunRequest`、`substrate/opencode.py:OpencodeSubstrate.execute/render_events`；官方真实模型/launcher 未运行。
+- OBSERVED：使用 `uv python find 3.12` 定位本机 Python 3.12，运行 `python -m experiments.toy_agent.demo` 退出 0，真实 JSON 轨迹为 Add 2 and 3 → add(2,3) → tool result 5 → final The sum is 5。`python -m unittest discover -s experiments/toy_agent -p test_runtime.py -v` 退出 0，6 tests OK，复跑耗时 0.157s。失败覆盖真实本地超时、未知工具、错误参数、依赖失败、步数上限与模型输出错误；无网络、付费模型或 Benchmark。
+- 教学边界：本轮代码由 Codex 编写，用户尚未独立阅读或回答。七部分讲解尚待输出，理解矩阵仍为“未讲”；不能从测试通过推断用户理解。下一内容为本章系统讲解和集中思考题。

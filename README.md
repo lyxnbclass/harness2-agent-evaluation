@@ -2,7 +2,7 @@
 
 An engineering project to reproduce Google Research Harness² and build an auditable evaluation workflow for coding agents. The central question is whether a harness change improves task outcomes **without hiding regressions, infrastructure failures, or extra cost**.
 
-> **Status (2026-10-31): Stage 00 completed; Stage 01 starting.** The official Harness² source is pinned as a submodule at commit `1cfe254e8d25b15f37048c3730134686abe60335`. Its deterministic local demo ran in an isolated Python 3.12 container with two ledger tasks and both recursion modes. Five official workflow tests passed; an unwritable output-path failure was reproduced. Public benchmark integration, custom evaluator modules, and model-backed experiments remain incomplete.
+> **Status (2026-10-31): Stage 00 completed; Stage 01 in progress.** The official Harness² source is pinned as a submodule at commit `1cfe254e8d25b15f37048c3730134686abe60335`. Its deterministic local demo ran in an isolated Python 3.12 container with two ledger tasks and both recursion modes. Five official workflow tests passed; an unwritable output-path failure was reproduced. A project-owned local FakeModel Runtime now has a passing six-test smoke suite. Public benchmark integration, custom evaluator modules, and model-backed experiments remain incomplete.
 
 ## Engineering scope
 
@@ -66,7 +66,7 @@ A stage closes only after its required engineering evidence and user review are 
 | Stage | Engineering milestone | Status |
 | --- | --- | --- |
 | 00 | Environment, upstream revision, and official demo | **Completed:** [PR #1](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/1) merged; local Demo and 5 official tests verified |
-| 01 | Minimal agent runtime and tool calling | Planned |
+| 01 | Minimal agent runtime and tool calling | **In progress:** deterministic FakeModel loop, three local tools, error paths and six tests verified; user review pending |
 | 02 | Dataset design and outcome metrics | Planned |
 | 03 | Trajectory validation and bad-case analysis | Planned |
 | 04 | Judge rubric, validation, and calibration | Planned |
@@ -83,6 +83,7 @@ A stage closes only after its required engineering evidence and user review are 
 ## What is in the repository today
 
 - [`scripts/resume.py`](scripts/resume.py) restores the recorded current stage; [`scripts/check_workspace.py`](scripts/check_workspace.py) checks record completeness. Both ran successfully in the Stage 00 workspace check. They do **not** validate agent quality or stage mastery.
+- [`experiments/toy_agent/runtime.py`](experiments/toy_agent/runtime.py) is a project-owned teaching implementation of `FakeModel → tool_call → tool_result → final`. It validates closed tool schemas and handles unknown tools, local subprocess timeout, dependency error, and step budget. The actual run and six tests are documented in [`reports/stage01_runtime_smoke.md`](reports/stage01_runtime_smoke.md); this code is not an upstream Harness² runtime or a model-backed benchmark result.
 - [`learning/`](learning/) contains stage status, source/audit templates, interview gates, and command evidence.
 - [`experiments/manifests/EXAMPLE_MANIFEST.json`](experiments/manifests/EXAMPLE_MANIFEST.json) is a **sample schema**, not a completed experiment.
 - [`upstream/harness2/`](upstream/harness2/) is a Git submodule pinned to Google Research commit `1cfe254e…`. Its Apache 2.0 license remains in the upstream checkout. `pyproject.toml` declares `harness2-demo = "harness2.cli.demo:main"`; observed local `DemoAdapter.execute()` outputs include `answer.txt` and `trajectory.md`.

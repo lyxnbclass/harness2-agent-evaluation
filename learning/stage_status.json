@@ -39,7 +39,15 @@
       "status": "IN_PROGRESS",
       "required_evidence": [],
       "user_approved_next": false,
-      "last_checked": "2026-10-31"
+      "last_checked": "2026-10-31",
+      "github": {
+        "branch": "stage-01-runtime",
+        "important_commits": [],
+        "remote": "https://github.com/lyxnbclass/harness2-agent-evaluation.git",
+        "pr_url": null,
+        "pr_status": "NOT_CREATED",
+        "stage_branch_pushed": false
+      }
     },
     "02": {
       "status": "LOCKED",
