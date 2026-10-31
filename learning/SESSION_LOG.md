@@ -191,3 +191,4 @@
 - 本轮改动：替换 `AGENTS.md` 旧教学/Gate 条款；同步 `MASTER_PLAN.md` 的章节地图、`CODEX_START_PROMPT.md`、`START_HERE.md`、`PROJECT_DELIVERABLES.md`；简化 `learning/PROGRESS.md`、`MASTERY_MATRIX.md`、`stage_status.json`（schema 4.0），调整 `scripts/resume.py`、`scripts/check_workspace.py`。历史 Gate、详细知识记录和此前运行证据保留；未改官方源码或自研模块。
 - 验证：`python scripts/resume.py` 退出 0；`python scripts/check_workspace.py` 退出 0，仅证实记录一致；`git diff --check` 退出 0（有换行提示）；未重新运行 Demo、Benchmark 或模型调用。
 - 理解：此前局部输入/产物/参数理解保留；本轮尚无新的用户技术回答，整章理解待确认。下一内容是用户集中回答 Stage 00 官方 Demo 完整链路的章节思考题，Codex 再定点反馈并继续 Stage 00 工程证据。
+- 重构提交 `e53e417 docs: streamline chapter teaching and progress tracking` 已 Push 至 `origin/stage-00-setup`；PR 仍为 NONE。
