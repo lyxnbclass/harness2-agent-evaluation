@@ -1,4 +1,5 @@
 # 上游源代码目录
 
-此目录现在**没有官方 Harness² 代码**。Stage 00 才会在适当授权和网络条件下克隆至 `upstream/harness2/`，并记录真实 Git SHA。
-不要把本学习模板误当成可直接运行的 Harness² 项目。
+官方源码在 `upstream/harness2/`，作为 Git submodule 固定到 Google Research 的 `google-research/harness2`。当前锁定 commit：`1cfe254e8d25b15f37048c3730134686abe60335`；来源 URL 由根目录 `.gitmodules` 记录。
+
+新检出本项目时，运行 `git submodule update --init upstream/harness2` 获取父仓库记录的同一版本。官方代码保留其 `LICENSE`；项目自研代码放在根目录 `experiments/`，不要直接修改官方 checkout。源码已检出不等于 Demo 已运行或 Benchmark 已复现。

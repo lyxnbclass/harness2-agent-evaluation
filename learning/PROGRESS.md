@@ -1,34 +1,19 @@
-# 学习进度 — 唯一的人类可读当前状态
+# 学习进度 — 当前状态
 
-> 最后更新：2026-10-30（正式英文 GitHub README 建立）
-> 操作纪律：**凡是“完成”必须有命令输出/代码路径/测试记录**。下一会话先读此文件。
+> 更新：2026-10-31。完成教学规范重构；阶段编号与既有工程证据保留。历史会话见 `learning/SESSION_LOG.md`，Stage 00 运行细节见 `learning/stages/00.md`。
 
 - 当前阶段：00
-- 当前阶段标题：开发环境、仓库溯源与官方 Demo
-- 状态：IN_PROGRESS（仅完成首轮离线盘点，未运行官方 Demo）
-- 官方 Harness² commit：UNKNOWN（尚未克隆/验证）
-- 公开 Coding Benchmark：未选定（默认优先 SWE-bench，Stage 08 正式决策）
-- 已验证完成的阶段：无
-- 已验证的项目代码/实验：无
-- 最近一次考核：尚未开始
-- 已掌握的知识点（有无提示考核证据）：尚未评估
-- 尚未掌握/待验证的知识点：全部待初测
-- 阻塞：`upstream/harness2/` 仍不存在，官方源码 commit 和 Demo 尚未核实；Docker daemon/WSL 可运行性未知。GitHub 登录已复查有效。
-- 用户明确批准下一阶段：否
-- GitHub：用户确认仓库名 `harness2-agent-evaluation`、可见性 `public`；当前 branch `stage-00-setup` 已 Push；main 初始 commit `46ba3d2`、Stage 00 记录 commit `36c6eae` 均已 Push；remote `https://github.com/lyxnbclass/harness2-agent-evaluation.git`；Stage 00 PR `NONE`；当前 Stage 考核 `未考`。
+- 当前章节：官方无模型 Demo 的完整执行链路
+- 状态：IN_PROGRESS
+- 已讲解：CSV/Trajectory、候选脚本校验、CLI 参数、DemoAdapter、Scheduler、parallel/sequential、选择与经验传递；本轮按新七部分结构系统重讲完整链路。
+- 已确认理解：用户独立区分 CSV 输入、`answer.txt` 输出、Trajectory 过程；能解释 `task_id` 选任务数据、`harness_dir` 选脚本、`run_id` 决定产物目录，以及基线漏算负数。此证据只覆盖局部，不代表整章已确认理解。
+- 仍有疑问/待确认：完整调用与数据流、`k=1` 的选择时序、异常与产物关系、Demo 状态和真实 Benchmark 评分边界。本轮用户要求 Codex 直接讲解五道题；属于教学，不记为用户独立回答或已确认理解。
+- 实际代码与测试：官方子模块固定在 `1cfe254e8d25b15f37048c3730134686abe60335`，未修改上游。2026-10-30 隔离 Docker Python 3.12、无网络的 Demo `--k 1 --mode both` 退出 0，`demo.json` 为 2 done / 0 failed / 14 executions / 16 scripted editor calls；ledger-1 基线 105.25、两个 final 均 85.15。2026-10-31 同环境运行官方 `tests/test_workflow.py`：5 个测试全部通过，退出 0；错误输出路径故障注入按预期退出 1。DemoAdapter 直接调用、CLI `--k 0` 和超时故障亦有记录。摘要见 `reports/stage00_demo_smoke.md` 和 `learning/stages/00.md`；原始产物在忽略目录 `experiments/raw_runs/`。Stage 00 以官方复现为工程任务，自研 Agent Runtime 从 Stage 01 开始；无付费模型或真实 Benchmark 结果。
+- 工程待办：Stage 00 清单的源码、环境、Demo、官方测试、故障与证据已核对；用户对整章理解仍待明确确认。草稿 PR #1 已建，待用户审阅；不自动 Merge。官方真实 Benchmark evaluator/judge/report 留待 Stage 06–07 审计，未知项保持 UNKNOWN。
+- GitHub：`stage-00-setup`，追踪 `origin/stage-00-setup`；本阶段证据提交 `0a75912` 已 Push。其余既存未提交的历史 Gate 改动保留。PR [#1](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/1) 为 `OPEN/DRAFT`，base=`main`，head=`stage-00-setup`，2026-10-31 `gh pr view` 返回 `MERGEABLE`。用户尚未批准进入 Stage 01，PR 尚未合并。
+- 阻塞：本机默认 Python 3.14.6 不满足上游 `<3.14`，已用 Docker Python 3.12 完成无模型 Demo。真实模型调用未经批准，成本 UNKNOWN。
+- 下次内容：用户审阅 Stage 00 草稿 PR 与本章理解状态；Codex 根据反馈修订。待用户确认理解、PR 合并并明确要求后，才进入 Stage 01。
 
-## 当前唯一下一步
-Codex 检出官方 Harness² 源码到 `upstream/harness2/`，记录真实 commit、remote、tree 状态并阅读 README 确定 Demo 入口；随后分块讲解并安排用户代码/Trace 阅读题。**不要求用户手写脚本，不运行收费模型，不跳到 Stage 01**。
+## 证据边界
 
-## 最近期真实证据
-- 根目录 `README.md` 已基于用户提供的英文素材建立，并对照当前文件树与 Stage 00 记录改为实际状态：官方源码、Demo、公开 Benchmark 和自研评测模块均未完成；`AGENTS.md` 已规定每阶段 PR 合并后的 README 同步维护。本文档工作不构成 Stage 00 技术 Gate 通过。
-- `python scripts/resume.py` 与 `python scripts/check_workspace.py` 均退出 0；后者只说明记录完整性检查通过，不代表知识掌握。
-- 用户已将分工调整为 Codex 负责实现与运行、用户负责理解与验收；上轮布置的用户手写环境脚本任务已取消，未据此评分。
-- `git init -b main` 成功；检查拟提交文件和敏感凭证模式后，初始提交 `46ba3d2` 成功，创建 `stage-00-setup` 分支。公开仓库创建成功，`main` 与 Stage 00 分支均已 Push；`gh auth status` 复查退出 0。
-- Windows 环境：Python 3.14.6、Git 2.41.0、uv 0.12.18、Docker CLI 29.8.0、Node v24.15.0；Docker 配置访问警告、WSL 状态查询被拒绝，运行能力仍待验证。
-- 本工作区只有计划、规格、模板与离线校验脚本；**未克隆官方源码，未运行 Demo/Benchmark，未测出任何性能提升**。
-
-## 对下个新会话的提醒
-1. 运行 `python scripts/resume.py`，读取当前阶段 Gate 文件、错误记录与知识矩阵。
-2. 在实际证据出现前不要改写上述“尚未完成”状态。
-3. 本轮结束更新此文件、`stage_status.json`、`SESSION_LOG.md`、相应 Gate 文件，并运行 `python scripts/check_workspace.py`。
+`demo.json` 的 `ok` 是官方本地演示的工作流状态，不是独立 Coding Benchmark 的 solved 或模型通过率。已有讲解和 Codex 执行成功不能自动写成用户理解。历史记录中出现的 L1、旧 Gate、未运行 Demo 等说法仅反映当时状态，以较新的实际产物和本页当前状态为准。

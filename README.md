@@ -2,13 +2,13 @@
 
 An engineering project to reproduce Google Research Harness² and build an auditable evaluation workflow for coding agents. The central question is whether a harness change improves task outcomes **without hiding regressions, infrastructure failures, or extra cost**.
 
-> **Status (2026-10-30): Stage 00 in progress.** This repository currently contains the project plan, evidence records, a sample run manifest, and local progress-check scripts. The upstream Harness² checkout, official demo, public benchmark integration, custom evaluator modules, and agent-performance experiments have **not** been completed.
+> **Status (2026-10-31): Stage 00 in progress.** The official Harness² source is pinned as a submodule at commit `1cfe254e8d25b15f37048c3730134686abe60335`. Its deterministic local demo ran in an isolated Python 3.12 container with two ledger tasks and both recursion modes. Five official workflow tests passed; an unwritable output-path failure was reproduced. Stage review, public benchmark integration, custom evaluator modules, and model-backed experiments remain incomplete.
 
 ## Engineering scope
 
 | Track | Responsibility | Current state |
 | --- | --- | --- |
-| Official reproduction | Check out a pinned revision of [google-research/harness2](https://github.com/google-research/harness2), trace its runner/evaluator/report flow, and reproduce its demo and authorized single-task run | **In progress:** environment inventory started; upstream code and demo not yet verified |
+| Official reproduction | Check out a pinned revision of [google-research/harness2](https://github.com/google-research/harness2), trace its runner/evaluator/report flow, and reproduce its demo and authorized single-task run | **In progress:** source pinned; deterministic demo run verified; official benchmark evaluator and model-backed run pending |
 | Public coding benchmark | Select a benchmark (SWE-bench is the leading candidate), run its **native evaluator** independently, then build a Harness² adapter | **Planned:** benchmark selection and evaluator run have not occurred |
 | Project evaluation extensions | Implement metrics, trajectory validation, bad-case records, paired comparisons, a regression gate, and reproducible reports | **Planned:** specifications exist; implementation and tests do not |
 
@@ -61,7 +61,7 @@ Development, validation, and locally un-tuned task sets will be separated. Small
 
 ## Implementation roadmap
 
-A stage is checked only after its required implementation and tests have evidence, its interview gate passes, and its PR is merged. The detailed [14-stage plan](MASTER_PLAN.md) and [current progress record](learning/PROGRESS.md) are the source of truth.
+A stage closes only after its required engineering evidence and user review are recorded, the user explicitly confirms progression, and its PR is verified merged. The detailed [14-stage plan](MASTER_PLAN.md) and [current progress record](learning/PROGRESS.md) are the source of truth.
 
 | Stage | Engineering milestone | Status |
 | --- | --- | --- |
@@ -85,16 +85,22 @@ A stage is checked only after its required implementation and tests have evidenc
 - [`scripts/resume.py`](scripts/resume.py) restores the recorded current stage; [`scripts/check_workspace.py`](scripts/check_workspace.py) checks record completeness. Both ran successfully in the Stage 00 workspace check. They do **not** validate agent quality or stage mastery.
 - [`learning/`](learning/) contains stage status, source/audit templates, interview gates, and command evidence.
 - [`experiments/manifests/EXAMPLE_MANIFEST.json`](experiments/manifests/EXAMPLE_MANIFEST.json) is a **sample schema**, not a completed experiment.
-- [`upstream/README.md`](upstream/README.md) documents the intended location for official source. `upstream/harness2/` is not present yet.
+- [`upstream/harness2/`](upstream/harness2/) is a Git submodule pinned to Google Research commit `1cfe254e…`. Its Apache 2.0 license remains in the upstream checkout. `pyproject.toml` declares `harness2-demo = "harness2.cli.demo:main"`; observed local `DemoAdapter.execute()` outputs include `answer.txt` and `trajectory.md`.
 
-No project-specific Harness² install or demo command is published here yet: the upstream revision and its CLI have not been verified. The currently verified local record checks, run from the repository root, are:
+The verified local record checks, run from the repository root, are:
 
 ```powershell
 python scripts/resume.py
 python scripts/check_workspace.py
 ```
 
-Both commands exited with code 0 in the latest recorded Stage 00 check. The second command checks documentation consistency only. Once the official checkout is available, this section will add pinned dependency versions, verified setup steps, executable demo commands, and artifact paths.
+Both commands exited with code 0 in the latest recorded Stage 00 check. The second checks documentation consistency only. The upstream package requires Python `>=3.12,<3.14`. The no-credential demo was run with the locally available `python:3.12-slim-trixie` image, no network, a read-only source mount, and an isolated output mount. The command used Python's module entry, which invokes the same `main()` declared for `harness2-demo`:
+
+```powershell
+docker run --rm --network none --read-only --tmpfs /tmp:rw,noexec,nosuid,size=64m --security-opt no-new-privileges --cap-drop ALL --mount "type=bind,source=$((Get-Location).Path)\upstream\harness2,target=/src,readonly" --mount "type=bind,source=$((Get-Location).Path)\experiments,target=/out" -w /src -e PYTHONPATH=/src python:3.12-slim-trixie python -m harness2.cli.demo --output /out/raw_runs/stage00_demo_k1 --k 1 --mode both
+```
+
+It exited 0. `experiments/raw_runs/stage00_demo_k1/demo.json` recorded `done=2`, `failed=0`, `execution_count=14`, and `editor_calls=16`. For `ledger-1`, the base execution returned `Total: 105.25` and the composed parallel final returned `Total: 85.15`; the sequential final also returned `85.15`. These are deterministic arithmetic and workflow observations, not coding-agent benchmark scores. The pinned upstream's `tests/test_workflow.py` also passed 5/5 tests in the same isolated Python 3.12 setup. An unwritable output path failed before scheduling as expected. Raw outputs are kept locally under ignored `experiments/raw_runs/`; commands, results, and limits are in [`reports/stage00_demo_smoke.md`](reports/stage00_demo_smoke.md).
 
 ## Experimental results
 
@@ -102,7 +108,7 @@ Both commands exited with code 0 in the latest recorded Stage 00 check. The seco
 
 ## Development, review, and attribution
 
-Stage 00 work is on [`stage-00-setup`](https://github.com/lyxnbclass/harness2-agent-evaluation/tree/stage-00-setup); the stage PR has not been created because its implementation and interview gate are incomplete. Each stage uses a dedicated branch and reviewable PR. After a stage PR is merged, this README must be updated with the verified milestone, implemented functions, tests, run commands, and results. Unfinished work remains labeled **Planned** or **In progress**.
+Stage 00 work is on [`stage-00-setup`](https://github.com/lyxnbclass/harness2-agent-evaluation/tree/stage-00-setup), with [draft PR #1](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/1) open for review. Each stage uses a dedicated branch and reviewable PR; PRs are not merged automatically. After a stage PR is merged, this README must be updated with the verified milestone, implemented functions, tests, run commands, and results. Unfinished work remains labeled **Planned** or **In progress**.
 
 Google Research Harness² is upstream work. The public benchmark and its native evaluator are separate upstream work. Project extensions under `experiments/` will be identified by their own code and test evidence. Development here is performed with Codex; the project owner reviews architecture, code behavior, failure analysis, and stage evidence. Contribution claims will follow those records rather than attributing generated code to the owner.
 

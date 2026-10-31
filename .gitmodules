@@ -1,0 +1,3 @@
+[submodule "upstream/harness2"]
+	path = upstream/harness2
+	url = https://github.com/google-research/harness2.git
