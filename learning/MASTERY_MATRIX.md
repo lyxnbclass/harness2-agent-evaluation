@@ -1,6 +1,6 @@
 # 章节理解矩阵（按实际回答更新）
 
-当前章节：Stage 00「官方无模型 Demo 完整执行链路」。定性状态：`未讲 / 已讲待验证 / 已理解 / 需补充`。不评分。Codex 的讲解和运行通过不等于用户已理解；用户的局部正确回答也不等于整章确认。历史细节见 `learning/KNOWLEDGE_MASTERY.md`，本章后续集中回答见 `learning/PROGRESS.md`。
+当前章节：Stage 01「最小 Agent Runtime 与 Tool Calling」。定性状态：`未讲 / 已讲待验证 / 已理解 / 需补充`。不评分。用户已明确选择进入 Stage 01；Stage 00 的局部理解证据保留，完整五题由 Codex 讲解，仍不记为用户独立回答。历史细节见 `learning/KNOWLEDGE_MASTERY.md`。
 
 | 知识点 | 对应阶段 | 当前理解状态 | 最近回答/证据 | 关键薄弱点/后续复习 |
 |---|---|---|---|---|

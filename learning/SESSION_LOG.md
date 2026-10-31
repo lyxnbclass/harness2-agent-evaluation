@@ -209,3 +209,10 @@
 - 修改 `MASTER_PLAN.md` 的 Stage 00 工程项、`learning/stages/00.md`、`learning/SOURCE_INDEX.md`、`learning/OFFICIAL_EVAL_AUDIT.md`、`learning/PROGRESS.md`、`README.md`，新增 `reports/stage00_demo_smoke.md`。保留旧时点快照与此前的未提交学习记录；没有修改官方源码。用户整章独立理解仍待明确确认，Stage 01 保持 LOCKED。
 - 下一任务：提交本轮 Stage 00 证据并准备一个供审阅的阶段 PR；不自动 Merge。
 - Stage 00 证据提交 `0a75912 test: document official stage 00 workflow checks` 已 Push。`gh pr create --draft --base main --head stage-00-setup` 创建 https://github.com/lyxnbclass/harness2-agent-evaluation/pull/1；`gh pr view 1` 核实 OPEN、DRAFT、MERGEABLE。未 Merge，Stage 01 仍 LOCKED。
+
+### 2026-10-31 | Stage 00 合并核实与 Stage 01 入口
+
+- 用户明确指令“进入下一阶段”。先用 `gh pr view 1` 核实 PR #1 为 MERGED、merge commit `4b0a1effd5c0a1c355a1c39f326b7ef6e2cf556f`；`git ls-remote origin refs/heads/main` 返回同一 SHA，`git merge-base --is-ancestor d67a64c origin/main` 退出 0。未自动执行 Merge；合并已由外部完成。
+- 原工作区 `stage-00-setup` 留有未提交的历史 Gate 修改，未覆盖或搬入新阶段。创建独立干净 checkout 基于合并后的 `origin/main`，先同步合并后 README，再开始 Stage 01 分支。
+- 用户选择进入下一阶段属于阶段确认；Stage 00 五道题此前由 Codex 讲解，没有用户独立完整作答，不能写成面试掌握。工程证据见 `reports/stage00_demo_smoke.md`。Stage 01 使用本地 FakeModel，暂无付费调用。
+- 当前主任务：实现并测试最小 Agent Runtime，随后用新七部分结构讲解。

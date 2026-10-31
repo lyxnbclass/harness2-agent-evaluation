@@ -1,19 +1,14 @@
 # 学习进度 — 当前状态
 
-> 更新：2026-10-31。完成教学规范重构；阶段编号与既有工程证据保留。历史会话见 `learning/SESSION_LOG.md`，Stage 00 运行细节见 `learning/stages/00.md`。
+> 更新：2026-10-31。Stage 00 合并与用户进入 Stage 01 的明确指令已核实。历史工程细节见 `learning/stages/00.md`、`reports/stage00_demo_smoke.md` 和 `learning/SESSION_LOG.md`。
 
-- 当前阶段：00
-- 当前章节：官方无模型 Demo 的完整执行链路
+- 当前阶段：01
+- 当前章节：最小 Agent Runtime 与 Tool Calling
 - 状态：IN_PROGRESS
-- 已讲解：CSV/Trajectory、候选脚本校验、CLI 参数、DemoAdapter、Scheduler、parallel/sequential、选择与经验传递；本轮按新七部分结构系统重讲完整链路。
-- 已确认理解：用户独立区分 CSV 输入、`answer.txt` 输出、Trajectory 过程；能解释 `task_id` 选任务数据、`harness_dir` 选脚本、`run_id` 决定产物目录，以及基线漏算负数。此证据只覆盖局部，不代表整章已确认理解。
-- 仍有疑问/待确认：完整调用与数据流、`k=1` 的选择时序、异常与产物关系、Demo 状态和真实 Benchmark 评分边界。本轮用户要求 Codex 直接讲解五道题；属于教学，不记为用户独立回答或已确认理解。
-- 实际代码与测试：官方子模块固定在 `1cfe254e8d25b15f37048c3730134686abe60335`，未修改上游。2026-10-30 隔离 Docker Python 3.12、无网络的 Demo `--k 1 --mode both` 退出 0，`demo.json` 为 2 done / 0 failed / 14 executions / 16 scripted editor calls；ledger-1 基线 105.25、两个 final 均 85.15。2026-10-31 同环境运行官方 `tests/test_workflow.py`：5 个测试全部通过，退出 0；错误输出路径故障注入按预期退出 1。DemoAdapter 直接调用、CLI `--k 0` 和超时故障亦有记录。摘要见 `reports/stage00_demo_smoke.md` 和 `learning/stages/00.md`；原始产物在忽略目录 `experiments/raw_runs/`。Stage 00 以官方复现为工程任务，自研 Agent Runtime 从 Stage 01 开始；无付费模型或真实 Benchmark 结果。
-- 工程待办：Stage 00 清单的源码、环境、Demo、官方测试、故障与证据已核对；用户对整章理解仍待明确确认。草稿 PR #1 已建，待用户审阅；不自动 Merge。官方真实 Benchmark evaluator/judge/report 留待 Stage 06–07 审计，未知项保持 UNKNOWN。
-- GitHub：`stage-00-setup`，追踪 `origin/stage-00-setup`；本阶段证据提交 `0a75912` 已 Push。其余既存未提交的历史 Gate 改动保留。PR [#1](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/1) 为 `OPEN/DRAFT`，base=`main`，head=`stage-00-setup`，2026-10-31 `gh pr view` 返回 `MERGEABLE`。用户尚未批准进入 Stage 01，PR 尚未合并。
-- 阻塞：本机默认 Python 3.14.6 不满足上游 `<3.14`，已用 Docker Python 3.12 完成无模型 Demo。真实模型调用未经批准，成本 UNKNOWN。
-- 下次内容：用户审阅 Stage 00 草稿 PR 与本章理解状态；Codex 根据反馈修订。待用户确认理解、PR 合并并明确要求后，才进入 Stage 01。
-
-## 证据边界
-
-`demo.json` 的 `ok` 是官方本地演示的工作流状态，不是独立 Coding Benchmark 的 solved 或模型通过率。已有讲解和 Codex 执行成功不能自动写成用户理解。历史记录中出现的 L1、旧 Gate、未运行 Demo 等说法仅反映当时状态，以较新的实际产物和本页当前状态为准。
+- 阶段入口证据：Stage 00 PR [#1](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/1) 于 2026-10-31 合并；远端 `main` 为 `4b0a1effd5c0a1c355a1c39f326b7ef6e2cf556f`，包含 Stage 00 分支提交 `d67a64c`。用户本轮明确说“进入下一阶段”。
+- Stage 00 已验证工程：Google 官方源码固定 SHA `1cfe254e8d25b15f37048c3730134686abe60335`；隔离无模型 Demo 两题 `ok`，5 个官方测试通过，错误输出路径按预期失败。无模型 Benchmark、SWE-bench 或性能提升结论。
+- 学习情况：Stage 00 的 CSV、答案、Trajectory、Adapter 三参数和基线差异有用户局部独立回答；完整五题由 Codex 直接讲解，未获得完整独立作答。用户决定进入 Stage 01，此限制保留，不写成独立面试掌握。
+- Stage 01 工程：按 `MASTER_PLAN.md` 实现本地 FakeModel → Tool Call → Tool Result → Final 的最小 Runtime、3 个本地工具、Schema 校验和 `max_steps`；注入超时/未知工具/错误参数并运行单测。先核实官方真实代码位置，不编造函数。
+- GitHub：Stage 00 PR 已合并，README 合并后收尾正在提交；Stage 01 独立分支将在该 main 基础上创建，Stage 01 PR 暂为 NONE。
+- 阻塞：无费用需求；当前 Stage 01 先用本地 FakeModel，不调用付费模型。公开 Benchmark 和官方真实模型运行仍未授权。
+- 下次内容：完成 Stage 01 最小 Runtime 的实现与测试后，按七部分结构讲解其真实输入、数据流、失败边界及官方源码关联。

@@ -1,17 +1,17 @@
 {
   "schema_version": "4.0",
-  "current_stage": "00",
+  "current_stage": "01",
   "last_updated": "2026-10-31",
-  "note": "Stage 00 in progress; chapter teaching uses qualitative feedback and user confirmation.",
+  "note": "Stage 00 PR merged and user explicitly requested Stage 01; independent Stage 00 full-chain answers remain unverified.",
   "stages": {
     "00": {
-      "status": "IN_PROGRESS",
+      "status": "COMPLETED",
       "required_evidence": [
         "upstream/harness2",
         "learning/SOURCE_INDEX.md",
         "learning/OFFICIAL_EVAL_AUDIT.md"
       ],
-      "user_approved_next": false,
+      "user_approved_next": true,
       "last_checked": "2026-10-31",
       "github": {
         "branch": "stage-00-setup",
@@ -27,18 +27,19 @@
         ],
         "remote": "https://github.com/lyxnbclass/harness2-agent-evaluation.git",
         "pr_url": "https://github.com/lyxnbclass/harness2-agent-evaluation/pull/1",
-        "pr_status": "OPEN_DRAFT",
+        "pr_status": "MERGED",
         "visibility": "public",
         "main_pushed": true,
         "stage_branch_pushed": true,
-        "auth_status": "VALID"
+        "auth_status": "VALID",
+        "merge_commit": "4b0a1effd5c0a1c355a1c39f326b7ef6e2cf556f"
       }
     },
     "01": {
-      "status": "LOCKED",
+      "status": "IN_PROGRESS",
       "required_evidence": [],
       "user_approved_next": false,
-      "last_checked": null
+      "last_checked": "2026-10-31"
     },
     "02": {
       "status": "LOCKED",
@@ -113,5 +114,5 @@
       "last_checked": null
     }
   },
-  "current_chapter": "00: 官方无模型 Demo 完整执行链路"
+  "current_chapter": "01: 最小 Agent Runtime 与 Tool Calling"
 }

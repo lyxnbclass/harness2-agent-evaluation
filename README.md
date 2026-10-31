@@ -2,7 +2,7 @@
 
 An engineering project to reproduce Google Research Harness² and build an auditable evaluation workflow for coding agents. The central question is whether a harness change improves task outcomes **without hiding regressions, infrastructure failures, or extra cost**.
 
-> **Status (2026-10-31): Stage 00 in progress.** The official Harness² source is pinned as a submodule at commit `1cfe254e8d25b15f37048c3730134686abe60335`. Its deterministic local demo ran in an isolated Python 3.12 container with two ledger tasks and both recursion modes. Five official workflow tests passed; an unwritable output-path failure was reproduced. Stage review, public benchmark integration, custom evaluator modules, and model-backed experiments remain incomplete.
+> **Status (2026-10-31): Stage 00 completed; Stage 01 starting.** The official Harness² source is pinned as a submodule at commit `1cfe254e8d25b15f37048c3730134686abe60335`. Its deterministic local demo ran in an isolated Python 3.12 container with two ledger tasks and both recursion modes. Five official workflow tests passed; an unwritable output-path failure was reproduced. Public benchmark integration, custom evaluator modules, and model-backed experiments remain incomplete.
 
 ## Engineering scope
 
@@ -65,7 +65,7 @@ A stage closes only after its required engineering evidence and user review are 
 
 | Stage | Engineering milestone | Status |
 | --- | --- | --- |
-| 00 | Environment, upstream revision, and official demo | **In progress** |
+| 00 | Environment, upstream revision, and official demo | **Completed:** [PR #1](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/1) merged; local Demo and 5 official tests verified |
 | 01 | Minimal agent runtime and tool calling | Planned |
 | 02 | Dataset design and outcome metrics | Planned |
 | 03 | Trajectory validation and bad-case analysis | Planned |
@@ -108,7 +108,7 @@ It exited 0. `experiments/raw_runs/stage00_demo_k1/demo.json` recorded `done=2`,
 
 ## Development, review, and attribution
 
-Stage 00 work is on [`stage-00-setup`](https://github.com/lyxnbclass/harness2-agent-evaluation/tree/stage-00-setup), with [draft PR #1](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/1) open for review. Each stage uses a dedicated branch and reviewable PR; PRs are not merged automatically. After a stage PR is merged, this README must be updated with the verified milestone, implemented functions, tests, run commands, and results. Unfinished work remains labeled **Planned** or **In progress**.
+Stage 00 was merged through [PR #1](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/1) into `main` at `4b0a1effd5c0a1c355a1c39f326b7ef6e2cf556f`. Each stage uses a dedicated branch and reviewable PR; PRs are not merged automatically. The Stage 00 milestone is limited to the pinned source, deterministic Demo, official tests, and documented failure cases. Unfinished work remains labeled **Planned** or **In progress**.
 
 Google Research Harness² is upstream work. The public benchmark and its native evaluator are separate upstream work. Project extensions under `experiments/` will be identified by their own code and test evidence. Development here is performed with Codex; the project owner reviews architecture, code behavior, failure analysis, and stage evidence. Contribution claims will follow those records rather than attributing generated code to the owner.
 
