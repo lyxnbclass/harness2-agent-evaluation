@@ -77,11 +77,11 @@ Stage 12 的工程扩展仍在 Stage 11 之后实施；表中的 Stage 10、12 �
 **知识：** Git commit、Python 虚拟环境/包、Linux/WSL2、uv、Docker/Node 基本概念；可复现实验为什么要冻结版本。
 
 **执行任务：**
-- [ ] 盘点本机 OS、Python、Git、uv、Docker、Node、云端/本地模型权限；不能一上来就要求用户购买 API。
-- [ ] 检查是否已有官方 checkout；如无，经过适当确认后在 `upstream/harness2/` 克隆 Google 源码；记下 commit SHA、tree 状态与远程地址。
-- [ ] 实际阅读本地 README/pyproject/docs，定位 CLI entry points / Demo；记录真实源码入口，不预设不存在的函数名。
-- [ ] 按当前 README 核对命令后，运行无需模型凭证的 `harness2-demo`，分别观察 parallel/sequential 的真实输出；若环境不支持，写 BLOCKED + 最小环境解决步骤。
-- [ ] 画图解释 `CLI → Harness → Executor → task → artifact`，说明为什么跑通 Demo 不等于论文级复现。
+- [x] 盘点本机 OS、Python、Git、uv、Docker、Node；付费模型权限未获授权，记 UNKNOWN，不购买 API。证据见 `learning/stages/00.md`。
+- [x] 核实 `upstream/harness2/` 的官方 remote、Git submodule SHA 与 clean tree；见 `learning/SOURCE_INDEX.md`。
+- [x] 阅读本地 README/pyproject/docs 并定位真实 CLI/Demo 入口；见 `learning/SOURCE_INDEX.md`。
+- [x] 在无模型凭证的隔离 Docker 中运行 `--k 1 --mode both`，观察 parallel/sequential 输出；见 `reports/stage00_demo_smoke.md`。
+- [x] 依据固定源码与产物画出 `CLI → Adapter/Harness → 本地执行 → artifact`，并说明 Demo 与真实模型 Benchmark 的边界；见 `reports/stage00_demo_smoke.md`。
 
 **用户验收任务：** 阅读 Codex 定位的一次 Demo 入口和一个真实输出文件，独立解释它们如何关联；源码定位和命令运行由 Codex 完成。
 **教学顺序：** 按七部分结构一次贯通 `harness2-demo → main → DemoAdapter → run_domain/run_task → Proposer → execute/Trajectory → 选择/经验库 → demo.json`，结合真实输入、产物和源码；后续再按需深入高频机制，不按单个路径细节拆成多次考核。

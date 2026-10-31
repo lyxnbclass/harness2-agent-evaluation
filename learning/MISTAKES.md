@@ -4,9 +4,9 @@
 
 | 日期 | Stage/题号 | 我的原回答摘要 | 错在哪里 | 正确推理要点 | 变式复测问题 | 复测结果 | 证据链接 |
 |---|---|---|---|---|---|---|---|
-| 2026-10-30 | 00 / DemoAdapter 路径理解检查 | “选择一开始错误的脚本，读取一开始的CSV。answer.txt” | 前两点正确；第三点仅说文件名，未指出 `run_id='trial-a'` 决定 `executions/trial-a/` 目录 | `run_dir = self.root / 'executions' / run_id`；答案路径为 `run_dir / 'answer.txt'`；`task_id` 选 CSV，`harness_dir` 选脚本 | 将 `task_id` 换为 `ledger-2`、`run_id` 换为 `review-b`，指出脚本、CSV、产物目录 | 待答，不计正式 Gate | `upstream/harness2/harness2/demo.py:76–105`；`learning/KNOWLEDGE_MASTERY.md` |
+| 2026-10-30 | 00 / DemoAdapter 路径理解检查 | “选择一开始错误的脚本，读取一开始的CSV。answer.txt” | 前两点正确；第三点仅说文件名，未指出 `run_id='trial-a'` 决定 `executions/trial-a/` 目录 | `run_dir = self.root / 'executions' / run_id`；答案路径为 `run_dir / 'answer.txt'`；`task_id` 选 CSV，`harness_dir` 选脚本 | 面试前结合完整 Demo 链路复习路径；普通细节不作为推进门槛 | 已补讲，完整链路待验证 | `upstream/harness2/harness2/demo.py:76–105`；`learning/KNOWLEDGE_MASTERY.md` |
 
 ## 复习要求
-- 每个新会话：先抽查上一会话最弱 1–2 项；过往未过关概念必须重新追问。
-- 不提前提供答案；新变式复测不是复述刚看到的答案。
-- 复测未过不得将对应能力标为 L3/L4，也不能把该 Stage 评为 PASS。
+- 新会话快速复盘关键薄弱项，普通路径/语法细节补讲后继续完整链路；不做微型变式题作为推进门槛。
+- 面试题在用户独立回答前不提前给答案。只有影响架构、正确性、安全或评测结论的关键误解才用新案例复核。
+- 阶段定性 Gate 有未纠正的关键误解时不能标为通过；不使用 L1–L5 等级或数字分数。

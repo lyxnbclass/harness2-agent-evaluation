@@ -15,6 +15,7 @@
 
 | 模块 | 状态 VERIFIED/UNKNOWN/NOT_FOUND | 真实路径/函数或 CLI | 输入/输出格式 | 单测路径 | 运行证据 | 与自研模块的边界 |
 |---|---|---|---|---|---|---|
+| Local deterministic Demo runner | VERIFIED（仅 Demo） | `harness2/cli/demo.py:main` → `core/schedule.py:run_domain/run_task` → `demo.py:DemoAdapter.execute` | `ledger.csv` → `answer.txt` / `trajectory.md` → `summary.json` / `demo.json` | `tests/test_workflow.py` | 2026-10-30 Demo 退出 0；2026-10-31 隔离测试 5/5 通过，详见 `learning/stages/00.md` | 不是原生 Benchmark 真值判分 |
 | Task runner | UNKNOWN | | | | | 负责执行原生任务 |
 | Benchmark evaluator / judge | UNKNOWN | | | | | 官方/原生 verdict 优先 |
 | Baseline/base judge | UNKNOWN | | | | | 自研负责逐任务比较 |
@@ -25,10 +26,10 @@
 | Automatic regression rejection | UNKNOWN | | | | | 若官方已实现，先复用/扩展 |
 
 ## 3. 源码定位证据
-- 运行的命令（原样复制）：`git ls-remote https://github.com/google-research/harness2.git HEAD`；`git submodule add https://github.com/google-research/harness2.git upstream/harness2`；`git -C upstream/harness2 rev-parse HEAD`。尚未执行官方程序。
+- 运行的命令：`git -C upstream/harness2 rev-parse HEAD`；官方 Demo 的隔离 Docker 命令、退出码和产物见 `learning/stages/00.md`。2026-10-31 还运行 `python -m unittest discover -s tests -p test_workflow.py -v`，5 个测试通过。
 - 退出码与日志路径：上述 Git 命令均 exit 0；命令输出记录于 `learning/stages/00.md`，未另存终端日志。
 - `commit SHA:path:function`：`1cfe254e:harness2/cli/demo.py:main` → `1cfe254e:harness2/core/schedule.py:run_domain`；本地 `DemoAdapter.execute` 位于 `1cfe254e:harness2/demo.py`。入口脚本声明在 `pyproject.toml:32`。
-- 一条任务的 `task_id → run_id → trajectory → verdict → report` 实际数据链：UNKNOWN（Demo 尚未运行；官方 benchmark evaluator 未审计）。
+- 一条任务的 Demo 链：`ledger-1` → `demo-oc-agg1/ledger-1/base1` → `trajectory.md`（基线 105.25）→ `agg1`（85.15）→ `summary.json` / `demo.json`。真实 Benchmark 的 `verdict` / `report` 链仍 UNKNOWN；Demo 的 `ok` 不是原生 evaluator verdict。
 - 哪些功能不必重写：UNKNOWN（待 Stage 06–07 核对官方功能）。
 - 哪些功能是项目原创扩展：目前仅有计划，尚无评测代码。
 

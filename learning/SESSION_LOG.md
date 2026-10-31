@@ -192,3 +192,19 @@
 - 验证：`python scripts/resume.py` 退出 0；`python scripts/check_workspace.py` 退出 0，仅证实记录一致；`git diff --check` 退出 0（有换行提示）；未重新运行 Demo、Benchmark 或模型调用。
 - 理解：此前局部输入/产物/参数理解保留；本轮尚无新的用户技术回答，整章理解待确认。下一内容是用户集中回答 Stage 00 官方 Demo 完整链路的章节思考题，Codex 再定点反馈并继续 Stage 00 工程证据。
 - 重构提交 `e53e417 docs: streamline chapter teaching and progress tracking` 已 Push 至 `origin/stage-00-setup`；PR 仍为 NONE。
+
+### 2026-10-31 | Stage 00 五道章节题直接讲解
+
+- 用户要求 Codex 直接讲解上一章五道思考题，并询问下一步是否进入 Stage 01；该请求不是“进入下一阶段”的明确指令。
+- Codex 对 CLI→Adapter→Scheduler→Proposer→execute/产物→选择/经验→报告、`execute` 三参数、`k=1` 可交付条件、超时无答案/轨迹、Demo 与真实 Benchmark 判分边界逐题给出解释。没有新的用户独立技术回答，整章理解仍待用户确认；不评分。
+- 只读核对：`learning/PROGRESS.md` 和矩阵仍为 Stage 00 `IN_PROGRESS`；`git status` 在 `stage-00-setup`；`gh pr list --head stage-00-setup --state all --json number,state,url,mergedAt` 返回 `[]`。未运行新的 Demo/测试/模型调用。
+- 下一唯一任务：Stage 00 工程收尾，核对阶段清单与证据，补齐必要实现或测试并准备 PR。未合并 PR 且用户未明确确认，Stage 01 保持 `LOCKED`。
+
+### 2026-10-31 | Stage 00 工程证据收尾
+
+- 用户说“好了进行下一步吧”；按上一轮明确的下一任务执行 Stage 00 工程收尾，不解释为已明确批准进入 Stage 01。
+- `scripts/skill-stats` 不存在；已读取 `ai-pair-programmer` 编码规范，按仓库事实和最小改动执行。官方 SHA `1cfe254e8d25b15f37048c3730134686abe60335`，上游工作树 clean。
+- OBSERVED：隔离 Docker Python 3.12、无网络、只读官方源码运行 `python -m unittest discover -s tests -p test_workflow.py -v`，exit 0，Ran 5 tests in 9.648s，OK。测试属于 Google 上游，未新增自研代码。
+- OBSERVED：同环境把 Demo `--output` 指向只读 `/src/stage00_unwritable`，exit 1，`OSError: [Errno 30] Read-only file system`。首次偏离在 `DemoAdapter.__init__()` 的 `tree.write_tree()`，尚未进入 `run_domain()`；可写独立输出挂载是已验证的配置修复。
+- 修改 `MASTER_PLAN.md` 的 Stage 00 工程项、`learning/stages/00.md`、`learning/SOURCE_INDEX.md`、`learning/OFFICIAL_EVAL_AUDIT.md`、`learning/PROGRESS.md`、`README.md`，新增 `reports/stage00_demo_smoke.md`。保留旧时点快照与此前的未提交学习记录；没有修改官方源码。用户整章独立理解仍待明确确认，Stage 01 保持 LOCKED。
+- 下一任务：提交本轮 Stage 00 证据并准备一个供审阅的阶段 PR；不自动 Merge。

@@ -2,7 +2,7 @@
 
 An engineering project to reproduce Google Research Harness² and build an auditable evaluation workflow for coding agents. The central question is whether a harness change improves task outcomes **without hiding regressions, infrastructure failures, or extra cost**.
 
-> **Status (2026-10-30): Stage 00 in progress.** The official Harness² source is pinned as a submodule at commit `1cfe254e8d25b15f37048c3730134686abe60335`. Its deterministic local demo ran in an isolated Python 3.12 container with two ledger tasks and both recursion modes. The stage gate, public benchmark integration, custom evaluator modules, and model-backed experiments remain incomplete.
+> **Status (2026-10-31): Stage 00 in progress.** The official Harness² source is pinned as a submodule at commit `1cfe254e8d25b15f37048c3730134686abe60335`. Its deterministic local demo ran in an isolated Python 3.12 container with two ledger tasks and both recursion modes. Five official workflow tests passed; an unwritable output-path failure was reproduced. Stage review, public benchmark integration, custom evaluator modules, and model-backed experiments remain incomplete.
 
 ## Engineering scope
 
@@ -61,7 +61,7 @@ Development, validation, and locally un-tuned task sets will be separated. Small
 
 ## Implementation roadmap
 
-A stage is checked only after its required implementation and tests have evidence, its interview gate passes, and its PR is merged. The detailed [14-stage plan](MASTER_PLAN.md) and [current progress record](learning/PROGRESS.md) are the source of truth.
+A stage closes only after its required engineering evidence and user review are recorded, the user explicitly confirms progression, and its PR is verified merged. The detailed [14-stage plan](MASTER_PLAN.md) and [current progress record](learning/PROGRESS.md) are the source of truth.
 
 | Stage | Engineering milestone | Status |
 | --- | --- | --- |
@@ -100,7 +100,7 @@ Both commands exited with code 0 in the latest recorded Stage 00 check. The seco
 docker run --rm --network none --read-only --tmpfs /tmp:rw,noexec,nosuid,size=64m --security-opt no-new-privileges --cap-drop ALL --mount "type=bind,source=$((Get-Location).Path)\upstream\harness2,target=/src,readonly" --mount "type=bind,source=$((Get-Location).Path)\experiments,target=/out" -w /src -e PYTHONPATH=/src python:3.12-slim-trixie python -m harness2.cli.demo --output /out/raw_runs/stage00_demo_k1 --k 1 --mode both
 ```
 
-It exited 0. `experiments/raw_runs/stage00_demo_k1/demo.json` recorded `done=2`, `failed=0`, `execution_count=14`, and `editor_calls=16`. For `ledger-1`, the base execution returned `Total: 105.25` and the composed parallel final returned `Total: 85.15`; the sequential final also returned `85.15`. These are deterministic arithmetic and workflow observations, not coding-agent benchmark scores. Raw outputs are kept locally under ignored `experiments/raw_runs/`; the evidence summary is in [`learning/stages/00.md`](learning/stages/00.md).
+It exited 0. `experiments/raw_runs/stage00_demo_k1/demo.json` recorded `done=2`, `failed=0`, `execution_count=14`, and `editor_calls=16`. For `ledger-1`, the base execution returned `Total: 105.25` and the composed parallel final returned `Total: 85.15`; the sequential final also returned `85.15`. These are deterministic arithmetic and workflow observations, not coding-agent benchmark scores. The pinned upstream's `tests/test_workflow.py` also passed 5/5 tests in the same isolated Python 3.12 setup. An unwritable output path failed before scheduling as expected. Raw outputs are kept locally under ignored `experiments/raw_runs/`; commands, results, and limits are in [`reports/stage00_demo_smoke.md`](reports/stage00_demo_smoke.md).
 
 ## Experimental results
 
@@ -108,7 +108,7 @@ It exited 0. `experiments/raw_runs/stage00_demo_k1/demo.json` recorded `done=2`,
 
 ## Development, review, and attribution
 
-Stage 00 work is on [`stage-00-setup`](https://github.com/lyxnbclass/harness2-agent-evaluation/tree/stage-00-setup); the stage PR has not been created because its implementation and interview gate are incomplete. Each stage uses a dedicated branch and reviewable PR. After a stage PR is merged, this README must be updated with the verified milestone, implemented functions, tests, run commands, and results. Unfinished work remains labeled **Planned** or **In progress**.
+Stage 00 work is on [`stage-00-setup`](https://github.com/lyxnbclass/harness2-agent-evaluation/tree/stage-00-setup). Its completion PR has not been created. Each stage uses a dedicated branch and reviewable PR; PRs are not merged automatically. After a stage PR is merged, this README must be updated with the verified milestone, implemented functions, tests, run commands, and results. Unfinished work remains labeled **Planned** or **In progress**.
 
 Google Research Harness² is upstream work. The public benchmark and its native evaluator are separate upstream work. Project extensions under `experiments/` will be identified by their own code and test evidence. Development here is performed with Codex; the project owner reviews architecture, code behavior, failure analysis, and stage evidence. Contribution claims will follow those records rather than attributing generated code to the owner.
 
