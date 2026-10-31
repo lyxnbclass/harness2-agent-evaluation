@@ -208,3 +208,4 @@
 - OBSERVED：同环境把 Demo `--output` 指向只读 `/src/stage00_unwritable`，exit 1，`OSError: [Errno 30] Read-only file system`。首次偏离在 `DemoAdapter.__init__()` 的 `tree.write_tree()`，尚未进入 `run_domain()`；可写独立输出挂载是已验证的配置修复。
 - 修改 `MASTER_PLAN.md` 的 Stage 00 工程项、`learning/stages/00.md`、`learning/SOURCE_INDEX.md`、`learning/OFFICIAL_EVAL_AUDIT.md`、`learning/PROGRESS.md`、`README.md`，新增 `reports/stage00_demo_smoke.md`。保留旧时点快照与此前的未提交学习记录；没有修改官方源码。用户整章独立理解仍待明确确认，Stage 01 保持 LOCKED。
 - 下一任务：提交本轮 Stage 00 证据并准备一个供审阅的阶段 PR；不自动 Merge。
+- Stage 00 证据提交 `0a75912 test: document official stage 00 workflow checks` 已 Push。`gh pr create --draft --base main --head stage-00-setup` 创建 https://github.com/lyxnbclass/harness2-agent-evaluation/pull/1；`gh pr view 1` 核实 OPEN、DRAFT、MERGEABLE。未 Merge，Stage 01 仍 LOCKED。

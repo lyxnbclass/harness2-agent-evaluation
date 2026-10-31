@@ -108,7 +108,7 @@ It exited 0. `experiments/raw_runs/stage00_demo_k1/demo.json` recorded `done=2`,
 
 ## Development, review, and attribution
 
-Stage 00 work is on [`stage-00-setup`](https://github.com/lyxnbclass/harness2-agent-evaluation/tree/stage-00-setup). Its completion PR has not been created. Each stage uses a dedicated branch and reviewable PR; PRs are not merged automatically. After a stage PR is merged, this README must be updated with the verified milestone, implemented functions, tests, run commands, and results. Unfinished work remains labeled **Planned** or **In progress**.
+Stage 00 work is on [`stage-00-setup`](https://github.com/lyxnbclass/harness2-agent-evaluation/tree/stage-00-setup), with [draft PR #1](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/1) open for review. Each stage uses a dedicated branch and reviewable PR; PRs are not merged automatically. After a stage PR is merged, this README must be updated with the verified milestone, implemented functions, tests, run commands, and results. Unfinished work remains labeled **Planned** or **In progress**.
 
 Google Research Harness² is upstream work. The public benchmark and its native evaluator are separate upstream work. Project extensions under `experiments/` will be identified by their own code and test evidence. Development here is performed with Codex; the project owner reviews architecture, code behavior, failure analysis, and stage evidence. Contribution claims will follow those records rather than attributing generated code to the owner.
 
