@@ -1,26 +1,28 @@
 {
-  "schema_version": "2.0",
+  "schema_version": "4.0",
   "current_stage": "00",
-  "last_updated": "2026-10-30",
-  "note": "Stage 00 官方源码固定到 1cfe254e；隔离的无模型 Demo k=1/both 已退出 0，2 个账本任务 ok。六步教学与独立知识记录已建立；阶段测试/考核尚未完成，用户掌握未评估",
+  "last_updated": "2026-10-31",
+  "note": "Stage 00 in progress; chapter teaching uses qualitative feedback and user confirmation.",
   "stages": {
     "00": {
       "status": "IN_PROGRESS",
-      "gate": {
-        "concept_score": null,
-        "practical_score": null,
-        "diagnosis_score": null,
-        "communication_score": null,
-        "total_score": null,
-        "critical_errors": null,
-        "evaluation_record": null
-      },
-      "required_evidence": ["upstream/harness2 @ 1cfe254e8d25b15f37048c3730134686abe60335", "learning/SOURCE_INDEX.md", "learning/OFFICIAL_EVAL_AUDIT.md"],
+      "required_evidence": [
+        "upstream/harness2",
+        "learning/SOURCE_INDEX.md",
+        "learning/OFFICIAL_EVAL_AUDIT.md"
+      ],
       "user_approved_next": false,
-      "last_checked": "2026-10-30",
+      "last_checked": "2026-10-31",
       "github": {
         "branch": "stage-00-setup",
-        "important_commits": ["46ba3d2", "36c6eae", "7f5d5e1", "f7a0ae1", "0b1902d", "7dbb245"],
+        "important_commits": [
+          "46ba3d2",
+          "36c6eae",
+          "7f5d5e1",
+          "f7a0ae1",
+          "0b1902d",
+          "7dbb245"
+        ],
         "remote": "https://github.com/lyxnbclass/harness2-agent-evaluation.git",
         "pr_url": null,
         "pr_status": "NOT_CREATED",
@@ -32,198 +34,82 @@
     },
     "01": {
       "status": "LOCKED",
-      "gate": {
-        "concept_score": null,
-        "practical_score": null,
-        "diagnosis_score": null,
-        "communication_score": null,
-        "total_score": null,
-        "critical_errors": null,
-        "evaluation_record": null
-      },
       "required_evidence": [],
       "user_approved_next": false,
       "last_checked": null
     },
     "02": {
       "status": "LOCKED",
-      "gate": {
-        "concept_score": null,
-        "practical_score": null,
-        "diagnosis_score": null,
-        "communication_score": null,
-        "total_score": null,
-        "critical_errors": null,
-        "evaluation_record": null
-      },
       "required_evidence": [],
       "user_approved_next": false,
       "last_checked": null
     },
     "03": {
       "status": "LOCKED",
-      "gate": {
-        "concept_score": null,
-        "practical_score": null,
-        "diagnosis_score": null,
-        "communication_score": null,
-        "total_score": null,
-        "critical_errors": null,
-        "evaluation_record": null
-      },
       "required_evidence": [],
       "user_approved_next": false,
       "last_checked": null
     },
     "04": {
       "status": "LOCKED",
-      "gate": {
-        "concept_score": null,
-        "practical_score": null,
-        "diagnosis_score": null,
-        "communication_score": null,
-        "total_score": null,
-        "critical_errors": null,
-        "evaluation_record": null
-      },
       "required_evidence": [],
       "user_approved_next": false,
       "last_checked": null
     },
     "05": {
       "status": "LOCKED",
-      "gate": {
-        "concept_score": null,
-        "practical_score": null,
-        "diagnosis_score": null,
-        "communication_score": null,
-        "total_score": null,
-        "critical_errors": null,
-        "evaluation_record": null
-      },
       "required_evidence": [],
       "user_approved_next": false,
       "last_checked": null
     },
     "06": {
       "status": "LOCKED",
-      "gate": {
-        "concept_score": null,
-        "practical_score": null,
-        "diagnosis_score": null,
-        "communication_score": null,
-        "total_score": null,
-        "critical_errors": null,
-        "evaluation_record": null
-      },
       "required_evidence": [],
       "user_approved_next": false,
       "last_checked": null
     },
     "07": {
       "status": "LOCKED",
-      "gate": {
-        "concept_score": null,
-        "practical_score": null,
-        "diagnosis_score": null,
-        "communication_score": null,
-        "total_score": null,
-        "critical_errors": null,
-        "evaluation_record": null
-      },
       "required_evidence": [],
       "user_approved_next": false,
       "last_checked": null
     },
     "08": {
       "status": "LOCKED",
-      "gate": {
-        "concept_score": null,
-        "practical_score": null,
-        "diagnosis_score": null,
-        "communication_score": null,
-        "total_score": null,
-        "critical_errors": null,
-        "evaluation_record": null
-      },
       "required_evidence": [],
       "user_approved_next": false,
       "last_checked": null
     },
     "09": {
       "status": "LOCKED",
-      "gate": {
-        "concept_score": null,
-        "practical_score": null,
-        "diagnosis_score": null,
-        "communication_score": null,
-        "total_score": null,
-        "critical_errors": null,
-        "evaluation_record": null
-      },
       "required_evidence": [],
       "user_approved_next": false,
       "last_checked": null
     },
     "10": {
       "status": "LOCKED",
-      "gate": {
-        "concept_score": null,
-        "practical_score": null,
-        "diagnosis_score": null,
-        "communication_score": null,
-        "total_score": null,
-        "critical_errors": null,
-        "evaluation_record": null
-      },
       "required_evidence": [],
       "user_approved_next": false,
       "last_checked": null
     },
     "11": {
       "status": "LOCKED",
-      "gate": {
-        "concept_score": null,
-        "practical_score": null,
-        "diagnosis_score": null,
-        "communication_score": null,
-        "total_score": null,
-        "critical_errors": null,
-        "evaluation_record": null
-      },
       "required_evidence": [],
       "user_approved_next": false,
       "last_checked": null
     },
     "12": {
       "status": "LOCKED",
-      "gate": {
-        "concept_score": null,
-        "practical_score": null,
-        "diagnosis_score": null,
-        "communication_score": null,
-        "total_score": null,
-        "critical_errors": null,
-        "evaluation_record": null
-      },
       "required_evidence": [],
       "user_approved_next": false,
       "last_checked": null
     },
     "13": {
       "status": "LOCKED",
-      "gate": {
-        "concept_score": null,
-        "practical_score": null,
-        "diagnosis_score": null,
-        "communication_score": null,
-        "total_score": null,
-        "critical_errors": null,
-        "evaluation_record": null
-      },
       "required_evidence": [],
       "user_approved_next": false,
       "last_checked": null
     }
-  }
+  },
+  "current_chapter": "00: 官方无模型 Demo 完整执行链路"
 }

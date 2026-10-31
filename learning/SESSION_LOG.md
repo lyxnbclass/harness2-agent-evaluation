@@ -11,7 +11,7 @@
 - **代码变更（Codex 实现 / 用户独立设计、审查或验收）**：
 - **实际命令、退出码、日志与证据路径**：
 - **新获得的概念理解（仅实际被考核的）**：
-- **面试题、独立回答与得分**：
+- **面试题、独立回答与定性反馈**：
 - **误区和变式复测要求**：
 - **阻塞 / 未执行 / API 预算与授权**：
 - **更新过的记录文件**：
@@ -157,3 +157,37 @@
 - **记录与掌握**：更新 `learning/KNOWLEDGE_MASTERY.md`、`MASTERY_MATRIX.md`、`MISTAKES.md`、`PROGRESS.md`、本日志。DemoAdapter 子点暂 L1，路径新变式待答；正式 Gate 未考。未改官方源码或重跑模型/Benchmark。
 - **下一唯一任务**：让用户独立分析 `execute('ledger-2', None, 'review-b')` 的脚本、CSV 与完整产物路径，再按回答决定是否进入 `run_domain()`。
 - **GitHub/批准**：Stage 00 IN_PROGRESS，无 PR，无 Stage 01 批准。
+
+### 2026-10-31 | Session 14 | Stage 00
+
+- **当前任务**：核对学习状态并开始 Stage 00 官方无模型 Demo 的完整链路学习；用户验收点是独立解释源码与产物之间的数据流和边界。
+- **实际修改文件**：`learning/PROGRESS.md`、`learning/stage_status.json`、`learning/KNOWLEDGE_MASTERY.md`、`learning/MASTERY_MATRIX.md`、`learning/SESSION_LOG.md`、`learning/gates/00.md`、`learning/stages/00.md`。未改官方源码或自研代码。
+- **命令与真实输出**：本地沙箱启动失败后，使用只读 PowerShell 核对；`git -C upstream/harness2 rev-parse HEAD` 为 `1cfe254e8d25b15f37048c3730134686abe60335`，工作树无改动；`demo.json` 实存，2 done/0 failed/14 executions/16 scripted editor calls；`gh pr list --head stage-00-setup --state all --json ...` 返回 `[]`；`gh auth status` 有效；`python scripts/resume.py`、`python scripts/check_workspace.py` 退出 0（记录修改前）。
+- **学习/问答**：复核完整官方调用链、`selection.json`、`EXPERIENCE.md`、真实答案和轨迹并讲解。用户独立正确说明 `task_id`/`harness_dir`/`run_id` 与基线漏算负数；误把 `if amount > 0` 称为 `domain>0`，已纠正。对选择时序不确定，但指出仅有产物不等于评分；超时定位表示不知道，Codex 补讲。完整链路仍待验证，正式 Gate 未考、无分数。
+- **阻塞与状态**：无模型运行需求；Stage 00 仍 `IN_PROGRESS`，Stage 01 未获批准，正式 PR 未建。工作树有既存多处未提交改动；`learning/stages/00.md` 早期历史表述与较新证据冲突，待整理。
+- **追加故障演示**：隔离 Docker Python 3.12、无网络、只读官方源码，`DemoAdapter.execute('ledger-1', None, 'timeout-probe', timeout=1e-9)` 实际抛 `TimeoutExpired`；目录存在、答案与轨迹文件不存在。探针捕获异常，容器退出 0。详见 `learning/stages/00.md`。
+- **下一唯一任务**：让用户用新场景解释 `k=1` 选择时序及超时故障的异常/产物证据，再继续完整链路。
+
+#### 同日后续：选择边界与 Scheduler 链路
+
+- **用户指令**：要求 Codex 直接讲解两道待答题并进入 Stage 00 下一步教学；没有独立答题，也没有批准进入 Stage 01。
+- **源码/产物复核**：官方 `core/selection.py:selection_pool/_render_pool/trivial_selection`、`core/schedule.py:run_domain/run_task/_merged_status`、Demo `delivered()` 与 `state_deliverable=False`；读到两题 `summary.json` 均 `ok`，总 `demo.json` 为 2 done/0 failed；首题库数 0/0、次题 1/1，次题基线/agg final 为 35.50/20.25。未新运行模型或 Demo。
+- **教学与掌握**：讲清错误答案文件仍可能通过交付检查、无交付的唯一 final 不可直接采用，及 Scheduler 的经验库传递和汇总状态。均为 Codex 讲解，用户独立理解仍待验证；正式 Gate 未考。
+- **实际修改**：更新 `learning/KNOWLEDGE_MASTERY.md`、`learning/PROGRESS.md`、`learning/SESSION_LOG.md`、`learning/gates/00.md`；不改官方源码。
+- **下一唯一任务**：用户据真实 `summary.json/demo.json` 独立分析经验传递、状态计数和评测边界。
+
+#### 同日后续：直接讲解 Scheduler 三题并进入模式对比
+
+- **用户指令与考核边界**：要求 Codex 直接讲解三道待答题，随后继续 Stage 00，并询问何时能进入下一阶段。三题均由 Codex 给出答案，没有用户独立答题；正式 Gate 仍未开始。
+- **源码/产物**：复核官方固定 SHA `1cfe254e…` 的 `core/recursion.py:run_parallel/run_sequential/run_mode`、`core/selection.py:selection_pool`，及 `ledger-1` agg/seq 的真实 `summary.json`、`selection.json`、`answer.txt`。两模式 final 为 `agg1`/`c1`，答案均 85.15；共享基线使两题合计 14 次本地执行。`k>1` 只作源码推演。
+- **掌握/限制**：Codex 讲解经验库计数、`ok` 边界、`partial` 汇总，以及并行/顺序模式。用户独立理解待验证；无模型 Benchmark 运行。正式 Gate 尚缺核心代码与测试、用户故障/Trace 分析和完整无提示面试；Stage 00 PR 未建。
+- **记录修改**：`learning/KNOWLEDGE_MASTERY.md`、`learning/PROGRESS.md`、`learning/SESSION_LOG.md`、`learning/gates/00.md`；未改官方源码。
+- **下一唯一任务**：用户解释两模式、共享基线与评测边界，同时 Codex 处理 Stage 00 剩余工程证据。
+
+### 2026-10-31 | 教学规范正式重构 | Stage 00
+
+- 用户保持最终工程目标，要求教学改为七部分整章讲解、集中思考题、定性反馈和本人确认推进；取消固定评分、追问、补考与逐文件 Gate 更新。本轮未获得进入 Stage 01 的确认。
+- 核实：`stage-00-setup` 追踪 `origin/stage-00-setup`，HEAD `039dc45`；本轮开始已有多份未提交改动，先检查差异再编辑。`gh auth status` 有效，`gh pr list --head stage-00-setup --state all` 返回 `[]`；官方 SHA `1cfe254e8d25b15f37048c3730134686abe60335`。`experiments/raw_runs/stage00_demo_k1/demo.json` 实存，2 done / 0 failed / 14 executions / 16 scripted editor calls。
+- 本轮改动：替换 `AGENTS.md` 旧教学/Gate 条款；同步 `MASTER_PLAN.md` 的章节地图、`CODEX_START_PROMPT.md`、`START_HERE.md`、`PROJECT_DELIVERABLES.md`；简化 `learning/PROGRESS.md`、`MASTERY_MATRIX.md`、`stage_status.json`（schema 4.0），调整 `scripts/resume.py`、`scripts/check_workspace.py`。历史 Gate、详细知识记录和此前运行证据保留；未改官方源码或自研模块。
+- 验证：`python scripts/resume.py` 退出 0；`python scripts/check_workspace.py` 退出 0，仅证实记录一致；`git diff --check` 退出 0（有换行提示）；未重新运行 Demo、Benchmark 或模型调用。
+- 理解：此前局部输入/产物/参数理解保留；本轮尚无新的用户技术回答，整章理解待确认。下一内容是用户集中回答 Stage 00 官方 Demo 完整链路的章节思考题，Codex 再定点反馈并继续 Stage 00 工程证据。

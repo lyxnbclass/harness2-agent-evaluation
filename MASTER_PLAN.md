@@ -1,9 +1,9 @@
-# Harness² 官方复现 + 公开 Coding Benchmark + Agent 评测与回归 + 面试通关计划（开发者负责实现版 v3.1）
+# Harness² 官方复现 + 公开 Coding Benchmark + Agent 评测与回归 + 面试学习计划（v4.0）
 
 > 最终可验证项目：**Harness²: Evaluation-Driven Self-Improving Coding Agent**。
 > 源码复现基于 Google Research Harness²；第三方公开 Coding Benchmark 优先 SWE-bench；个人代码补上评测器、数据/Trace 统计、Regression Gate 和长期记忆实验。
 > 本计划从旧版 12 个阶段演进为 14 个阶段；阶段编号 00–13。**这不是用户已经完成的项目**，实际完成状态必须以 `learning/PROGRESS.md` + Git/日志证据为准。
-> 建议 12–16 周，每周 8–12 小时，仅是自主安排参考。**按通过率而非时间推进**。资料地址见 `START_HERE.md`。
+> 时间仅作自主安排参考。**按真实工程证据、完整链路理解与定性阶段验收推进**，避免在普通细节上停滞。资料地址见 `START_HERE.md`。
 
 ## A. 最终目标 / 五个必须会回答的问题
 
@@ -22,32 +22,28 @@
 
 **核心理论：** Agent Loop/Runtime/Harness/Executor、Tool Schema、FakeModel、Success Rate、Pass@k/Pass@1、Trajectory Evaluation、LLM-as-a-Judge、Bad Case、Ground Truth、PPC、Parallel/Sequential、Reflection、Memory Retrieval/Conflict/Staleness/Poisoning、Retry/Idempotency/Timeout、CI、Docker/Sandbox/Cost。
 
-## B. 工作方式：固定循环
+## B. 工程与教学循环
 
-每个阶段必须执行 **Trace → Implement → Inject Failure → Test → Teach → Interview Gate → Record**：
+每个阶段完成 **Trace → Implement → Inject Failure → Test → Teach → Review → Record**，相邻章节如重复可合并讲解，但必做工程任务不删：
 
 1. **Trace：** Codex 在已 checkout 的官方源码中定位入口、函数、参数、返回、异常；记录 `commit SHA:path:function`。没有源码就标记 NOT_VERIFIED。
 2. **Implement：** Codex 编写/修改当前阶段的核心逻辑，配置环境并运行命令；用户负责阅读、理解、分析和验收，记录真实代码作者与用户的独立分析贡献。
 3. **Inject Failure：** Codex 安全地制造或选择一个失败，保存 trace；用户根据证据解释首次偏离、根因和可证伪假设，Codex 完成修复和验证。
 4. **Test：** Codex 保存命令、真实 exit code、日志路径、样本数量、PASS/FAIL/BLOCKED 结果。
-5. **Teach：** 每个知识点按 `AGENTS.md` 六步教学：为什么学 → ASCII 调用/数据流图 → 固定 SHA 的关键源码片段逐段讲解 → Codex 运行并把真实输入、中间值、Trace/产物逐项对应到代码 → 工程权衡与面试口述 → 理解检查。不能用函数路径清单或纯概念解释代替代码实现讲解。Python 基础先讲小例子；一节只讲一个核心功能。缺真实运行时标 BLOCKED，待补演示后再考该执行细节。独立掌握证据写 `learning/KNOWLEDGE_MASTERY.md`，不得从代码通过测试推断用户等级。
-6. **Interview Gate：** 仅在阶段全部核心知识点完成上述系统教学、必须代码/测试/实验有真实证据后启动。至少 5 道新原理题、两道深入追问、一题真实代码阅读或 Trace 分析、一题故障定位或工程设计；分批提问，**该题在用户独立回答前不透露答案**，不要求用户手写完整程序。
-7. **Record：** 写进 `learning/gates/NN.md`、`MASTERY_MATRIX.md`、`MISTAKES.md`、`SESSION_LOG.md`、`PROGRESS.md`、`stage_status.json`；未经同意不开始下一阶段。
+5. **Teach：** 按 `AGENTS.md` 的七部分结构，一轮讲清当前章节的定义、作用、链路、ASCII 图、1–3 段关键源码、面试表达和 3–5 道集中思考题。基础语法即时解释；没有实测就标 `PROPOSED` 或 `BLOCKED`。
+6. **Review：** 用户集中回答后，Codex 定点反馈并改进面试表达；用户判断自己是否理解。章节继续不靠分数或固定追问。阶段收尾核对核心理解、工程必做项和 PR，等待用户明确确认进入下一 Stage。
+7. **Record：** 优先更新 `PROGRESS.md`、`MASTERY_MATRIX.md`、`stage_status.json`，必要时追加 `SESSION_LOG.md` 与实际工程证据；历史 Gate 文件保留，不再维护旧评分流程。
 
-### 评分制度（每阶段相同）
+### 阶段验收（无分数）
 
-| 维度 | 满分 | 必须有的证据 |
-|---|---:|---|
-| 概念准确性与原理理解 | 40 | ≥5 道无提示问答，能说出条件与反例 |
-| 代码与 Trace 理解 | 35 | 当场阅读真实函数、解释调用链和数据流，分析给定 Trace；Codex 执行代码与测试 |
-| 故障诊断与设计权衡 | 15 | 失败定位 → 方案 → 副作用 → 验证 |
-| 表达与面试沟通 | 10 | 独立解释项目动机、选择、证据与限制 |
+| 维度 | 定性通过证据 |
+|---|---|
+| 概念与原理 | 独立解释核心术语、适用条件和重要反例 |
+| 代码与 Trace | 当场追踪真实入口、关键参数/返回、数据流和产物，解释一次执行行为 |
+| 故障与设计 | 指出首次偏离、根因假设、验证办法及方案权衡 |
+| 面试表达 | 清楚说明项目动机、自己的真实贡献、运行证据和限制 |
 
-**通过门槛：** 总分 ≥80；概念≥30/40；代码/Trace 理解≥28/35；没有关键的安全/数据泄漏/评分误区；必做代码和实验产物有可核验证据。答错题要用**变式题**复测。用户须依据真实代码/Trace 独立解释，不能只复述教学示范；手写代码与亲自配置环境不是门槛。
-
-通过后写入 `PASSED_AWAITING_USER` 并问用户是否批准进入下一阶段。只有获得“进入下一阶段”的明确指令，更新为 `COMPLETED` 并解锁下一阶段。未通过不得自动解锁；`BLOCKED` 表示受环境/授权约束，**不等于通过**。
-
-> 每次面试题的具体题目应根据真实源码和用户近期错误动态生成。每阶段列出的示例题是范围提示，**不是事先发给用户的标准答案**。
+上述维度用于指导反馈，不设固定题量或逐项达标分数。用户确认理解、必做代码/测试/实验有证据且关键安全或评测误解已澄清后，可准备阶段 PR。只有用户明确说“进入下一阶段”、阶段 PR 已核实合并后，才标记当前阶段 `COMPLETED` 并开启下一阶段。`BLOCKED` 不等于工程完成；历史 Gate 状态仅供查询。
 
 ### GitHub 阶段交付
 
@@ -56,6 +52,24 @@ Codex 负责本地 Git 初始化、远程仓库关联、每阶段独立 branch�
 根目录英文 `README.md` 是正式 GitHub 项目介绍。Stage PR 合并后，Codex 必须核实 `main` 并同步 README 的完成阶段、真实功能/代码路径、测试与运行命令、实验结果和限制；未实现项继续标 `Planned` / `In progress`。详见 `AGENTS.md` 的 README 持续维护规则。
 
 ## C. 阶段计划（00–13，必做）
+
+### 连贯的章节顺序
+
+阶段编号继续对应独立 Branch 和 PR；章节是教学单元，可以在同一 Stage 内连续讲解，也可把相邻重复内容合并讲。
+
+| 顺序 | 章节主线 | 对应 Stage | 面试落点 |
+|---|---|---|---|
+| 1 | 官方 Demo：输入、候选、执行、选择、经验与产物 | 00 | Harness 与 Runtime 的边界；Demo 不能证明 Benchmark 提升 |
+| 2 | 最小 Agent Runtime 与 Tool Calling | 01 | 状态循环、工具协议、异常与测试 |
+| 3 | 评测数据、Metrics、Trajectory 与 Bad Case | 02–03 | 分母、未评分、失败定位 |
+| 4 | Judge 可靠性与评测驱动优化 | 04–05 | 校准、Baseline、Ablation、回归与成本 |
+| 5 | 官方 PPC、Parallel/Sequential、Reflection 与评测审计 | 06–07 | 固定 SHA 的源码链路及真实官方判分边界 |
+| 6 | 公开 Coding Benchmark 原生评测与 Adapter | 08–09 | 隔离、Patch、评分权威和泄漏 |
+| 7 | 对照实验、回归门禁与报告 | 10、12 | 成对比较、退化、基础设施失败 |
+| 8 | 长期记忆与跨任务经验复用 | 11 | 检索、冲突、过期、污染及记忆评测 |
+| 9 | 项目复盘与技术面试 | 13 | 架构、真实贡献、证据与局限 |
+
+Stage 12 的工程扩展仍在 Stage 11 之后实施；表中的 Stage 10、12 仅表示知识关联，不改变阶段执行顺序。
 
 ### Stage 00｜开发环境、仓库溯源与官方 Demo（基础）
 **目标：** 划清官方 Harness²、模型、Harness、Executor、Benchmark、Evaluator 的职责。
@@ -70,7 +84,7 @@ Codex 负责本地 Git 初始化、远程仓库关联、每阶段独立 branch�
 - [ ] 画图解释 `CLI → Harness → Executor → task → artifact`，说明为什么跑通 Demo 不等于论文级复现。
 
 **用户验收任务：** 阅读 Codex 定位的一次 Demo 入口和一个真实输出文件，独立解释它们如何关联；源码定位和命令运行由 Codex 完成。
-**教学顺序：** 先用真实场景说明 Harness²、Harness 与自我改进的目标，以及无模型 Demo 的边界；再分别讲 `harness2-demo` 入口/`argparse`、`DemoAdapter`、`run_domain()`、本地执行与 Trajectory、修改前后和 `demo.json`。每小节遵循六步法并记录演示与掌握，不能只给调用链就提源码题。
+**教学顺序：** 按七部分结构一次贯通 `harness2-demo → main → DemoAdapter → run_domain/run_task → Proposer → execute/Trajectory → 选择/经验库 → demo.json`，结合真实输入、产物和源码；后续再按需深入高频机制，不按单个路径细节拆成多次考核。
 **故障注入：** 故意给错误的输出路径/依赖，读取异常并定位环境问题（不可删除用户文件）。
 **证据：** `learning/stages/00.md`、`learning/SOURCE_INDEX.md`、命令输出、git SHA、Demo 产物路径。
 **通关提问方向：** Harness vs Runtime；Codex 对话助手 vs Codex Executor；Demo vs model-backed run；Git SHA 的意义；环境失败和任务失败如何区分。
@@ -222,7 +236,7 @@ Codex 负责本地 Git 初始化、远程仓库关联、每阶段独立 branch�
 - [ ] 准备 30 秒概述、2 分钟架构讲解、5 分钟 Trace/Bad Case 分析，以及 10 分钟现场代码追踪。
 - [ ] 从真实报告填入：选用 Benchmark/样本数/Base vs Optimized/Regression/Unscored/运行成本/环境限制；没有证据的指标不能写简历。
 - [ ] 整理 30 道技术题及 10 道项目追问：Runtime/Harness/Tool/MCP、fake/model mocks、数据集/metrics、trajectory/Judge、PPC、评测泄漏、Retry、ablation、memory、个性化工程贡献。
-- [ ] 完成 **三轮独立面试**：基础概念、代码/调试、系统设计/项目深挖；每轮记录原回答、追问、得分和变式复测。
+- [ ] 围绕基础概念、代码/调试、系统设计/项目深挖完成模拟面试；按实际回答记录关键反馈，不设固定轮数或分数。
 - [ ] 对真实未解决的问题、数据集污染风险和项目局限做独立说明；最终 README 清晰区分 official replication / adapter / original contribution。
 **用户验收任务：** 在不查当前考题答案的情况下独立讲解架构，并定位评测器一个 bug、说明修复与验证思路；Codex 执行修改和测试。
 **证据：** `interview/`、最终 README（由用户与 Codex 实际生成）、`reports/final_report.md`、`learning/stages/13.md`。
@@ -242,13 +256,13 @@ README.md                      # 面向招聘人员的英文 GitHub 项目介绍
 MASTER_PLAN.md                 # 本计划，原始要求不可随意弱化
 CODEX_START_PROMPT.md          # 新会话引导
 learning/PROGRESS.md           # 人类可读的当前进度与下一唯一动作
-learning/stage_status.json     # 结构化阶段状态、审批与 gate 信息
-learning/MASTERY_MATRIX.md     # 关键能力掌握等级及证据
+learning/stage_status.json     # 结构化阶段状态与用户批准
+learning/MASTERY_MATRIX.md     # 关键链路的定性理解状态及证据
 learning/SESSION_LOG.md        # 会话事实日志（追加，不替换）
-learning/MISTAKES.md           # 错误、改进、变式复测
+learning/MISTAKES.md           # 历史关键误区与必要的纠正
 learning/SOURCE_INDEX.md       # 官方仓库 commit:path:function 真实定位
 learning/OFFICIAL_EVAL_AUDIT.md # 源码级盘点官方已有评测/回归能力
-learning/gates/NN.md           # 单阶段问题、用户回答、评分、补救、审批
+learning/gates/NN.md           # 历史 Gate 记录，必要时补充阶段验收证据
 learning/stages/NN.md          # 单阶段教学笔记与动手实践
 learning/decisions/ADR-*.md    # 方案选择与证据
 experiments/adapters/          # 公开 Benchmark Adapter（个人实现）
@@ -261,27 +275,17 @@ scripts/                        # 不花钱的本地状态检查工具
 upstream/harness2/              # 官方代码 checkout（后续完成）
 ```
 
-每次会话前 `python scripts/resume.py`，结束时 `python scripts/check_workspace.py`。新会话不依赖“你应该记得”；从**保存的文件 + 实际 git/日志证据**恢复。
+新会话优先读取进度和矩阵，再用实际 Git、代码与日志核对；`python scripts/resume.py`、`python scripts/check_workspace.py` 可辅助检查记录，不能替代理解或运行证据。
 
-**会话结束最少要写入：** 日期、当前阶段/status、做了的任务、Codex 代码与用户独立分析/验收的归属、测试命令与 PASS/FAIL/BLOCKED 结果、面试原回答摘要、掌握/薄弱点、变式复测需求、下次一个唯一动作、待用户批准事项。
+**会话结束最少记录：** 日期、当前章节与阶段、实际工程改动和验证、已讲/已确认理解/仍有疑问、Branch/PR、下次内容及待用户确认事项。重要命令和结果保留在工程记录或简短 Session Log；不重复抄写所有文件。
 
-**状态流：** `NOT_STARTED → IN_PROGRESS → READY_FOR_GATE → PASSED_AWAITING_USER → COMPLETED`，另有 `BLOCKED`。下一阶段从 `LOCKED → NOT_STARTED` 仅由用户明确批准后执行。
+**状态流：** `LOCKED → NOT_STARTED → IN_PROGRESS → COMPLETED`，另有 `BLOCKED`。历史 `READY_FOR_GATE` / `PASSED_AWAITING_USER` 可读但不再作为强制步骤；下一阶段仅在用户明确确认且上一阶段 PR 已核实合并后开启。
 
 **记录每次 Benchmark run 的最小 manifest：** upstream commit，adapter commit，benchmark commit/dataset version，任务 ID/筛选规则，模型 ID/温度（若可控），substrate/executor，harness diff，环境/网络限制，工具权限，seed，时间，token/成本/延迟，`resolved/failed/infra_error/unscored`，结果路径与完整命令，允许其他人复算。**不保存 API key**。
 
-## E. 新会话开场和阶段收尾协议（固定格式）
+## E. 新会话与章节收尾
 
-**开场报告（6 行内）：**
-- 当前 Stage / 状态：
-- 上次已验证的结果（文件/命令）：
-- 已掌握 / 未掌握：
-- 当前阻塞或需要确认的成本：
-- 本次唯一工程任务与用户验收点：
-- 本轮第一道复习问题：
-
-**考核前：** 根据当前 stage 和用户常错点生成 ≥5 道**新**原理题，分批提问，用户没回答当前题之前不透露该题答案；至少两道追问、一道真实代码/Trace 题、一道故障定位/设计题。必须记录 score 和证据。不能因为用户说“懂了”就给 PASS，也不要求用户手写完整程序。
-
-**收尾：** 本阶段实际状态 + 哪些真实代码/运行结果支持 + 问答成绩/未考 + 新发现的错误 + 写入了哪些文件 + 下次唯一动作。若已通过，**停止并等待批准**，绝不自动进入下一阶段。
+开场简述当前章节/Stage、上次已验证证据、用户已确认理解与疑问、下一内容。每章按 `AGENTS.md` 七部分讲解并集中给 3–5 道无提示思考题。用户回答后定点反馈；无需数字评分、固定追问或强制补考。收尾写入真实工程与学习状态。阶段结束仍等待用户确认，不自动进入下一阶段。
 
 ## F. 防止简历夸大的明确边界
 

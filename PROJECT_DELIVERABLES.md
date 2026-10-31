@@ -33,11 +33,11 @@
 - [ ] 一个原创扩展模块和可审计代码差异
 - [ ] Regression/消融验证与局限说明
 
-## 5. 面试通关与进度管理
-- [ ] 14 阶段学习门禁记录 (`learning/gates/`)
-- [ ] 对真实薄弱项的变式复测记录 (`learning/MISTAKES.md`)
+## 5. 面试准备与进度管理
+- [ ] 14 阶段的工程证据与用户确认记录；历史 `learning/gates/` 保留供查阅
+- [ ] 对关键误区的针对性纠正记录 (`learning/MISTAKES.md`)
 - [ ] 每轮记录真实产出和下一唯一任务 (`learning/SESSION_LOG.md`)
-- [ ] 最终 30 秒/2 分钟/5 分钟讲解与三轮模拟面试
+- [ ] 最终 30 秒/2 分钟/5 分钟讲解，以及基础、代码/调试和系统设计模拟面试
 - [ ] README & 简历项目描述仅使用有证据的完成项
 
 **适合简历的结构（完成后再写）：** Google Harness² Reproduction + Public Coding Benchmark Adapter + Evaluation/Trajectory/Regression System + Measured Experiments + Original Engineering Contribution。
