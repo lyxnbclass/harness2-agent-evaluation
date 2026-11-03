@@ -225,3 +225,9 @@
 - OBSERVED：使用 `uv python find 3.12` 定位本机 Python 3.12，运行 `python -m experiments.toy_agent.demo` 退出 0，真实 JSON 轨迹为 Add 2 and 3 → add(2,3) → tool result 5 → final The sum is 5。`python -m unittest discover -s experiments/toy_agent -p test_runtime.py -v` 退出 0，6 tests OK，复跑耗时 0.157s。失败覆盖真实本地超时、未知工具、错误参数、依赖失败、步数上限与模型输出错误；无网络、付费模型或 Benchmark。
 - 教学边界：本轮代码由 Codex 编写，用户尚未独立阅读或回答。七部分讲解尚待输出，理解矩阵仍为“未讲”；不能从测试通过推断用户理解。下一内容为本章系统讲解和集中思考题。
 - Stage 01 实现提交 `98ca15c feat: add deterministic toy agent runtime` 已 Push 到 `origin/stage-01-runtime`；本阶段 PR NONE，用户代码阅读与理解仍待回答。
+
+### 2026-11-03 | Stage 01 章节讲解深度规则调整
+
+- 用户确认修改 `AGENTS.md`：七部分是章节组织框架，不是术语、函数、示例或篇幅上限；复杂内容须贯通真实输入、状态、关键函数、失败路径及面试追问。
+- 本轮只修改教学规则和此记录，未更改 Runtime、官方源码或测试。Stage 01 仍为 `IN_PROGRESS`，当前章节仍是最小 Agent Runtime 与 Tool Calling。
+- 本轮讲解将依据项目自研 `experiments/toy_agent/runtime.py` 与官方固定 SHA `1cfe254e8d25b15f37048c3730134686abe60335` 的真实接口边界；用户对 Stage 01 的理解尚待回答验证，不提前标为已理解。
