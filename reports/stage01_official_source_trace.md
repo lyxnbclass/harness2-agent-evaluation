@@ -17,6 +17,8 @@ This is a source audit plus a synthetic event-rendering probe. It is **not** a m
 
 In `render_events`, a parsed tool event with `state.input` and `state.output` becomes `[ACTION]` and `[OBSERVATION]`. If `state.status == "error"`, it becomes `[ACTION]` and `[OBSERVATION ERROR]`. This is **trajectory text**, not the benchmark's final task verdict. The exact model-side Tool Call generation and tool execution were not audited here.
 
+The pinned source also includes `third_party/lab_runner/opencode/session.py:parse` (line 28) and `to_transcript` (line 75). For a `part.type == "tool"` event, `parse` appends a dict with `name`, `input`, `output`, and `status` to `tool_calls: list[dict]`; `to_transcript` writes a `role="tool"` JSONL record with those fields. Both accept `state.status == "error"` as a recorded tool event. This is a second source-level view of one Tool Call's return structure and error state. It still reads events emitted by the external OpenCode process; it does not implement the model's tool decision or execute the tool itself.
+
 ## Observed synthetic renderer probe
 
 The following command uses artificial JSONL events only. It imports the pinned official `render_events`, writes a temporary file, asserts the exact output, and deletes the file on exit. No model, benchmark task, network call, or paid API runs.

@@ -13,6 +13,7 @@
 | Agent Executor | NOT_VERIFIED（真实模型执行器未审计） | | Demo 仅使用 `DemoAdapter.execute` 的本地子进程 | | 不得把本地 Demo 称为模型执行 |
 | Substrate execution boundary | `harness2/substrate/base.py:RunRequest/Substrate.execute`; `harness2/substrate/opencode.py:OpencodeSubstrate.execute` | `RunRequest`, `Substrate.execute`, `OpencodeSubstrate.execute` | Benchmark adapter provides launcher; substrate passes task_ref/run_ids/timeout and staged Install to it | `1cfe254e` | 源码已定位；真实 OpenCode/模型未运行 |
 | OpenCode tool-event rendering | `harness2/benchmarks/jobbench.py:JobBenchAdapter.trajectory`; `harness2/substrate/opencode.py:read_trajectory/render_events` | `trajectory`, `read_trajectory`, `render_events` | runner 捕获 JSONL → renderer 将 `tool/tool_use/tool_call` 事件转为 `[ACTION]` / `[OBSERVATION]`，错误状态转为 `[OBSERVATION ERROR]` | `1cfe254e` | 2026-11-04 人工合成两条事件的 renderer probe 通过；未运行真实 OpenCode，见 `reports/stage01_official_source_trace.md` |
+| OpenCode tool-event record | `third_party/lab_runner/opencode/session.py:parse/to_transcript` | `parse`, `to_transcript` | `part.type == "tool"` → `tool_calls` 摘要或 `role="tool"` JSONL，含 name/input/output/status；error 状态保留 | `1cfe254e` | 源码已核实；未运行真实 OpenCode，见 `reports/stage01_official_source_trace.md` |
 | Propose | NOT_VERIFIED | | | | |
 | Probe | NOT_VERIFIED | | | | |
 | Compose | NOT_VERIFIED | | | | |

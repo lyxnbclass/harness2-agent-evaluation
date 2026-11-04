@@ -66,7 +66,7 @@ A stage closes only after its required engineering evidence and user review are 
 | Stage | Engineering milestone | Status |
 | --- | --- | --- |
 | 00 | Environment, upstream revision, and official demo | **Completed:** [PR #1](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/1) merged; local Demo and 5 official tests verified |
-| 01 | Minimal agent runtime and tool calling | **In progress:** deterministic FakeModel loop, three local tools, input/output type checks, error paths and eight tests verified; user review pending |
+| 01 | Minimal agent runtime and tool calling | **Ready for PR review:** deterministic FakeModel loop, three local tools, input/output type checks, error paths and eight tests verified; model-backed execution remains unverified |
 | 02 | Dataset design and outcome metrics | Planned |
 | 03 | Trajectory validation and bad-case analysis | Planned |
 | 04 | Judge rubric, validation, and calibration | Planned |

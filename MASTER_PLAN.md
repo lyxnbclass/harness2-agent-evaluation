@@ -92,10 +92,10 @@ Stage 12 的工程扩展仍在 Stage 11 之后实施；表中的 Stage 10、12 �
 ### Stage 01｜Python 基础 + 最小 Agent Runtime（基础）
 **知识：** 函数、dict/list、类、JSON/JSONL、异常、pytest、Mock/Fake、同步/异步、状态机。
 **任务：**
-- [ ] Codex 用 20–50 行实现本地 Agent Loop：`FakeModel → tool_call → tool_result → FakeModel → final`，用户逐段阅读并解释。
+- [x] Codex 用 20–50 行实现本地 Agent Loop：`FakeModel → tool_call → tool_result → FakeModel → final`，用户逐段阅读并解释。`run_agent()` 主循环为 27 行（`runtime.py:86–112`）；用户已按章节问题解释主链路并选择推进，尚存的细节误区在学习记录中保留，不记为完整独立掌握。
 - [x] 设计 `run_tool(name,args)` 分发至少 3 个本地工具；输入输出 Schema 校验。实现为严格输入字段/类型及字符串输出类型检查，见 `experiments/toy_agent/runtime.py` 和 `test_runtime.py`。
 - [x] 添加 `max_steps` 防死循环，注入超时/未知工具/错误参数，并用单元测试证明被正确处理。2026-11-04 本地 8 项测试通过，见 `reports/stage01_runtime_contract_extension.md`。
-- [ ] 定位官方相关源代码中的一次工具调用、异常处理及返回结构，记录函数名与数据类型。当前已核实官方 adapter/substrate/launcher 及工具事件渲染边界，见 `reports/stage01_official_source_trace.md`；真实模型内的工具执行仍未核实。
+- [x] 定位官方相关源代码中的一次工具调用、异常处理及返回结构，记录函数名与数据类型。已核实 `OpencodeSubstrate.execute` 的 launcher 边界、`render_events` 的工具错误分支、`session.py:parse/to_transcript` 的 name/input/output/status 结构，见 `reports/stage01_official_source_trace.md`；真实模型内的工具执行未运行，后续阶段继续审计。
 **用户验收任务：** 阅读 Codex 实现的工具路由函数和一个失败单测，解释参数、返回、分支与失败原因；Codex 负责修改与运行。
 **证据：** `experiments/toy_agent/`、测试日志、`learning/stages/01.md`。
 **通关方向：** 谁决定工具调用？tool call/result 如何进消息？为何用 FakeModel？retry 的副作用？`max_steps` 何时触发？

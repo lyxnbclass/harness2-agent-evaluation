@@ -1,6 +1,6 @@
 # 章节理解矩阵（按实际回答更新）
 
-当前章节：Stage 01「最小 Agent Runtime 与 Tool Calling」。定性状态：`未讲 / 已讲待验证 / 已理解 / 需补充`。不评分。用户已明确选择进入 Stage 01；Stage 00 的局部理解证据保留，完整五题由 Codex 讲解，仍不记为用户独立回答。历史细节见 `learning/KNOWLEDGE_MASTERY.md`。
+当前章节：Stage 01「最小 Agent Runtime 与 Tool Calling」。定性状态：`未讲 / 已讲待验证 / 已理解 / 需补充`。不评分。用户已明确选择在阶段 PR 合并后进入 Stage 02；Stage 01 的未完全独立解释项保留后续复习，阶段推进不改写为全面掌握。Stage 00 的局部理解证据保留，完整五题由 Codex 讲解，仍不记为用户独立回答。历史细节见 `learning/KNOWLEDGE_MASTERY.md`。
 
 | 知识点 | 对应阶段 | 当前理解状态 | 最近回答/证据 | 关键薄弱点/后续复习 |
 |---|---|---|---|---|

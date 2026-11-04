@@ -258,3 +258,10 @@
 
 - 用户回答：工具结果为 `5`，但达到最大步数，Runtime 不能再校验 Tool Result 并写入 answer。其对“无第二次模型决策”的理解正确；“不能再校验 Tool Result”不符源码。实际 `run_tool()` 先校验输出，`run_agent()` 把结果写入 Trace，然后循环耗尽并返回 `RunResult("max_steps", None, trace)`；没有模型 `final`。
 - 本轮核对 `experiments/toy_agent/runtime.py:86–112`、学习记录和 GitHub：起始工作树 clean，分支 `stage-01-runtime`，登录有效，Stage 01 PR 为 NONE。未修改代码、未重跑测试；原 8 项测试证据仍是上轮结果。Stage 01 仍 `IN_PROGRESS`，下一内容是区分 `max_steps` 与 `invalid_tool_result` 两种失败时序。
+
+### 2026-11-04 | 用户确认推进 Stage 02，Stage 01 PR 准备
+
+- 用户指出“下一步不是开始stage2嘛”；这是明确的阶段推进意向。此前 Codex 将“下一步”解释为继续 Stage 01 细节，现纠正；不继续制造固定追问。用户 Stage 01 的答案、误区与定点纠正保留，未声称全面独立掌握。
+- 核实：工作树起始 clean；`gh pr list --head stage-01-runtime --state all` 为 `[]`；`origin/main` 是 Stage 01 分支祖先；官方子模块 clean。PR 前复跑本地 Python 3.12 Runtime 测试 8 项通过（0.103s）、Demo 退出 0、`scripts/check_workspace.py` 退出 0。没有模型付费调用或 Benchmark 成绩。
+- SOURCE-VERIFIED：补充 `third_party/lab_runner/opencode/session.py:parse/to_transcript` 的工具事件 name/input/output/status 结构及 error 状态处理。该源码只读取外部 OpenCode 事件，不证明内部工具执行或任务解答。
+- 更新 Stage 01 学习状态为“用户同意下一 Stage、PR 尚待合并”。下一动作是建立 Stage 01 PR 供用户审阅；不自动 Merge。只有核实 PR 正确合并到 `main` 后才创建 Stage 02 分支并授课。

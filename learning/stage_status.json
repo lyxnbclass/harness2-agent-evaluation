@@ -2,7 +2,7 @@
   "schema_version": "4.0",
   "current_stage": "01",
   "last_updated": "2026-11-04",
-  "note": "Stage 01 local tool input/output schemas and step-budget counterexample verified by 8 tests. User review and actual official model tool-call trace remain pending; no Stage 01 PR.",
+  "note": "Stage 01 engineering checks passed and user explicitly chose Stage 02 progression. Stage 01 PR review/merge is required first; source-level tool events verified, model-backed execution unverified.",
   "stages": {
     "00": {
       "status": "COMPLETED",
@@ -43,7 +43,7 @@
         "reports/stage01_official_source_trace.md",
         "learning/stages/01.md"
       ],
-      "user_approved_next": false,
+      "user_approved_next": true,
       "last_checked": "2026-11-04",
       "github": {
         "branch": "stage-01-runtime",
