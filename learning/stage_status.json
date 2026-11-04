@@ -2,7 +2,7 @@
   "schema_version": "4.0",
   "current_stage": "01",
   "last_updated": "2026-11-04",
-  "note": "Stage 01 chapter taught; user answered five questions with partial understanding. Trace timing, max_steps, schema enforcement and official substrate boundary need targeted clarification. Stage 01 PR not created.",
+  "note": "Stage 01 chapter taught; user answered five questions with partial understanding. Official JobBench/OpenCode source trace and synthetic renderer probe recorded; real model run remains unverified. Stage 01 PR not created.",
   "stages": {
     "00": {
       "status": "COMPLETED",
@@ -37,7 +37,12 @@
     },
     "01": {
       "status": "IN_PROGRESS",
-      "required_evidence": [],
+      "required_evidence": [
+        "experiments/toy_agent/runtime.py",
+        "reports/stage01_runtime_smoke.md",
+        "reports/stage01_official_source_trace.md",
+        "learning/stages/01.md"
+      ],
       "user_approved_next": false,
       "last_checked": "2026-11-04",
       "github": {

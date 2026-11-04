@@ -237,3 +237,11 @@
 - 用户集中回答五题：正确描述 `add` 工具调用、Schema 校验、工具结果回传，以及 Tool Call 由模型提出；理解 FakeModel 使用预设决策。
 - 待纠正：第二次 `FakeModel.next()` 只看到 user、assistant tool_call、tool result 三条消息，第四条 final 尚未追加；`max_steps=1` 且首步是工具调用时返回 `max_steps`、`answer=None`；Schema 由 Runtime 强制校验而非依赖模型自检；官方 substrate 与项目自研 `run_agent()` 的边界尚不能独立说明。
 - 核实：工作树起始 clean，分支 `stage-01-runtime` 追踪 `origin/stage-01-runtime`，GitHub 登录有效，`gh pr list --head stage-01-runtime --state all` 为 `[]`。本轮无 Runtime 代码或测试修改，也未重新运行测试。Stage 01 保持 `IN_PROGRESS`，下一内容为定点补讲和官方源码追踪。
+
+### 2026-11-04 | Stage 01 官方执行与工具事件源码追踪
+
+- 用户指令“推送然后进入下一步”。核实远端 `origin/stage-01-runtime` 为 `210501954370e69f26945a3dbeed94b8d22cfa06`，与本地 HEAD 一致；当前工作树 clean，Stage 01 PR `[]`。此指令不解释为进入 Stage 02。
+- SOURCE-VERIFIED：固定官方 SHA `1cfe254e8d25b15f37048c3730134686abe60335`；`JobBenchAdapter.execute` → `OpencodeSubstrate.execute` → `RunRequest` → JobBench `_launch_opencode` → `jb_opencode_runner.py:_attempt` → JSONL → `render_events`。核对参数/返回类型、缺 launcher、runner 超时、无产物未标完成及工具事件错误渲染；详见 `reports/stage01_official_source_trace.md`。
+- OBSERVED：用人工合成两条 JSONL 工具事件导入官方 `render_events`，正常事件得到 `[ACTION]`/`[OBSERVATION]`，错误状态得到 `[OBSERVATION ERROR]`；精确断言通过、退出 0。未运行真实 OpenCode、Benchmark 或模型；合成事件不证明真实事件格式或任务成功。
+- 导入官方 Python 模块产生的未跟踪 `__pycache__` 仅含 `.pyc`；核对目标路径位于本阶段子模块内后清理，未修改官方跟踪文件。报告中的复现脚本设置 `sys.dont_write_bytecode = True`，避免再产生缓存。
+- 更新 `learning/stages/01.md`、`SOURCE_INDEX.md`、`PROGRESS.md`、`stage_status.json` 与 `MASTER_PLAN.md` 的 Stage 01 官方源码追踪项；没有修改上游或教学 Runtime。下一内容是本地失败单测、输出契约及用户对官方边界的理解确认，Stage 01 仍 `IN_PROGRESS`。
