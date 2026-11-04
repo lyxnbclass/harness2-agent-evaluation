@@ -36,6 +36,21 @@ class RuntimeTests(unittest.TestCase):
         ]))
         self.assertEqual(result.status, "unknown_tool")
         self.assertIn("unknown tool", result.trace[-1]["error"])
+        bad_name = run_agent("bad name", FakeModel([
+            {"type": "tool_call", "name": [], "args": {}}
+        ]))
+        self.assertEqual(bad_name.status, "invalid_args")
+
+    def test_invalid_tool_output_is_not_forwarded_to_model(self):
+        model = FakeModel([
+            {"type": "tool_call", "name": "add", "args": {"a": 2, "b": 3}},
+            {"type": "final", "answer": "The sum is 5"},
+        ])
+        with patch("experiments.toy_agent.runtime._execute_tool", return_value=5):
+            result = run_agent("Add 2 and 3", model)
+        self.assertEqual((result.status, result.answer), ("invalid_tool_result", None))
+        self.assertEqual(len(model.seen), 1)
+        self.assertIn("returned int; expected str", result.trace[-1]["error"])
 
     def test_actual_timeout_is_reported(self):
         result = run_agent("wait", FakeModel([
@@ -58,6 +73,17 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual(run_agent("empty", FakeModel([])).status, "model_exhausted")
         self.assertEqual(run_agent("invalid", FakeModel([{"type": "final", "answer": 7}])).status,
                          "invalid_model_output")
+
+    def test_one_step_stops_after_tool_result_without_final_answer(self):
+        model = FakeModel([
+            {"type": "tool_call", "name": "add", "args": {"a": 2, "b": 3}},
+            {"type": "final", "answer": "The sum is 5"},
+        ])
+        result = run_agent("Add 2 and 3", model, max_steps=1)
+        self.assertEqual((result.status, result.answer), ("max_steps", None))
+        self.assertEqual(len(result.trace), 3)
+        self.assertEqual(result.trace[-1], {"role": "tool", "name": "add", "content": "5"})
+        self.assertEqual(len(model.seen), 1)
 
 
 if __name__ == "__main__":

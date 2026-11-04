@@ -12,24 +12,39 @@ class ToolError(Exception):
 
 
 SCHEMAS = {
-    "add": {"a": int, "b": int},
-    "uppercase": {"text": str},
-    "delay": {"seconds": int},
+    "add": {"args": {"a": int, "b": int}, "output": str},
+    "uppercase": {"args": {"text": str}, "output": str},
+    "delay": {"args": {"seconds": int}, "output": str},
 }
 
 
 def run_tool(name: str, args: dict, *, timeout: float = 1.0) -> str:
+    if not isinstance(name, str):
+        raise ToolError("invalid_args", "tool name must be a string")
     schema = SCHEMAS.get(name)
     if schema is None:
         raise ToolError("unknown_tool", f"unknown tool: {name}")
-    if not isinstance(args, dict) or set(args) != set(schema):
-        raise ToolError("invalid_args", f"{name} expects {sorted(schema)}")
-    if any(type(args[key]) is not kind for key, kind in schema.items()):
+    expected_args = schema["args"]
+    if not isinstance(args, dict) or set(args) != set(expected_args):
+        raise ToolError("invalid_args", f"{name} expects {sorted(expected_args)}")
+    if any(type(args[key]) is not kind for key, kind in expected_args.items()):
         raise ToolError("invalid_args", f"{name} argument types do not match schema")
+    output = _execute_tool(name, args, timeout=timeout)
+    if type(output) is not schema["output"]:
+        raise ToolError(
+            "invalid_tool_result",
+            f"{name} returned {type(output).__name__}; expected {schema['output'].__name__}",
+        )
+    return output
+
+
+def _execute_tool(name: str, args: dict, *, timeout: float) -> str:
     if name == "add":
         return str(args["a"] + args["b"])
     if name == "uppercase":
         return args["text"].upper()
+    if name != "delay":
+        raise ToolError("tool_error", f"no executor for {name}")
     seconds = args["seconds"]
     if not 0 <= seconds <= 5:
         raise ToolError("invalid_args", "delay seconds must be between 0 and 5")
