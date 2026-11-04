@@ -265,3 +265,4 @@
 - 核实：工作树起始 clean；`gh pr list --head stage-01-runtime --state all` 为 `[]`；`origin/main` 是 Stage 01 分支祖先；官方子模块 clean。PR 前复跑本地 Python 3.12 Runtime 测试 8 项通过（0.103s）、Demo 退出 0、`scripts/check_workspace.py` 退出 0。没有模型付费调用或 Benchmark 成绩。
 - SOURCE-VERIFIED：补充 `third_party/lab_runner/opencode/session.py:parse/to_transcript` 的工具事件 name/input/output/status 结构及 error 状态处理。该源码只读取外部 OpenCode 事件，不证明内部工具执行或任务解答。
 - 更新 Stage 01 学习状态为“用户同意下一 Stage、PR 尚待合并”。下一动作是建立 Stage 01 PR 供用户审阅；不自动 Merge。只有核实 PR 正确合并到 `main` 后才创建 Stage 02 分支并授课。
+- 首次 `gh pr create` 因 GitHub API 连接超时未完成；查询 `gh pr list --head stage-01-runtime --state all` 仍为 `[]` 后重试，成功创建 https://github.com/lyxnbclass/harness2-agent-evaluation/pull/2。已核实 base `main`、head `stage-01-runtime`、OPEN、非 Draft、MERGEABLE、`mergedAt=null`；未执行 Merge。PR 正文包含实现、真实测试、合成事件 probe 与未验证边界。
