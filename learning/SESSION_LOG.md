@@ -253,3 +253,8 @@
 - 新增两个有针对性的单测：注入整数工具输出会终止且不进入第二轮模型决策；`max_steps=1` 时工具结果 `"5"` 已在三条 Trace 中，但最终 `answer=None`。原有输入 Schema、超时、未知工具与依赖失败测试保留。
 - OBSERVED：本机 Python 3.12 运行 `python -m unittest discover -s experiments/toy_agent -p test_runtime.py -v`，8 tests OK（0.132s）；`python -m experiments.toy_agent.demo` 退出 0，正常四条轨迹与 `completed` 不变。代码提交 `1e21f29 feat: validate toy agent tool results` 已 Push；未调用模型、官方 runner 或 Benchmark。
 - 同步 README、Stage 01 阶段记录和测试报告。工程输入/输出 Schema 与故障注入项有证据，用户对失败单测及官方边界的独立解释仍待确认；Stage 01 继续 `IN_PROGRESS`。
+
+### 2026-11-04 | Stage 01 一步预算定点反馈
+
+- 用户回答：工具结果为 `5`，但达到最大步数，Runtime 不能再校验 Tool Result 并写入 answer。其对“无第二次模型决策”的理解正确；“不能再校验 Tool Result”不符源码。实际 `run_tool()` 先校验输出，`run_agent()` 把结果写入 Trace，然后循环耗尽并返回 `RunResult("max_steps", None, trace)`；没有模型 `final`。
+- 本轮核对 `experiments/toy_agent/runtime.py:86–112`、学习记录和 GitHub：起始工作树 clean，分支 `stage-01-runtime`，登录有效，Stage 01 PR 为 NONE。未修改代码、未重跑测试；原 8 项测试证据仍是上轮结果。Stage 01 仍 `IN_PROGRESS`，下一内容是区分 `max_steps` 与 `invalid_tool_result` 两种失败时序。
