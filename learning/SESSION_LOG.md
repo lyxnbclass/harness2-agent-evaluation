@@ -245,3 +245,11 @@
 - OBSERVED：用人工合成两条 JSONL 工具事件导入官方 `render_events`，正常事件得到 `[ACTION]`/`[OBSERVATION]`，错误状态得到 `[OBSERVATION ERROR]`；精确断言通过、退出 0。未运行真实 OpenCode、Benchmark 或模型；合成事件不证明真实事件格式或任务成功。
 - 导入官方 Python 模块产生的未跟踪 `__pycache__` 仅含 `.pyc`；核对目标路径位于本阶段子模块内后清理，未修改官方跟踪文件。报告中的复现脚本设置 `sys.dont_write_bytecode = True`，避免再产生缓存。
 - 更新 `learning/stages/01.md`、`SOURCE_INDEX.md`、`PROGRESS.md`、`stage_status.json` 与 `MASTER_PLAN.md` 的 Stage 01 官方源码追踪项；没有修改上游或教学 Runtime。下一内容是本地失败单测、输出契约及用户对官方边界的理解确认，Stage 01 仍 `IN_PROGRESS`。
+
+### 2026-11-04 | Stage 01 工具输出契约与停止边界
+
+- 用户说“下一步”，继续当前 Stage 01。起始工作树 clean，分支 `stage-01-runtime`，GitHub 登录有效且 Stage 01 PR `[]`。`scripts/skill-stats` 不存在；已读取 `ai-pair-programmer` 及完整 Python 编码规范后继续。
+- Codex 修改 `experiments/toy_agent/runtime.py`：三工具 Schema 同时声明输入字段/类型及输出 `str` 类型，`run_tool()` 在结果写入 Trace 前检查输出；执行体置于 `_execute_tool()`。非法输出返回 `invalid_tool_result`，非字符串工具名返回 `invalid_args`，不会泄漏未处理的 `TypeError`。
+- 新增两个有针对性的单测：注入整数工具输出会终止且不进入第二轮模型决策；`max_steps=1` 时工具结果 `"5"` 已在三条 Trace 中，但最终 `answer=None`。原有输入 Schema、超时、未知工具与依赖失败测试保留。
+- OBSERVED：本机 Python 3.12 运行 `python -m unittest discover -s experiments/toy_agent -p test_runtime.py -v`，8 tests OK（0.132s）；`python -m experiments.toy_agent.demo` 退出 0，正常四条轨迹与 `completed` 不变。代码提交 `1e21f29 feat: validate toy agent tool results` 已 Push；未调用模型、官方 runner 或 Benchmark。
+- 同步 README、Stage 01 阶段记录和测试报告。工程输入/输出 Schema 与故障注入项有证据，用户对失败单测及官方边界的独立解释仍待确认；Stage 01 继续 `IN_PROGRESS`。
