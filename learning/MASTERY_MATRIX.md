@@ -9,10 +9,10 @@
 | Demo 脚本候选的校验与回退 | 00 | 已讲待验证 | 用户回答“记录错误并回退”；已补充先重试一次的边界 | 结合完整链路解释候选验证，不单独拦截 |
 | Demo CLI/`argparse` 参数与退出码 | 00 | 已讲待验证 | 有效/无效参数已真实运行；参数变式由 Codex 讲解 | 在完整链路中复习参数到调度的传递 |
 | DemoAdapter 任务、Harness 选择与产物 | 00 | 已理解 | 2026-10-31 用户独立说明 `task_id` 选 CSV、`harness_dir` 选脚本、`run_id` 决定产物目录；并解释负数过滤导致结果差异 | 继续用于完整链路分析；`if amount > 0` 表述已纠正 |
-| Python 函数、字典、异常、测试 | 01 | 未讲 | 尚未教学与验证 | 待验证 |
-| Agent Loop / Runtime / Executor | 00–01 | 未讲 | 尚未教学与验证 | 待验证 |
-| Tool Call / Tool Result / Schema | 01–03 | 未讲 | 尚未教学与验证 | 待验证 |
-| Mock / FakeModel / 单元测试 | 01 | 未讲 | 尚未教学与验证 | 待验证 |
+| Python 函数、字典、异常、测试 | 01 | 已讲待验证 | Stage 01 章节讲了 `run_agent`/`run_tool` 的分支、字典及异常；用户尚未独立解释代码或单测 | 随具体失败单测定点复习 |
+| Agent Loop / Runtime / Executor | 00–01 | 需补充 | 2026-11-04 用户正确描述工具调用与结果回传；误把 `max_steps=1` 后的工具结果当成最终答案 | 区分工具完成、模型 final、步数耗尽；官方 substrate 边界待解释 |
+| Tool Call / Tool Result / Schema | 01–03 | 需补充 | 用户正确指出 Tool Call 来自模型、结果经 Runtime 回传；把第二轮可见消息数说成 4，并笼统归因为“大模型没办法校验” | 第二轮只有 user/call/result 三条；程序强制执行 Schema 校验 |
+| Mock / FakeModel / 单元测试 | 01 | 需补充 | 用户知道 FakeModel 使用预设决策步骤，但尚未说明最终回答并非由工具结果推理得出 | 对比脚本决策与真实模型推理；阅读结果回传单测 |
 | Dataset / Splits / Evaluation Leakage | 02、08 | 未讲 | 尚未教学与验证 | 待验证 |
 | Success Rate / Pass@k / 未评分样本 | 02、10 | 未讲 | 尚未教学与验证 | 待验证 |
 | Trace / Trajectory Evaluation | 03 | 未讲 | 尚未教学与验证 | 待验证 |

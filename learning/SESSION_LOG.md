@@ -231,3 +231,9 @@
 - 用户确认修改 `AGENTS.md`：七部分是章节组织框架，不是术语、函数、示例或篇幅上限；复杂内容须贯通真实输入、状态、关键函数、失败路径及面试追问。
 - 本轮只修改教学规则和此记录，未更改 Runtime、官方源码或测试。Stage 01 仍为 `IN_PROGRESS`，当前章节仍是最小 Agent Runtime 与 Tool Calling。
 - 本轮讲解将依据项目自研 `experiments/toy_agent/runtime.py` 与官方固定 SHA `1cfe254e8d25b15f37048c3730134686abe60335` 的真实接口边界；用户对 Stage 01 的理解尚待回答验证，不提前标为已理解。
+
+### 2026-11-04 | Stage 01 章节思考题反馈
+
+- 用户集中回答五题：正确描述 `add` 工具调用、Schema 校验、工具结果回传，以及 Tool Call 由模型提出；理解 FakeModel 使用预设决策。
+- 待纠正：第二次 `FakeModel.next()` 只看到 user、assistant tool_call、tool result 三条消息，第四条 final 尚未追加；`max_steps=1` 且首步是工具调用时返回 `max_steps`、`answer=None`；Schema 由 Runtime 强制校验而非依赖模型自检；官方 substrate 与项目自研 `run_agent()` 的边界尚不能独立说明。
+- 核实：工作树起始 clean，分支 `stage-01-runtime` 追踪 `origin/stage-01-runtime`，GitHub 登录有效，`gh pr list --head stage-01-runtime --state all` 为 `[]`。本轮无 Runtime 代码或测试修改，也未重新运行测试。Stage 01 保持 `IN_PROGRESS`，下一内容为定点补讲和官方源码追踪。

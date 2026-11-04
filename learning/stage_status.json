@@ -1,8 +1,8 @@
 {
   "schema_version": "4.0",
   "current_stage": "01",
-  "last_updated": "2026-10-31",
-  "note": "Stage 00 PR merged and user explicitly requested Stage 01; independent Stage 00 full-chain answers remain unverified.",
+  "last_updated": "2026-11-04",
+  "note": "Stage 01 chapter taught; user answered five questions with partial understanding. Trace timing, max_steps, schema enforcement and official substrate boundary need targeted clarification. Stage 01 PR not created.",
   "stages": {
     "00": {
       "status": "COMPLETED",
@@ -39,7 +39,7 @@
       "status": "IN_PROGRESS",
       "required_evidence": [],
       "user_approved_next": false,
-      "last_checked": "2026-10-31",
+      "last_checked": "2026-11-04",
       "github": {
         "branch": "stage-01-runtime",
         "important_commits": [
