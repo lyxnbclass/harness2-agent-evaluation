@@ -216,3 +216,53 @@
 - 原工作区 `stage-00-setup` 留有未提交的历史 Gate 修改，未覆盖或搬入新阶段。创建独立干净 checkout 基于合并后的 `origin/main`，先同步合并后 README，再开始 Stage 01 分支。
 - 用户选择进入下一阶段属于阶段确认；Stage 00 五道题此前由 Codex 讲解，没有用户独立完整作答，不能写成面试掌握。工程证据见 `reports/stage00_demo_smoke.md`。Stage 01 使用本地 FakeModel，暂无付费调用。
 - 当前主任务：实现并测试最小 Agent Runtime，随后用新七部分结构讲解。
+
+### 2026-10-31 | Stage 01 最小 Agent Runtime 实现与运行
+
+- 用户已明确要求进入 Stage 01；Stage 00 PR #1 合并、远端 main 合并提交与 README 收尾均已核实。`470e357 docs: close stage 00 after merged review` 已 Push 至 main，GitHub API 确认远端 README 写 `Stage 00 completed` 且不再写 draft PR。
+- 从该 main 建立独立 `stage-01-runtime` 分支；在独立 checkout 初始化官方子模块，固定 SHA `1cfe254e8d25b15f37048c3730134686abe60335`。原工作区未提交的历史 Gate 文件保留原处。
+- Codex 实现 `experiments/toy_agent/runtime.py`、`test_runtime.py`、`demo.py`，保存 `reports/stage01_toy_agent_demo.json` 与 `reports/stage01_runtime_smoke.md`。官方源码定位到 `substrate/base.py:Substrate.execute/RunRequest`、`substrate/opencode.py:OpencodeSubstrate.execute/render_events`；官方真实模型/launcher 未运行。
+- OBSERVED：使用 `uv python find 3.12` 定位本机 Python 3.12，运行 `python -m experiments.toy_agent.demo` 退出 0，真实 JSON 轨迹为 Add 2 and 3 → add(2,3) → tool result 5 → final The sum is 5。`python -m unittest discover -s experiments/toy_agent -p test_runtime.py -v` 退出 0，6 tests OK，复跑耗时 0.157s。失败覆盖真实本地超时、未知工具、错误参数、依赖失败、步数上限与模型输出错误；无网络、付费模型或 Benchmark。
+- 教学边界：本轮代码由 Codex 编写，用户尚未独立阅读或回答。七部分讲解尚待输出，理解矩阵仍为“未讲”；不能从测试通过推断用户理解。下一内容为本章系统讲解和集中思考题。
+- Stage 01 实现提交 `98ca15c feat: add deterministic toy agent runtime` 已 Push 到 `origin/stage-01-runtime`；本阶段 PR NONE，用户代码阅读与理解仍待回答。
+
+### 2026-11-03 | Stage 01 章节讲解深度规则调整
+
+- 用户确认修改 `AGENTS.md`：七部分是章节组织框架，不是术语、函数、示例或篇幅上限；复杂内容须贯通真实输入、状态、关键函数、失败路径及面试追问。
+- 本轮只修改教学规则和此记录，未更改 Runtime、官方源码或测试。Stage 01 仍为 `IN_PROGRESS`，当前章节仍是最小 Agent Runtime 与 Tool Calling。
+- 本轮讲解将依据项目自研 `experiments/toy_agent/runtime.py` 与官方固定 SHA `1cfe254e8d25b15f37048c3730134686abe60335` 的真实接口边界；用户对 Stage 01 的理解尚待回答验证，不提前标为已理解。
+
+### 2026-11-04 | Stage 01 章节思考题反馈
+
+- 用户集中回答五题：正确描述 `add` 工具调用、Schema 校验、工具结果回传，以及 Tool Call 由模型提出；理解 FakeModel 使用预设决策。
+- 待纠正：第二次 `FakeModel.next()` 只看到 user、assistant tool_call、tool result 三条消息，第四条 final 尚未追加；`max_steps=1` 且首步是工具调用时返回 `max_steps`、`answer=None`；Schema 由 Runtime 强制校验而非依赖模型自检；官方 substrate 与项目自研 `run_agent()` 的边界尚不能独立说明。
+- 核实：工作树起始 clean，分支 `stage-01-runtime` 追踪 `origin/stage-01-runtime`，GitHub 登录有效，`gh pr list --head stage-01-runtime --state all` 为 `[]`。本轮无 Runtime 代码或测试修改，也未重新运行测试。Stage 01 保持 `IN_PROGRESS`，下一内容为定点补讲和官方源码追踪。
+
+### 2026-11-04 | Stage 01 官方执行与工具事件源码追踪
+
+- 用户指令“推送然后进入下一步”。核实远端 `origin/stage-01-runtime` 为 `210501954370e69f26945a3dbeed94b8d22cfa06`，与本地 HEAD 一致；当前工作树 clean，Stage 01 PR `[]`。此指令不解释为进入 Stage 02。
+- SOURCE-VERIFIED：固定官方 SHA `1cfe254e8d25b15f37048c3730134686abe60335`；`JobBenchAdapter.execute` → `OpencodeSubstrate.execute` → `RunRequest` → JobBench `_launch_opencode` → `jb_opencode_runner.py:_attempt` → JSONL → `render_events`。核对参数/返回类型、缺 launcher、runner 超时、无产物未标完成及工具事件错误渲染；详见 `reports/stage01_official_source_trace.md`。
+- OBSERVED：用人工合成两条 JSONL 工具事件导入官方 `render_events`，正常事件得到 `[ACTION]`/`[OBSERVATION]`，错误状态得到 `[OBSERVATION ERROR]`；精确断言通过、退出 0。未运行真实 OpenCode、Benchmark 或模型；合成事件不证明真实事件格式或任务成功。
+- 导入官方 Python 模块产生的未跟踪 `__pycache__` 仅含 `.pyc`；核对目标路径位于本阶段子模块内后清理，未修改官方跟踪文件。报告中的复现脚本设置 `sys.dont_write_bytecode = True`，避免再产生缓存。
+- 更新 `learning/stages/01.md`、`SOURCE_INDEX.md`、`PROGRESS.md`、`stage_status.json` 与 `MASTER_PLAN.md` 的 Stage 01 官方源码追踪项；没有修改上游或教学 Runtime。下一内容是本地失败单测、输出契约及用户对官方边界的理解确认，Stage 01 仍 `IN_PROGRESS`。
+
+### 2026-11-04 | Stage 01 工具输出契约与停止边界
+
+- 用户说“下一步”，继续当前 Stage 01。起始工作树 clean，分支 `stage-01-runtime`，GitHub 登录有效且 Stage 01 PR `[]`。`scripts/skill-stats` 不存在；已读取 `ai-pair-programmer` 及完整 Python 编码规范后继续。
+- Codex 修改 `experiments/toy_agent/runtime.py`：三工具 Schema 同时声明输入字段/类型及输出 `str` 类型，`run_tool()` 在结果写入 Trace 前检查输出；执行体置于 `_execute_tool()`。非法输出返回 `invalid_tool_result`，非字符串工具名返回 `invalid_args`，不会泄漏未处理的 `TypeError`。
+- 新增两个有针对性的单测：注入整数工具输出会终止且不进入第二轮模型决策；`max_steps=1` 时工具结果 `"5"` 已在三条 Trace 中，但最终 `answer=None`。原有输入 Schema、超时、未知工具与依赖失败测试保留。
+- OBSERVED：本机 Python 3.12 运行 `python -m unittest discover -s experiments/toy_agent -p test_runtime.py -v`，8 tests OK（0.132s）；`python -m experiments.toy_agent.demo` 退出 0，正常四条轨迹与 `completed` 不变。代码提交 `1e21f29 feat: validate toy agent tool results` 已 Push；未调用模型、官方 runner 或 Benchmark。
+- 同步 README、Stage 01 阶段记录和测试报告。工程输入/输出 Schema 与故障注入项有证据，用户对失败单测及官方边界的独立解释仍待确认；Stage 01 继续 `IN_PROGRESS`。
+
+### 2026-11-04 | Stage 01 一步预算定点反馈
+
+- 用户回答：工具结果为 `5`，但达到最大步数，Runtime 不能再校验 Tool Result 并写入 answer。其对“无第二次模型决策”的理解正确；“不能再校验 Tool Result”不符源码。实际 `run_tool()` 先校验输出，`run_agent()` 把结果写入 Trace，然后循环耗尽并返回 `RunResult("max_steps", None, trace)`；没有模型 `final`。
+- 本轮核对 `experiments/toy_agent/runtime.py:86–112`、学习记录和 GitHub：起始工作树 clean，分支 `stage-01-runtime`，登录有效，Stage 01 PR 为 NONE。未修改代码、未重跑测试；原 8 项测试证据仍是上轮结果。Stage 01 仍 `IN_PROGRESS`，下一内容是区分 `max_steps` 与 `invalid_tool_result` 两种失败时序。
+
+### 2026-11-04 | 用户确认推进 Stage 02，Stage 01 PR 准备
+
+- 用户指出“下一步不是开始stage2嘛”；这是明确的阶段推进意向。此前 Codex 将“下一步”解释为继续 Stage 01 细节，现纠正；不继续制造固定追问。用户 Stage 01 的答案、误区与定点纠正保留，未声称全面独立掌握。
+- 核实：工作树起始 clean；`gh pr list --head stage-01-runtime --state all` 为 `[]`；`origin/main` 是 Stage 01 分支祖先；官方子模块 clean。PR 前复跑本地 Python 3.12 Runtime 测试 8 项通过（0.103s）、Demo 退出 0、`scripts/check_workspace.py` 退出 0。没有模型付费调用或 Benchmark 成绩。
+- SOURCE-VERIFIED：补充 `third_party/lab_runner/opencode/session.py:parse/to_transcript` 的工具事件 name/input/output/status 结构及 error 状态处理。该源码只读取外部 OpenCode 事件，不证明内部工具执行或任务解答。
+- 更新 Stage 01 学习状态为“用户同意下一 Stage、PR 尚待合并”。下一动作是建立 Stage 01 PR 供用户审阅；不自动 Merge。只有核实 PR 正确合并到 `main` 后才创建 Stage 02 分支并授课。
+- 首次 `gh pr create` 因 GitHub API 连接超时未完成；查询 `gh pr list --head stage-01-runtime --state all` 仍为 `[]` 后重试，成功创建 https://github.com/lyxnbclass/harness2-agent-evaluation/pull/2。已核实 base `main`、head `stage-01-runtime`、OPEN、非 Draft、MERGEABLE、`mergedAt=null`；未执行 Merge。PR 正文包含实现、真实测试、合成事件 probe 与未验证边界。

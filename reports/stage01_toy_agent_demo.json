@@ -1,0 +1,29 @@
+{
+  "status": "completed",
+  "answer": "The sum is 5",
+  "trace": [
+    {
+      "role": "user",
+      "content": "Add 2 and 3"
+    },
+    {
+      "role": "assistant",
+      "tool_call": {
+        "name": "add",
+        "args": {
+          "a": 2,
+          "b": 3
+        }
+      }
+    },
+    {
+      "role": "tool",
+      "name": "add",
+      "content": "5"
+    },
+    {
+      "role": "assistant",
+      "content": "The sum is 5"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # 章节理解矩阵（按实际回答更新）
 
-当前章节：Stage 01「最小 Agent Runtime 与 Tool Calling」。定性状态：`未讲 / 已讲待验证 / 已理解 / 需补充`。不评分。用户已明确选择进入 Stage 01；Stage 00 的局部理解证据保留，完整五题由 Codex 讲解，仍不记为用户独立回答。历史细节见 `learning/KNOWLEDGE_MASTERY.md`。
+当前章节：Stage 01「最小 Agent Runtime 与 Tool Calling」。定性状态：`未讲 / 已讲待验证 / 已理解 / 需补充`。不评分。用户已明确选择在阶段 PR 合并后进入 Stage 02；Stage 01 的未完全独立解释项保留后续复习，阶段推进不改写为全面掌握。Stage 00 的局部理解证据保留，完整五题由 Codex 讲解，仍不记为用户独立回答。历史细节见 `learning/KNOWLEDGE_MASTERY.md`。
 
 | 知识点 | 对应阶段 | 当前理解状态 | 最近回答/证据 | 关键薄弱点/后续复习 |
 |---|---|---|---|---|
@@ -9,10 +9,10 @@
 | Demo 脚本候选的校验与回退 | 00 | 已讲待验证 | 用户回答“记录错误并回退”；已补充先重试一次的边界 | 结合完整链路解释候选验证，不单独拦截 |
 | Demo CLI/`argparse` 参数与退出码 | 00 | 已讲待验证 | 有效/无效参数已真实运行；参数变式由 Codex 讲解 | 在完整链路中复习参数到调度的传递 |
 | DemoAdapter 任务、Harness 选择与产物 | 00 | 已理解 | 2026-10-31 用户独立说明 `task_id` 选 CSV、`harness_dir` 选脚本、`run_id` 决定产物目录；并解释负数过滤导致结果差异 | 继续用于完整链路分析；`if amount > 0` 表述已纠正 |
-| Python 函数、字典、异常、测试 | 01 | 未讲 | 尚未教学与验证 | 待验证 |
-| Agent Loop / Runtime / Executor | 00–01 | 未讲 | 尚未教学与验证 | 待验证 |
-| Tool Call / Tool Result / Schema | 01–03 | 未讲 | 尚未教学与验证 | 待验证 |
-| Mock / FakeModel / 单元测试 | 01 | 未讲 | 尚未教学与验证 | 待验证 |
+| Python 函数、字典、异常、测试 | 01 | 已讲待验证 | Stage 01 章节讲了 `run_agent`/`run_tool` 的分支、字典及异常；用户尚未独立解释代码或单测 | 随具体失败单测定点复习 |
+| Agent Loop / Runtime / Executor | 00–01 | 需补充 | 2026-11-04 用户进一步正确指出一步预算用尽后没有第二次模型决策；仍误以为 Runtime 因此不能校验 Tool Result | 工具输出已校验并写入 Trace；缺少的是模型 `final`，官方 substrate 边界待解释 |
+| Tool Call / Tool Result / Schema | 01–03 | 需补充 | 用户正确指出 Tool Call 来自模型、结果经 Runtime 回传；一步预算解释中混淆了输出校验与最终回答生成 | `run_tool()` 先校验输出，`run_agent()` 再写 Trace；仅下一轮模型决策因预算耗尽而未发生 |
+| Mock / FakeModel / 单元测试 | 01 | 需补充 | 用户知道 FakeModel 使用预设决策步骤，但尚未说明最终回答并非由工具结果推理得出 | 对比脚本决策与真实模型推理；阅读结果回传单测 |
 | Dataset / Splits / Evaluation Leakage | 02、08 | 未讲 | 尚未教学与验证 | 待验证 |
 | Success Rate / Pass@k / 未评分样本 | 02、10 | 未讲 | 尚未教学与验证 | 待验证 |
 | Trace / Trajectory Evaluation | 03 | 未讲 | 尚未教学与验证 | 待验证 |

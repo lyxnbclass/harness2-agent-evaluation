@@ -1,8 +1,8 @@
 {
   "schema_version": "4.0",
   "current_stage": "01",
-  "last_updated": "2026-10-31",
-  "note": "Stage 00 PR merged and user explicitly requested Stage 01; independent Stage 00 full-chain answers remain unverified.",
+  "last_updated": "2026-11-04",
+  "note": "Stage 01 engineering checks passed and user explicitly chose Stage 02 progression. PR #2 is open and must be reviewed and merged to main before Stage 02 starts; model-backed execution remains unverified.",
   "stages": {
     "00": {
       "status": "COMPLETED",
@@ -37,9 +37,25 @@
     },
     "01": {
       "status": "IN_PROGRESS",
-      "required_evidence": [],
-      "user_approved_next": false,
-      "last_checked": "2026-10-31"
+      "required_evidence": [
+        "experiments/toy_agent/runtime.py",
+        "reports/stage01_runtime_smoke.md",
+        "reports/stage01_official_source_trace.md",
+        "learning/stages/01.md"
+      ],
+      "user_approved_next": true,
+      "last_checked": "2026-11-04",
+      "github": {
+        "branch": "stage-01-runtime",
+        "important_commits": [
+          "98ca15c",
+          "1e21f29"
+        ],
+        "remote": "https://github.com/lyxnbclass/harness2-agent-evaluation.git",
+        "pr_url": "https://github.com/lyxnbclass/harness2-agent-evaluation/pull/2",
+        "pr_status": "OPEN",
+        "stage_branch_pushed": true
+      }
     },
     "02": {
       "status": "LOCKED",
