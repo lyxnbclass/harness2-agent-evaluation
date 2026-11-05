@@ -7,7 +7,7 @@ Date: 2026-11-05. All figures below are **OBSERVED local scripted-contract resul
 - 24 hand-authored cases in `experiments/datasets/stage02_multitool_cases.jsonl`: 8 `dev`, 8 `validation`, 8 `local-held-out`; tags cover normal, boundary, error, permission, and attack. Each row has `case_id`, `input`, `split`, `expected_outcome`, `tool_constraints`, and `tags`.
 - Scripted decisions are separate in `experiments/datasets/stage02_fake_decisions.jsonl`. `run_agent()` receives only each case's `input` and step budget. This is a deterministic teaching fixture, not an independent model solving unseen tasks.
 - Run manifest: `experiments/manifests/stage02_fake_v1.json`. The Markdown explanation in this file was written from observed output; an automated `report_generator.py` is a later-stage deliverable.
-- `python -m unittest discover -s experiments/evaluators -p test_*.py -v` under local Python 3.12.13 exited 0: **13 tests passed** (latest run 0.636s). The existing Toy Runtime suite also passed 8/8 tests (0.110s), and `python scripts/check_workspace.py` exited 0.
+- `python -m unittest discover -s experiments/evaluators -p test_*.py -v` under local Python 3.12.13 exited 0: **13 tests passed** (recorded run 0.636s; post-PR metadata check also passed 13/13). The existing Toy Runtime suite also passed 8/8 tests (0.110s), and `python scripts/check_workspace.py` exited 0.
 - `python -m experiments.evaluators.stage02_demo --output reports/stage02_fake_results.jsonl` under the same Python 3.12 exited 0. The committed JSONL contains all 24 normalized results and local Trace messages.
 
 ## Result and denominator contract

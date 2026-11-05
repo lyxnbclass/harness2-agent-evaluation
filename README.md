@@ -67,7 +67,7 @@ A stage closes only after its required engineering evidence and user review are 
 | --- | --- | --- |
 | 00 | Environment, upstream revision, and official demo | **Completed:** [PR #1](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/1) merged; local Demo and 5 official tests verified |
 | 01 | Minimal agent runtime and tool calling | **Completed:** [PR #2](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/2) merged as `0b08058`; deterministic FakeModel loop, three local tools, input/output type checks, error paths and eight tests verified; model-backed execution remains unverified |
-| 02 | Dataset design and outcome metrics | **In progress:** 24 local teaching cases, scripted FakeModel fixtures, outcome metrics, and 13 tests verified; Stage 02 PR pending |
+| 02 | Dataset design and outcome metrics | **In review:** [PR #3](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/3) is open; 24 local teaching cases, scripted FakeModel fixtures, outcome metrics, and 13 tests verified |
 | 03 | Trajectory validation and bad-case analysis | Planned |
 | 04 | Judge rubric, validation, and calibration | Planned |
 | 05 | Prompt, tool-schema, retry, and runtime experiments | Planned |

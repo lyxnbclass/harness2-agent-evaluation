@@ -3,7 +3,7 @@
   "date_iso": "2026-11-05",
   "status": "OBSERVED",
   "kind": "local_scripted_contract",
-  "source_commit": null,
+  "source_commit": "ddce1dca1d784ad8c112968e504ee2f00cd771f2",
   "upstream_commit": "1cfe254e8d25b15f37048c3730134686abe60335",
   "benchmark_name": null,
   "benchmark_commit": null,

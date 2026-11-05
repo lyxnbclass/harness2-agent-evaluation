@@ -77,9 +77,10 @@
       "github": {
         "branch": "stage-02-metrics",
         "remote": "https://github.com/lyxnbclass/harness2-agent-evaluation.git",
-        "pr_url": null,
-        "pr_status": "NONE",
-        "stage_branch_pushed": false
+        "important_commits": ["ddce1dc"],
+        "pr_url": "https://github.com/lyxnbclass/harness2-agent-evaluation/pull/3",
+        "pr_status": "OPEN",
+        "stage_branch_pushed": true
       }
     },
     "03": {
