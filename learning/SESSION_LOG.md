@@ -275,3 +275,10 @@
 - OBSERVED：本机 Python 3.12.13 执行 Stage 02 13 tests OK（0.636s；PR 元数据更新后复跑 0.646s），Stage 01 Runtime 回归 8 tests OK（0.110s）；`scripts/check_workspace.py` 退出 0。24 条脚本契约运行：`resolved=19, failed=3, infra_error=1, unscored=1`；`dev-08/val-07` 的最终答案正确但工具调用越权，`val-04` 的工具结果正确但最终回答错误。结果见 `reports/stage02_fake_results.jsonl` 与 `reports/stage02_metrics_smoke.md`。
 - 用户已能手算一组成功率和覆盖率，解释原生判题结论与 Runtime Trace 的关联，并要求提交 PR；尚未阅读本轮新代码或手算真实五样本，不写成全面独立掌握。没有真实模型、SWE-bench、付费调用或性能提升结论。下一内容是 Stage 02 PR 审阅与指标分母的代码讲解；PR 创建前保持状态 IN_PROGRESS。
 - 实现与证据提交 `ddce1dc feat: add stage 02 evaluation metrics and teaching cases` 已 Push 至 `origin/stage-02-metrics`。`gh pr create` 创建 [PR #3](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/3)；`gh pr view 3` 核实 base `main`、head `stage-02-metrics`、OPEN、非 Draft、MERGEABLE。PR 未合并，Stage 02 保持 IN_PROGRESS，Stage 03 保持 LOCKED。
+
+### 2026-11-05 | Stage 02 合并核实与 Stage 03 入口
+
+- 用户明确说“我已经合并了，进入下一阶段吧”。`gh pr view 3` 核实 PR #3 为 MERGED、目标 `main`、merge commit `d34d00130d8e8295278eb97995111f82fe258d77`；`git fetch origin main` 与 `git merge-base --is-ancestor` 核实合并提交在远端 `main`。没有自动 Merge。
+- 干净的 Stage 02 worktree 快进到远端 `main`，发现 README 仍写 Stage 02 PR 开放；做合并后文档收尾提交 `bdebf18 docs: close stage 02 after merged review` 并 Push。`git ls-remote origin refs/heads/main` 返回同一 SHA，随后从该提交建立独立 `stage-03-trajectory` 分支。主 checkout 的历史未提交 Gate 修改保持原样。
+- SOURCE-VERIFIED：官方固定 SHA `1cfe254e8d25b15f37048c3730134686abe60335`，`JobBenchAdapter.trajectory()` 选最新 JSONL，`OpencodeSubstrate.read_trajectory()` 调用 `render_events()` 把工具事件渲染为 ACTION/OBSERVATION/ERROR；不提供任务正确性判定。本地 Stage 01 `run_agent()` 追加内存消息，Stage 02 `dev-08` 真实生成“答案正确但案例级工具越权”轨迹，`val-04` 生成“工具结果正确但 final 错误”轨迹。
+- 本轮开始 Stage 03 七部分章节讲解；新 `trace_validator.py`、8 条 Bad Cases、结构化元数据与回放 CLI 尚未实现，未运行 Stage 03 新测试。学习记录保留 Stage 02 代码分母未获用户独立解释的限制；用户明确推进，不以旧评分流程阻断。Stage 03 PR NONE，不自动合并。
