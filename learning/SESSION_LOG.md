@@ -282,3 +282,4 @@
 - 干净的 Stage 02 worktree 快进到远端 `main`，发现 README 仍写 Stage 02 PR 开放；做合并后文档收尾提交 `bdebf18 docs: close stage 02 after merged review` 并 Push。`git ls-remote origin refs/heads/main` 返回同一 SHA，随后从该提交建立独立 `stage-03-trajectory` 分支。主 checkout 的历史未提交 Gate 修改保持原样。
 - SOURCE-VERIFIED：官方固定 SHA `1cfe254e8d25b15f37048c3730134686abe60335`，`JobBenchAdapter.trajectory()` 选最新 JSONL，`OpencodeSubstrate.read_trajectory()` 调用 `render_events()` 把工具事件渲染为 ACTION/OBSERVATION/ERROR；不提供任务正确性判定。本地 Stage 01 `run_agent()` 追加内存消息，Stage 02 `dev-08` 真实生成“答案正确但案例级工具越权”轨迹，`val-04` 生成“工具结果正确但 final 错误”轨迹。
 - 本轮开始 Stage 03 七部分章节讲解；新 `trace_validator.py`、8 条 Bad Cases、结构化元数据与回放 CLI 尚未实现，未运行 Stage 03 新测试。学习记录保留 Stage 02 代码分母未获用户独立解释的限制；用户明确推进，不以旧评分流程阻断。Stage 03 PR NONE，不自动合并。
+- 阶段入口记录提交 `1c7ddc2 docs: start stage 03 trajectory analysis` 已 Push 到 `origin/stage-03-trajectory`；本轮只运行 `scripts/check_workspace.py`（exit 0），没有 Stage 03 新代码或测试结果。
