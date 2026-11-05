@@ -2,7 +2,7 @@
 
 An engineering project to reproduce Google Research Harness² and build an auditable evaluation workflow for coding agents. The central question is whether a harness change improves task outcomes **without hiding regressions, infrastructure failures, or extra cost**.
 
-> **Status (2026-11-04): Stage 00 completed; Stage 01 in progress.** The official Harness² source is pinned as a submodule at commit `1cfe254e8d25b15f37048c3730134686abe60335`. Its deterministic local demo ran in an isolated Python 3.12 container with two ledger tasks and both recursion modes. Five official workflow tests passed; an unwritable output-path failure was reproduced. A project-owned local FakeModel Runtime now has a passing eight-test suite. Public benchmark integration, custom evaluator modules, and model-backed experiments remain incomplete.
+> **Status (2026-11-05): Stages 00 and 01 completed; Stage 02 planned.** The official Harness² source is pinned as a submodule at commit `1cfe254e8d25b15f37048c3730134686abe60335`. Its deterministic local demo ran in an isolated Python 3.12 container with two ledger tasks and both recursion modes. Five official workflow tests passed; an unwritable output-path failure was reproduced. A project-owned local FakeModel Runtime now has a passing eight-test suite. Public benchmark integration, custom evaluator modules, and model-backed experiments remain incomplete.
 
 ## Engineering scope
 
@@ -66,7 +66,7 @@ A stage closes only after its required engineering evidence and user review are 
 | Stage | Engineering milestone | Status |
 | --- | --- | --- |
 | 00 | Environment, upstream revision, and official demo | **Completed:** [PR #1](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/1) merged; local Demo and 5 official tests verified |
-| 01 | Minimal agent runtime and tool calling | **In review:** [PR #2](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/2) is open; deterministic FakeModel loop, three local tools, input/output type checks, error paths and eight tests verified; model-backed execution remains unverified |
+| 01 | Minimal agent runtime and tool calling | **Completed:** [PR #2](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/2) merged as `0b08058`; deterministic FakeModel loop, three local tools, input/output type checks, error paths and eight tests verified; model-backed execution remains unverified |
 | 02 | Dataset design and outcome metrics | Planned |
 | 03 | Trajectory validation and bad-case analysis | Planned |
 | 04 | Judge rubric, validation, and calibration | Planned |
