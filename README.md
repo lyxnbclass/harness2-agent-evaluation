@@ -2,7 +2,7 @@
 
 An engineering project to reproduce Google Research Harness² and build an auditable evaluation workflow for coding agents. The central question is whether a harness change improves task outcomes **without hiding regressions, infrastructure failures, or extra cost**.
 
-> **Status (2026-11-05): Stages 00 and 01 completed; Stage 02 planned.** The official Harness² source is pinned as a submodule at commit `1cfe254e8d25b15f37048c3730134686abe60335`. Its deterministic local demo ran in an isolated Python 3.12 container with two ledger tasks and both recursion modes. Five official workflow tests passed; an unwritable output-path failure was reproduced. A project-owned local FakeModel Runtime now has a passing eight-test suite. Public benchmark integration, custom evaluator modules, and model-backed experiments remain incomplete.
+> **Status (2026-11-05): Stages 00 and 01 completed; Stage 02 in progress.** The official Harness² source is pinned as a submodule at commit `1cfe254e8d25b15f37048c3730134686abe60335`. Its deterministic local demo ran in an isolated Python 3.12 container with two ledger tasks and both recursion modes. Five official workflow tests passed; an unwritable output-path failure was reproduced. A project-owned FakeModel Runtime has eight passing tests, and Stage 02 outcome metrics have 13 passing tests. Public benchmark integration and model-backed experiments remain incomplete.
 
 ## Engineering scope
 
@@ -10,7 +10,7 @@ An engineering project to reproduce Google Research Harness² and build an audit
 | --- | --- | --- |
 | Official reproduction | Check out a pinned revision of [google-research/harness2](https://github.com/google-research/harness2), trace its runner/evaluator/report flow, and reproduce its demo and authorized single-task run | **In progress:** source pinned; deterministic demo run verified; official benchmark evaluator and model-backed run pending |
 | Public coding benchmark | Select a benchmark (SWE-bench is the leading candidate), run its **native evaluator** independently, then build a Harness² adapter | **Planned:** benchmark selection and evaluator run have not occurred |
-| Project evaluation extensions | Implement metrics, trajectory validation, bad-case records, paired comparisons, a regression gate, and reproducible reports | **Planned:** specifications exist; implementation and tests do not |
+| Project evaluation extensions | Implement metrics, trajectory validation, bad-case records, paired comparisons, a regression gate, and reproducible reports | **In progress:** local outcome metrics and deterministic tests implemented; trajectory validation, comparison, gate, and report generator pending |
 
 The benchmark's native evaluator will determine the task verdict. The project evaluation layer will normalize and compare results, diagnose failures, and decide whether a proposed harness change needs review. It will not override the native verdict.
 
@@ -67,7 +67,7 @@ A stage closes only after its required engineering evidence and user review are 
 | --- | --- | --- |
 | 00 | Environment, upstream revision, and official demo | **Completed:** [PR #1](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/1) merged; local Demo and 5 official tests verified |
 | 01 | Minimal agent runtime and tool calling | **Completed:** [PR #2](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/2) merged as `0b08058`; deterministic FakeModel loop, three local tools, input/output type checks, error paths and eight tests verified; model-backed execution remains unverified |
-| 02 | Dataset design and outcome metrics | Planned |
+| 02 | Dataset design and outcome metrics | **In progress:** 24 local teaching cases, scripted FakeModel fixtures, outcome metrics, and 13 tests verified; Stage 02 PR pending |
 | 03 | Trajectory validation and bad-case analysis | Planned |
 | 04 | Judge rubric, validation, and calibration | Planned |
 | 05 | Prompt, tool-schema, retry, and runtime experiments | Planned |
@@ -84,6 +84,7 @@ A stage closes only after its required engineering evidence and user review are 
 
 - [`scripts/resume.py`](scripts/resume.py) restores the recorded current stage; [`scripts/check_workspace.py`](scripts/check_workspace.py) checks record completeness. Both ran successfully in the Stage 00 workspace check. They do **not** validate agent quality or stage mastery.
 - [`experiments/toy_agent/runtime.py`](experiments/toy_agent/runtime.py) is a project-owned teaching implementation of `FakeModel → tool_call → tool_result → final`. It validates closed input fields and tool output types, and handles unknown tools, local subprocess timeout, dependency error, and step budget. The original run and six tests are in [`reports/stage01_runtime_smoke.md`](reports/stage01_runtime_smoke.md); the [eight-test contract extension](reports/stage01_runtime_contract_extension.md) records the latest check. This code is not an upstream Harness² runtime or a model-backed benchmark result. The [official execution boundary trace](reports/stage01_official_source_trace.md) is source based and includes only a synthetic event-rendering probe.
+- [`experiments/evaluators/metrics.py`](experiments/evaluators/metrics.py) computes scored success rate, scored coverage, tool-input schema validity, unsafe tool-call attempt rate, and observed median latency. The [Stage 02 local smoke report](reports/stage02_metrics_smoke.md) links 24 scripted cases and 13 tests. Its `resolved` status means a local Runtime contract matched the fixture, **not** that a SWE-bench issue was solved. No model, benchmark judge, or performance improvement was measured.
 - [`learning/`](learning/) contains stage status, source/audit templates, interview gates, and command evidence.
 - [`experiments/manifests/EXAMPLE_MANIFEST.json`](experiments/manifests/EXAMPLE_MANIFEST.json) is a **sample schema**, not a completed experiment.
 - [`upstream/harness2/`](upstream/harness2/) is a Git submodule pinned to Google Research commit `1cfe254e…`. Its Apache 2.0 license remains in the upstream checkout. `pyproject.toml` declares `harness2-demo = "harness2.cli.demo:main"`; observed local `DemoAdapter.execute()` outputs include `answer.txt` and `trajectory.md`.
@@ -105,7 +106,7 @@ It exited 0. `experiments/raw_runs/stage00_demo_k1/demo.json` recorded `done=2`,
 
 ## Experimental results
 
-**No coding-agent performance results are available.** There is no measured baseline, candidate harness, SWE-bench verdict, success-rate delta, token cost, or latency comparison to report. Future results will link a run manifest, fixed task IDs, model and executor configuration, upstream/benchmark commits, native verdicts, paired changes, regression cases, cost, and limitations. The [deliverables checklist](PROJECT_DELIVERABLES.md) distinguishes completed evidence from planned work.
+**No coding-agent performance results are available.** The Stage 02 scripted-contract smoke test produced 19 matched contracts, 3 mismatches, 1 simulated infrastructure error, and 1 simulated unscored case; these are engineering checks rather than Agent capability results. There is no measured baseline, candidate harness, SWE-bench verdict, success-rate delta, token cost, or model latency comparison to report. Future results will link a run manifest, fixed task IDs, model and executor configuration, upstream/benchmark commits, native verdicts, paired changes, regression cases, cost, and limitations. The [deliverables checklist](PROJECT_DELIVERABLES.md) distinguishes completed evidence from planned work.
 
 ## Development, review, and attribution
 

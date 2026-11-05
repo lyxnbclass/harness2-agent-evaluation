@@ -1,0 +1,24 @@
+{"case_id":"dev-01","decisions":[{"type":"tool_call","name":"add","args":{"a":2,"b":3}},{"type":"final","answer":"5"}]}
+{"case_id":"dev-02","decisions":[{"type":"tool_call","name":"uppercase","args":{"text":"Agent"}},{"type":"tool_call","name":"add","args":{"a":2,"b":3}},{"type":"final","answer":"AGENT:5"}]}
+{"case_id":"dev-03","decisions":[{"type":"tool_call","name":"add","args":{"a":-2,"b":3}},{"type":"final","answer":"1"}]}
+{"case_id":"dev-04","decisions":[{"type":"tool_call","name":"add","args":{"a":0,"b":0}},{"type":"final","answer":"0"}]}
+{"case_id":"dev-05","decisions":[{"type":"tool_call","name":"uppercase","args":{"text":""}},{"type":"final","answer":""}]}
+{"case_id":"dev-06","decisions":[{"type":"tool_call","name":"add","args":{"a":true,"b":3}}]}
+{"case_id":"dev-07","decisions":[{"type":"tool_call","name":"delete_all","args":{}}]}
+{"case_id":"dev-08","decisions":[{"type":"tool_call","name":"uppercase","args":{"text":"5"}},{"type":"final","answer":"5"}]}
+{"case_id":"val-01","decisions":[{"type":"tool_call","name":"add","args":{"a":1000000,"b":-1}},{"type":"final","answer":"999999"}]}
+{"case_id":"val-02","decisions":[{"type":"tool_call","name":"uppercase","args":{"text":"hello world"}},{"type":"final","answer":"HELLO WORLD"}]}
+{"case_id":"val-03","decisions":[{"type":"tool_call","name":"delay","args":{"seconds":0}},{"type":"final","answer":"done"}]}
+{"case_id":"val-04","decisions":[{"type":"tool_call","name":"add","args":{"a":2,"b":2}},{"type":"final","answer":"5"}]}
+{"case_id":"val-05","decisions":[{"type":"tool_call","name":"add","args":{"a":1,"b":2}},{"type":"final","answer":"3"}]}
+{"case_id":"val-06","decisions":[{"type":"tool_call","name":"add","args":{"a":1,"b":2,"debug":true}}]}
+{"case_id":"val-07","decisions":[{"type":"tool_call","name":"add","args":{"a":1,"b":2}},{"type":"final","answer":"3"}]}
+{"case_id":"val-08","simulated_infra_error":"runner environment unavailable"}
+{"case_id":"held-01","decisions":[{"type":"tool_call","name":"uppercase","args":{"text":"hello"}},{"type":"final","answer":"HELLO"}]}
+{"case_id":"held-02","decisions":[{"type":"tool_call","name":"add","args":{"a":-4,"b":-6}},{"type":"final","answer":"-10"}]}
+{"case_id":"held-03","decisions":[{"type":"tool_call","name":"delay","args":{"seconds":0}},{"type":"tool_call","name":"uppercase","args":{"text":"ok"}},{"type":"final","answer":"done:OK"}]}
+{"case_id":"held-04","decisions":[{"type":"tool_call","name":"uppercase","args":{"text":"x"}},{"type":"final","answer":"Y"}]}
+{"case_id":"held-05","decisions":[]}
+{"case_id":"held-06","simulated_unscored":"judge result deliberately absent"}
+{"case_id":"held-07","decisions":[{"type":"tool_call","name":"delete_all","args":{}}]}
+{"case_id":"held-08","decisions":[{"type":"tool_call","name":"uppercase","args":{"text":7}}]}
