@@ -266,3 +266,12 @@
 - SOURCE-VERIFIED：补充 `third_party/lab_runner/opencode/session.py:parse/to_transcript` 的工具事件 name/input/output/status 结构及 error 状态处理。该源码只读取外部 OpenCode 事件，不证明内部工具执行或任务解答。
 - 更新 Stage 01 学习状态为“用户同意下一 Stage、PR 尚待合并”。下一动作是建立 Stage 01 PR 供用户审阅；不自动 Merge。只有核实 PR 正确合并到 `main` 后才创建 Stage 02 分支并授课。
 - 首次 `gh pr create` 因 GitHub API 连接超时未完成；查询 `gh pr list --head stage-01-runtime --state all` 仍为 `[]` 后重试，成功创建 https://github.com/lyxnbclass/harness2-agent-evaluation/pull/2。已核实 base `main`、head `stage-01-runtime`、OPEN、非 Draft、MERGEABLE、`mergedAt=null`；未执行 Merge。PR 正文包含实现、真实测试、合成事件 probe 与未验证边界。
+
+### 2026-11-05 | Stage 01 合并收尾与 Stage 02 指标工程
+
+- 用户明确要求 Stage 02 PR。只读命令在受审查执行通道中恢复：`gh pr view 2` 核实 PR #2 为 MERGED，merge commit `0b08058e22b6462941bb6781fc85c92c3012bc21`，目标 `main`；`git fetch origin main` 后 `git merge-base --is-ancestor` 确认该合并提交位于远端 `main`。此前工具故障期间没有误报分支或 PR 创建。
+- 主 checkout `D:/code/harness2-agent-evaluation` 留有用户的 `learning/gates/` 未提交历史修改，保持原样；在干净的 Stage 01 worktree 中快进 `main`。合并后 README 收尾提交 `d02562c` 已 Push，`git ls-remote origin refs/heads/main` 返回该 SHA。随后从这个 `main` 创建独立 `stage-02-metrics` 分支。`scripts/skill-stats` 不存在；已读取 `ai-pair-programmer` 及其完整编码规范。
+- Codex 实现 24 条本地多工具案例、独立 FakeModel 决策 fixture、`metrics.py`、`stage02_demo.py`、13 项单元/集成测试、运行清单与报告。案例按 8/8/8 分为 dev/validation/local-held-out；`dev-02/held-03` 各调用两个工具。指标显式区分已评分、基础设施异常、未评分及分母为零；Trace 统计只计案例 allowlist 之外的**尝试**，不声称已经实现完整权限执行策略。
+- OBSERVED：本机 Python 3.12.13 执行 Stage 02 13 tests OK（0.636s；PR 元数据更新后复跑 0.646s），Stage 01 Runtime 回归 8 tests OK（0.110s）；`scripts/check_workspace.py` 退出 0。24 条脚本契约运行：`resolved=19, failed=3, infra_error=1, unscored=1`；`dev-08/val-07` 的最终答案正确但工具调用越权，`val-04` 的工具结果正确但最终回答错误。结果见 `reports/stage02_fake_results.jsonl` 与 `reports/stage02_metrics_smoke.md`。
+- 用户已能手算一组成功率和覆盖率，解释原生判题结论与 Runtime Trace 的关联，并要求提交 PR；尚未阅读本轮新代码或手算真实五样本，不写成全面独立掌握。没有真实模型、SWE-bench、付费调用或性能提升结论。下一内容是 Stage 02 PR 审阅与指标分母的代码讲解；PR 创建前保持状态 IN_PROGRESS。
+- 实现与证据提交 `ddce1dc feat: add stage 02 evaluation metrics and teaching cases` 已 Push 至 `origin/stage-02-metrics`。`gh pr create` 创建 [PR #3](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/3)；`gh pr view 3` 核实 base `main`、head `stage-02-metrics`、OPEN、非 Draft、MERGEABLE。PR 未合并，Stage 02 保持 IN_PROGRESS，Stage 03 保持 LOCKED。

@@ -1,8 +1,8 @@
 {
   "schema_version": "4.0",
-  "current_stage": "01",
-  "last_updated": "2026-11-04",
-  "note": "Stage 01 engineering checks passed and user explicitly chose Stage 02 progression. PR #2 is open and must be reviewed and merged to main before Stage 02 starts; model-backed execution remains unverified.",
+  "current_stage": "02",
+  "last_updated": "2026-11-05",
+  "note": "Stage 01 PR #2 merge commit 0b08058 is on main; post-merge README d02562c is pushed. Stage 02 local scripted-contract metrics are implemented and verified; no real model or SWE-bench run.",
   "stages": {
     "00": {
       "status": "COMPLETED",
@@ -36,7 +36,7 @@
       }
     },
     "01": {
-      "status": "IN_PROGRESS",
+      "status": "COMPLETED",
       "required_evidence": [
         "experiments/toy_agent/runtime.py",
         "reports/stage01_runtime_smoke.md",
@@ -44,24 +44,44 @@
         "learning/stages/01.md"
       ],
       "user_approved_next": true,
-      "last_checked": "2026-11-04",
+      "last_checked": "2026-11-05",
       "github": {
         "branch": "stage-01-runtime",
         "important_commits": [
           "98ca15c",
-          "1e21f29"
+          "1e21f29",
+          "98e49a2"
         ],
         "remote": "https://github.com/lyxnbclass/harness2-agent-evaluation.git",
         "pr_url": "https://github.com/lyxnbclass/harness2-agent-evaluation/pull/2",
-        "pr_status": "OPEN",
-        "stage_branch_pushed": true
+        "pr_status": "MERGED",
+        "stage_branch_pushed": true,
+        "merge_commit": "0b08058e22b6462941bb6781fc85c92c3012bc21",
+        "post_merge_readme_commit": "d02562c8187f905cb4ea551e9386119b7785d3f1"
       }
     },
     "02": {
-      "status": "LOCKED",
-      "required_evidence": [],
+      "status": "IN_PROGRESS",
+      "required_evidence": [
+        "experiments/datasets/stage02_multitool_cases.jsonl",
+        "experiments/datasets/stage02_fake_decisions.jsonl",
+        "experiments/evaluators/metrics.py",
+        "experiments/evaluators/stage02_demo.py",
+        "experiments/evaluators/test_metrics.py",
+        "experiments/manifests/stage02_fake_v1.json",
+        "reports/stage02_metrics_smoke.md",
+        "learning/stages/02.md"
+      ],
       "user_approved_next": false,
-      "last_checked": null
+      "last_checked": "2026-11-05",
+      "github": {
+        "branch": "stage-02-metrics",
+        "remote": "https://github.com/lyxnbclass/harness2-agent-evaluation.git",
+        "important_commits": ["ddce1dc"],
+        "pr_url": "https://github.com/lyxnbclass/harness2-agent-evaluation/pull/3",
+        "pr_status": "OPEN",
+        "stage_branch_pushed": true
+      }
     },
     "03": {
       "status": "LOCKED",
@@ -130,5 +150,5 @@
       "last_checked": null
     }
   },
-  "current_chapter": "01: 最小 Agent Runtime 与 Tool Calling"
+  "current_chapter": "02: 评测任务、结果状态与指标实现"
 }

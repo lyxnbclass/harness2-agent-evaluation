@@ -1,0 +1,42 @@
+{
+  "run_id": "stage02-fake-v1",
+  "date_iso": "2026-11-05",
+  "status": "OBSERVED",
+  "kind": "local_scripted_contract",
+  "source_commit": "ddce1dca1d784ad8c112968e504ee2f00cd771f2",
+  "upstream_commit": "1cfe254e8d25b15f37048c3730134686abe60335",
+  "benchmark_name": null,
+  "benchmark_commit": null,
+  "dataset_path": "experiments/datasets/stage02_multitool_cases.jsonl",
+  "fixture_path": "experiments/datasets/stage02_fake_decisions.jsonl",
+  "task_ids": [
+    "dev-01", "dev-02", "dev-03", "dev-04", "dev-05", "dev-06", "dev-07", "dev-08",
+    "val-01", "val-02", "val-03", "val-04", "val-05", "val-06", "val-07", "val-08",
+    "held-01", "held-02", "held-03", "held-04", "held-05", "held-06", "held-07", "held-08"
+  ],
+  "split_usage": "8 dev / 8 validation / 8 local-held-out; all observed once",
+  "model_id": null,
+  "executor": "experiments.toy_agent.runtime.FakeModel",
+  "environment": "Windows; Python 3.12.13; local subprocess for delay(0)",
+  "network_restrictions": "No network or model API used by the Stage 02 runner",
+  "commands": [
+    "python -m unittest discover -s experiments/evaluators -p test_*.py -v",
+    "python -m experiments.evaluators.stage02_demo --output reports/stage02_fake_results.jsonl"
+  ],
+  "resolved": 19,
+  "failed": 3,
+  "infra_error": 1,
+  "unscored": 1,
+  "tokens": null,
+  "estimated_or_observed_cost": null,
+  "output_paths": [
+    "reports/stage02_fake_results.jsonl",
+    "reports/stage02_metrics_smoke.md"
+  ],
+  "limitations": [
+    "FakeModel follows scripted decisions; no real Agent capability is measured",
+    "One infra_error and one unscored result are intentionally simulated",
+    "The local-held-out split was inspected; future tuning on it would contaminate it",
+    "No SWE-bench or native benchmark evaluator was run"
+  ]
+}
