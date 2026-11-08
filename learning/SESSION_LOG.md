@@ -289,3 +289,4 @@
 - 用户正确定位 `dev-08` 首次越权在 assistant Tool Call、区分 `resolved` 与过程合规，正确解释 `val-04` 工具结果和 FakeModel 最终答错、基础设施错误不能判题、结构化事件优于截断渲染。第 5 题回答“是”；已纠正 replay 只展示已存事件，rerun 会重新执行并可能产生不同结果。尚未记录用户对新增代码的验收。
 - Codex 在 `stage-03-trajectory` 分支新增运行时事件元数据、脱敏写盘、`trace_validator.py`、`bad_case_registry.py`、回放 CLI、24 条本地结构化 Trace、候选清单及 8 条分析记录。Toy Runtime 的 `harness_sha` 留空，因为该代码不是官方 Harness² 执行器。
 - OBSERVED：`python -m unittest discover -s experiments/evaluators -p test_*.py -v` 为 19 项通过；Toy Runtime 回归 8 项通过；`python scripts/check_workspace.py` 退出 0；本地 FakeModel 案例成功捕获 24 条。无真实模型、SWE-bench 或性能提升数据。PR 尚未创建，未自动 Merge。
+- 工程实现与证据提交 `f258a85 feat: capture and validate stage 03 agent traces`。独立阶段分支保留；待核实远端 Push 与工作树。
