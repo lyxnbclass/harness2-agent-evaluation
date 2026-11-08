@@ -1,8 +1,8 @@
 {
   "schema_version": "4.0",
   "current_stage": "03",
-  "last_updated": "2026-11-05",
-  "note": "Stage 02 PR #3 merge commit d34d001 is on main; post-merge README bdebf18 is pushed. User explicitly chose Stage 03. Trace validator and bad-case work remain in progress; no real model or SWE-bench run.",
+  "last_updated": "2026-11-08",
+  "note": "Stage 03 local trace capture, validator, bad-case registry and replay are implemented with FakeModel evidence. User answered chapter questions; replay versus rerun needs reinforcement. User has not confirmed Stage 03 acceptance. No real model or SWE-bench run.",
   "stages": {
     "00": {
       "status": "COMPLETED",
@@ -89,11 +89,14 @@
       "status": "IN_PROGRESS",
       "required_evidence": [
         "experiments/evaluators/trace_validator.py",
+        "experiments/evaluators/bad_case_registry.py",
+        "experiments/evaluators/stage03_trace.py",
+        "reports/stage03_fake_trace.jsonl",
         "reports/bad_cases.md",
         "learning/stages/03.md"
       ],
       "user_approved_next": false,
-      "last_checked": "2026-11-05",
+      "last_checked": "2026-11-08",
       "github": {
         "branch": "stage-03-trajectory",
         "remote": "https://github.com/lyxnbclass/harness2-agent-evaluation.git",

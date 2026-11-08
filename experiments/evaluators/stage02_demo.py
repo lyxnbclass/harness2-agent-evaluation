@@ -78,13 +78,16 @@ def tool_counts(trace: list[dict], allowed_tools: list[str]) -> tuple[int, int, 
     return len(calls), valid, unsafe
 
 
-def run_case(case: dict, fixture: dict, run_id: str) -> tuple[TaskResult, dict]:
+def run_case(
+    case: dict, fixture: dict, run_id: str, *, record_events: bool = False
+) -> tuple[TaskResult, dict]:
     case_id = case["case_id"]
     if fixture.get("case_id") != case_id:
         raise ValueError(f"{case_id}: fixture ID mismatch")
     if fixture.get("simulated_infra_error") and fixture.get("simulated_unscored"):
         raise ValueError(f"{case_id}: conflicting simulated outcomes")
     reason = fixture.get("simulated_infra_error") or fixture.get("simulated_unscored")
+    events: list[dict] = []
     if fixture.get("simulated_infra_error"):
         outcome, status, answer, trace, latency = "infra_error", None, None, [], None
     elif fixture.get("simulated_unscored"):
@@ -97,6 +100,7 @@ def run_case(case: dict, fixture: dict, run_id: str) -> tuple[TaskResult, dict]:
         result = run_agent(
             case["input"], FakeModel(decisions),
             max_steps=case["tool_constraints"]["max_steps"],
+            event_sink=events.append if record_events else None,
         )
         latency = perf_counter() - started
         status, answer, trace = result.status, result.answer, result.trace
@@ -121,17 +125,21 @@ def run_case(case: dict, fixture: dict, run_id: str) -> tuple[TaskResult, dict]:
         "latency_sec": latency,
         "trace": trace,
     }
+    if record_events:
+        artifact["events"] = events
     return metric_row, artifact
 
 
-def run_suite(cases_path: Path, fixtures_path: Path, run_id: str) -> tuple[list[TaskResult], list[dict]]:
+def run_suite(
+    cases_path: Path, fixtures_path: Path, run_id: str, *, record_events: bool = False
+) -> tuple[list[TaskResult], list[dict]]:
     cases, fixtures = load_jsonl(cases_path), load_jsonl(fixtures_path)
     if cases.keys() != fixtures.keys():
         raise ValueError("case and fixture IDs differ")
     metrics, artifacts = [], []
     for case_id, case in cases.items():
         validate_case(case)
-        metric, artifact = run_case(case, fixtures[case_id], run_id)
+        metric, artifact = run_case(case, fixtures[case_id], run_id, record_events=record_events)
         metrics.append(metric)
         artifacts.append(artifact)
     return metrics, artifacts

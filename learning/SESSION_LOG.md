@@ -283,3 +283,9 @@
 - SOURCE-VERIFIED：官方固定 SHA `1cfe254e8d25b15f37048c3730134686abe60335`，`JobBenchAdapter.trajectory()` 选最新 JSONL，`OpencodeSubstrate.read_trajectory()` 调用 `render_events()` 把工具事件渲染为 ACTION/OBSERVATION/ERROR；不提供任务正确性判定。本地 Stage 01 `run_agent()` 追加内存消息，Stage 02 `dev-08` 真实生成“答案正确但案例级工具越权”轨迹，`val-04` 生成“工具结果正确但 final 错误”轨迹。
 - 本轮开始 Stage 03 七部分章节讲解；新 `trace_validator.py`、8 条 Bad Cases、结构化元数据与回放 CLI 尚未实现，未运行 Stage 03 新测试。学习记录保留 Stage 02 代码分母未获用户独立解释的限制；用户明确推进，不以旧评分流程阻断。Stage 03 PR NONE，不自动合并。
 - 阶段入口记录提交 `1c7ddc2 docs: start stage 03 trajectory analysis` 已 Push 到 `origin/stage-03-trajectory`；本轮只运行 `scripts/check_workspace.py`（exit 0），没有 Stage 03 新代码或测试结果。
+
+### 2026-11-08 | Stage 03 思考题反馈与轨迹工程
+
+- 用户正确定位 `dev-08` 首次越权在 assistant Tool Call、区分 `resolved` 与过程合规，正确解释 `val-04` 工具结果和 FakeModel 最终答错、基础设施错误不能判题、结构化事件优于截断渲染。第 5 题回答“是”；已纠正 replay 只展示已存事件，rerun 会重新执行并可能产生不同结果。尚未记录用户对新增代码的验收。
+- Codex 在 `stage-03-trajectory` 分支新增运行时事件元数据、脱敏写盘、`trace_validator.py`、`bad_case_registry.py`、回放 CLI、24 条本地结构化 Trace、候选清单及 8 条分析记录。Toy Runtime 的 `harness_sha` 留空，因为该代码不是官方 Harness² 执行器。
+- OBSERVED：`python -m unittest discover -s experiments/evaluators -p test_*.py -v` 为 19 项通过；Toy Runtime 回归 8 项通过；`python scripts/check_workspace.py` 退出 0；本地 FakeModel 案例成功捕获 24 条。无真实模型、SWE-bench 或性能提升数据。PR 尚未创建，未自动 Merge。

@@ -15,8 +15,8 @@
 | Mock / FakeModel / 单元测试 | 01 | 需补充 | 用户知道 FakeModel 使用预设决策步骤，但尚未说明最终回答并非由工具结果推理得出 | 对比脚本决策与真实模型推理；阅读结果回传单测 |
 | Dataset / Splits / Evaluation Leakage | 02、08 | 已讲待验证 | 2026-11-05 已讲 dev/validation/local-held-out、公开集训练泄漏风险；24 条本地案例已建立 | 用户未独立解释数据切分与本地 held-out 被观察后的限制 |
 | Success Rate / Pass@k / 未评分样本 | 02、10 | 已讲待验证 | 用户正确手算 `8/(8+8)=50%`、覆盖率 `16/20=80%`，并指出各状态需单列；`metrics.py` 与 13 项测试已完成 | 本轮代码分母和真实五样本手算未独立验证；pass@k 未实测 |
-| Trace / Trajectory Evaluation | 03 | 已讲待验证 | 2026-11-05 以 Stage 01 `run_agent()`、Stage 02 `dev-08` Trace 和官方 `render_events()` 边界进行七部分教学 | 用户尚未回答本章思考题；结构化事件、校验和回放 CLI 待实做 |
-| Bad Case / Root Cause | 03、05 | 已讲待验证 | 本章用 `dev-08` 正确答案但工具越权、`val-04` 工具正确但最终答案错误示范事实与原因假设分离 | 尚未建立 8 条有证据的 Bad Case Registry；用户未独立定位首次偏离步骤 |
+| Trace / Trajectory Evaluation | 03 | 需补充 | 2026-11-08 用户正确定位 `dev-08` 第 1 条 assistant 工具调用，区分最终判题和轨迹，并说明结构化事件优于截断渲染 | 第 5 题把 replay 与重新执行混同；新代码链路尚未独立解释 |
+| Bad Case / Root Cause | 03、05 | 已讲待验证 | 用户正确区分 `val-04` 工具结果 `4`、FakeModel 最终回答 `5` 与未经验证的真实模型原因；8 条分析记录已建 | 结合新 Registry 代码解释证据、假设与回归用例 |
 | LLM-as-a-Judge / 校准 | 04 | 未讲 | 尚未教学与验证 | 待验证 |
 | Prompt / Tool Schema / Retry / Runtime 优化 | 05 | 未讲 | 尚未教学与验证 | 待验证 |
 | Harness² PPC、Parallel/Sequential | 00、06 | 已讲待验证 | Stage 00 已结合官方 `run_parallel/run_sequential` 和真实 Demo 产物讲解两模式；PPC 深入留在 06 | 用户尚未独立解释两模式与选择时序 |

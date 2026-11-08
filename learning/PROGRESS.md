@@ -1,6 +1,6 @@
 # 学习进度 — 当前状态
 
-> 更新：2026-11-05。当前状态以本轮 Git、源码及测试核实为准；Stage 00–01 的历史细节见 `learning/stages/00.md`、`learning/stages/01.md` 和 `learning/SESSION_LOG.md`。
+> 更新：2026-11-08。当前状态以本轮 Git、源码及测试核实为准；Stage 00–01 的历史细节见 `learning/stages/00.md`、`learning/stages/01.md` 和 `learning/SESSION_LOG.md`。
 
 - 当前阶段：03
 - 当前章节：Trace 证据链、轨迹校验与 Bad Case
@@ -13,6 +13,7 @@
 - Stage 02 理解：用户正确手算有效评分成功率 `8/16=50%`、覆盖率 `16/20=80%`，能把判题器结论与 Runtime Trace 关联，并追问 SWE-bench Adapter、原生判题、Trace 采集与报告生成。已定点补充逐题回归和“Trace 不决定最终正确性”。本轮新代码尚未由用户独立阅读或按五个真实样本手算；不记为全面掌握。
 - Stage 02 工程：Codex 在独立 `stage-02-metrics` 分支实现 24 条多工具教学案例、独立 FakeModel 决策 fixture、`experiments/evaluators/metrics.py`、本地案例 Runner 和 13 项测试。2026-11-05 Python 3.12.13 下测试 13 项通过；24 条本地脚本契约结果为 `resolved=19, failed=3, infra_error=1, unscored=1`。完整证据及限制见 `reports/stage02_metrics_smoke.md`；这些不是 SWE-bench 成绩。
 - GitHub：Stage 02 实现提交 `ddce1dc` 与记录提交 `0e279a1` 已随 PR #3 合并；合并后远端 `main` 为 `bdebf18`。当前独立分支 `stage-03-trajectory` 从该提交建立；阶段入口记录提交 `1c7ddc2` 已 Push；Stage 03 PR：NONE。不自动 Merge。
-- Stage 03 理解：本章开始从 `reports/stage02_fake_results.jsonl` 的真实本地 Trace 追踪 Tool Call、Tool Result、Final、Outcome 与权限约束的区别；七部分讲解于本轮输出后等待用户集中回答。用户对新阶段代码尚无验收。
-- 限制：无付费 API、真实模型或公开 Benchmark 运行；仅 FakeModel 与本地教学契约。Stage 03 Trace Validator、Bad Case Registry 与回放 CLI 尚未实现；Stage 09 SWE-bench Adapter 尚未实现。
-- 下次内容：实现结构化 Trace、轨迹校验、Bad Case 证据记录与回放 CLI，完成必要测试；针对本章思考题的实际回答定点补讲。Stage 01 substrate 边界和 Stage 02 新代码的未独立解释项保留为面试复习。
+- Stage 03 理解：用户对 `dev-08` 首次越权步骤、`resolved` 与过程合规的区别、`val-04` 观察事实和 FakeModel 边界、`infra_error` 不判正误、结构化事件优于截断文本，均给出正确要点。第 5 题回答“是”混淆了 Trace replay 与重新执行；已定点补讲：replay 只展示已保存事件，重跑可能因模型采样、环境、工具状态、版本改变而得到不同轨迹。用户尚未确认已理解新代码。
+- Stage 03 工程：Codex 新增运行时事件时间戳与累计耗时、脱敏持久化、`trace_validator.py`、`bad_case_registry.py`、按 `run_id` 回放 CLI、24 条结构化本地 Trace 和 8 条分析记录。2026-11-08 本地评测 19 项测试、Runtime 8 项回归测试、工作区检查均通过。证据见 `reports/stage03_fake_trace.jsonl`、`reports/stage03_bad_case_candidates.jsonl`、`reports/bad_cases.md`。这些是 FakeModel 教学案例，不是官方 Harness² 或 SWE-bench 成绩。
+- 限制：无付费 API、真实模型或公开 Benchmark 运行；仅 FakeModel 与本地教学契约。脱敏只覆盖常见凭据模式，不能当成通用机密扫描；Stage 09 SWE-bench Adapter 尚未实现。Stage 03 PR 尚未创建，等待用户对核心新代码与 replay 边界的验收。
+- 下次内容：结合 `dev-08` 实际回放讲解 `record → validate_trace → candidate_from_result`，请用户说明 replay 和重跑区别并审阅本阶段工程证据；验收后准备 Stage 03 PR。Stage 01 substrate 边界和 Stage 02 分母代码未独立解释项保留为面试复习。
