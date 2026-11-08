@@ -100,7 +100,7 @@
       "github": {
         "branch": "stage-03-trajectory",
         "remote": "https://github.com/lyxnbclass/harness2-agent-evaluation.git",
-        "important_commits": ["1c7ddc2", "f258a85"],
+        "important_commits": ["1c7ddc2", "f258a85", "d4cbdf6"],
         "pr_url": null,
         "pr_status": "NONE",
         "stage_branch_pushed": true
