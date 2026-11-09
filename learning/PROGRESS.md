@@ -1,6 +1,6 @@
 # 学习进度 — 当前状态
 
-> 更新：2026-11-08。当前状态以本轮 Git、源码及测试核实为准；Stage 00–01 的历史细节见 `learning/stages/00.md`、`learning/stages/01.md` 和 `learning/SESSION_LOG.md`。
+> 更新：2026-11-09。当前状态以本轮 Git、源码及测试核实为准；Stage 00–01 的历史细节见 `learning/stages/00.md`、`learning/stages/01.md` 和 `learning/SESSION_LOG.md`。
 
 - 当前阶段：03
 - 当前章节：Trace 证据链、轨迹校验与 Bad Case
@@ -16,4 +16,4 @@
 - Stage 03 理解：用户对 `dev-08` 首次越权步骤、`resolved` 与过程合规的区别、`val-04` 观察事实和 FakeModel 边界、`infra_error` 不判正误、结构化事件优于截断文本，均给出正确要点。第 5 题回答“是”混淆了 Trace replay 与重新执行；已定点补讲：replay 只展示已保存事件，重跑可能因模型采样、环境、工具状态、版本改变而得到不同轨迹。用户尚未确认已理解新代码。
 - Stage 03 工程：Codex 新增运行时事件时间戳与累计耗时、脱敏持久化、`trace_validator.py`、`bad_case_registry.py`、按 `run_id` 回放 CLI、24 条结构化本地 Trace 和 8 条分析记录。2026-11-08 本地评测 19 项测试、Runtime 8 项回归测试、工作区检查均通过。证据见 `reports/stage03_fake_trace.jsonl`、`reports/stage03_bad_case_candidates.jsonl`、`reports/bad_cases.md`。这些是 FakeModel 教学案例，不是官方 Harness² 或 SWE-bench 成绩。
 - 限制：无付费 API、真实模型或公开 Benchmark 运行；仅 FakeModel 与本地教学契约。脱敏只覆盖常见凭据模式，不能当成通用机密扫描；Stage 09 SWE-bench Adapter 尚未实现。Stage 03 PR 尚未创建，等待用户对核心新代码与 replay 边界的验收。
-- 下次内容：结合 `dev-08` 实际回放讲解 `record → validate_trace → candidate_from_result`，请用户说明 replay 和重跑区别并审阅本阶段工程证据；验收后准备 Stage 03 PR。Stage 01 substrate 边界和 Stage 02 分母代码未独立解释项保留为面试复习。
+- 下一内容：Stage 03 的一次性七部分系统讲解及用户定点反馈；讲解后只按用户疑问补充，不安排预设的单独代码章。用户验收本阶段工程与理解后再准备 Stage 03 PR。Stage 01 substrate 边界和 Stage 02 分母代码未独立解释项保留为面试复习。

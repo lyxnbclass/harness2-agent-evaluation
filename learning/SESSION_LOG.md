@@ -290,3 +290,8 @@
 - Codex 在 `stage-03-trajectory` 分支新增运行时事件元数据、脱敏写盘、`trace_validator.py`、`bad_case_registry.py`、回放 CLI、24 条本地结构化 Trace、候选清单及 8 条分析记录。Toy Runtime 的 `harness_sha` 留空，因为该代码不是官方 Harness² 执行器。
 - OBSERVED：`python -m unittest discover -s experiments/evaluators -p test_*.py -v` 为 19 项通过；Toy Runtime 回归 8 项通过；`python scripts/check_workspace.py` 退出 0；本地 FakeModel 案例成功捕获 24 条。无真实模型、SWE-bench 或性能提升数据。PR 尚未创建，未自动 Merge。
 - 工程实现与证据提交 `f258a85 feat: capture and validate stage 03 agent traces`；记录提交 `d4cbdf6`。两者已 Push 到 `origin/stage-03-trajectory`；`git ls-remote` 返回 `d4cbdf62c6564f897ea01a273df528c143a1b925`，工作树干净，`gh pr list --head stage-03-trajectory --state all` 返回空列表。
+
+### 2026-11-09 | Stage 03 教学节奏纠正
+
+- 用户明确纠正：一个 Stage 的全部内容应在一次回答中统一系统讲完。此前将 Stage 03 分为概念、代码回放和验收，违反用户意图。已修改 `AGENTS.md` 为阶段级一次性七部分教学；后续追问仅作定点补充，不再预设另一个代码章节。
+- 本轮核对官方固定 SHA `1cfe254e8d25b15f37048c3730134686abe60335` 与自研 `run_agent → run_case/run_suite → build_artifacts → validate_trace → candidate_from_result → replay` 真实函数。工程产物与测试沿用 2026-11-08 已验证证据；本轮未重新运行模型或 Benchmark。Stage 03 PR 尚无。
