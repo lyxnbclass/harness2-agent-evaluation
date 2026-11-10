@@ -295,3 +295,9 @@
 
 - 用户明确纠正：一个 Stage 的全部内容应在一次回答中统一系统讲完。此前将 Stage 03 分为概念、代码回放和验收，违反用户意图。已修改 `AGENTS.md` 为阶段级一次性七部分教学；后续追问仅作定点补充，不再预设另一个代码章节。
 - 本轮核对官方固定 SHA `1cfe254e8d25b15f37048c3730134686abe60335` 与自研 `run_agent → run_case/run_suite → build_artifacts → validate_trace → candidate_from_result → replay` 真实函数。工程产物与测试沿用 2026-11-08 已验证证据；本轮未重新运行模型或 Benchmark。Stage 03 PR 尚无。
+
+### 2026-11-10 | Stage 03 PR 创建
+
+- 用户要求“推送pr”。核实工作树干净、远端 `stage-03-trajectory` 为 `9dcb3d3259546deab2b642040ce6110b88b8abcb`、`origin/main` 是当前 HEAD 祖先、此前无同分支 PR，GitHub 登录有效。PR diff 经 `git diff --check origin/main...HEAD` 检查通过。
+- 重新运行评测测试 19 项、Toy Runtime 回归 8 项和 `scripts/check_workspace.py`，均通过。没有新模型或 Benchmark 实验；24 条 FakeModel 轨迹与 8 条分析报告为此前已提交的本地证据。
+- 创建 [PR #4](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/4)，核实 base `main`、head `stage-03-trajectory`、OPEN、非 Draft、`mergedAt=null`。未自动 Merge。

@@ -1,8 +1,8 @@
 {
   "schema_version": "4.0",
   "current_stage": "03",
-  "last_updated": "2026-11-08",
-  "note": "Stage 03 local trace capture, validator, bad-case registry and replay are implemented with FakeModel evidence. User answered chapter questions; replay versus rerun needs reinforcement. User has not confirmed Stage 03 acceptance. No real model or SWE-bench run.",
+  "last_updated": "2026-11-10",
+  "note": "Stage 03 local trace capture, validator, bad-case registry and replay are implemented with FakeModel evidence. User requested PR #4; it is open for review and not merged. Replay versus rerun was explained; no real model or SWE-bench run.",
   "stages": {
     "00": {
       "status": "COMPLETED",
@@ -96,13 +96,13 @@
         "learning/stages/03.md"
       ],
       "user_approved_next": false,
-      "last_checked": "2026-11-08",
+      "last_checked": "2026-11-10",
       "github": {
         "branch": "stage-03-trajectory",
         "remote": "https://github.com/lyxnbclass/harness2-agent-evaluation.git",
         "important_commits": ["1c7ddc2", "f258a85", "d4cbdf6"],
-        "pr_url": null,
-        "pr_status": "NONE",
+        "pr_url": "https://github.com/lyxnbclass/harness2-agent-evaluation/pull/4",
+        "pr_status": "OPEN",
         "stage_branch_pushed": true
       }
     },
