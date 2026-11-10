@@ -308,3 +308,4 @@
 - Codex 实现本地确定性 `judge.py`、严格结构化输出校验、有界错误/超时重试、pairwise 安全优先比较、15 条合成案例与 Codex 人工参考标签、校准 Runner、rubric 和报告。参考标签待用户审阅，未冒充外部人工标注。
 - OBSERVED：首次测试暴露 `casefold()` 把 `hello` 误判为 `HELLO`，已改为大小写敏感答案比较。修正后评测测试 25 项、Toy Runtime 回归 8 项通过，工作区检查退出 0。校准 15 条案例，12 条与参考标签一致，3 条分歧为 `j04/j08/j12`；一个 pairwise 顺序交换 probe 保持获胜候选不变。无真实模型、付费 API、公开 Benchmark 或总体可靠性结论。
 - 官方固定 SHA `1cfe254e8d25b15f37048c3730134686abe60335`：`core/selection.py:run_selection` 负责选交付，`core/judge.py:judge_one` 在选择后调用 `adapter.score`；本轮只做源码核实，未执行官方模型判题。Stage 04 当前 IN_PROGRESS，PR NONE。
+- 实现与证据提交 `d859141 feat: add deterministic judge calibration` 已 Push 到 `origin/stage-04-judge`，`source_commit` 写入运行 manifest。此前凭据模式扫描因 Windows 默认 GBK 解码失败，改用 UTF-8 后确认新增 diff 未匹配常见 API Key、GitHub Token、AWS Key 或私钥头；无密钥提交。

@@ -122,10 +122,10 @@
       "github": {
         "branch": "stage-04-judge",
         "remote": "https://github.com/lyxnbclass/harness2-agent-evaluation.git",
-        "important_commits": [],
+        "important_commits": ["d859141"],
         "pr_url": null,
         "pr_status": "NONE",
-        "stage_branch_pushed": false
+        "stage_branch_pushed": true
       }
     },
     "05": {

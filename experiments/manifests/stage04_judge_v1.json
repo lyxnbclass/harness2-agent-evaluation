@@ -2,6 +2,7 @@
   "run_id": "stage04-local-rule-v1",
   "date_iso": "2026-11-10",
   "status": "OBSERVED",
+  "source_commit": "d8591417ebe42ecce57c794457df62237975d202",
   "kind": "local_deterministic_judge_calibration",
   "dataset_path": "experiments/datasets/stage04_judge_cases.jsonl",
   "rubric_path": "experiments/rubrics/stage04_local_judge.md",
