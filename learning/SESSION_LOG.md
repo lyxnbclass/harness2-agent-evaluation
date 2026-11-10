@@ -275,3 +275,29 @@
 - OBSERVED：本机 Python 3.12.13 执行 Stage 02 13 tests OK（0.636s；PR 元数据更新后复跑 0.646s），Stage 01 Runtime 回归 8 tests OK（0.110s）；`scripts/check_workspace.py` 退出 0。24 条脚本契约运行：`resolved=19, failed=3, infra_error=1, unscored=1`；`dev-08/val-07` 的最终答案正确但工具调用越权，`val-04` 的工具结果正确但最终回答错误。结果见 `reports/stage02_fake_results.jsonl` 与 `reports/stage02_metrics_smoke.md`。
 - 用户已能手算一组成功率和覆盖率，解释原生判题结论与 Runtime Trace 的关联，并要求提交 PR；尚未阅读本轮新代码或手算真实五样本，不写成全面独立掌握。没有真实模型、SWE-bench、付费调用或性能提升结论。下一内容是 Stage 02 PR 审阅与指标分母的代码讲解；PR 创建前保持状态 IN_PROGRESS。
 - 实现与证据提交 `ddce1dc feat: add stage 02 evaluation metrics and teaching cases` 已 Push 至 `origin/stage-02-metrics`。`gh pr create` 创建 [PR #3](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/3)；`gh pr view 3` 核实 base `main`、head `stage-02-metrics`、OPEN、非 Draft、MERGEABLE。PR 未合并，Stage 02 保持 IN_PROGRESS，Stage 03 保持 LOCKED。
+
+### 2026-11-05 | Stage 02 合并核实与 Stage 03 入口
+
+- 用户明确说“我已经合并了，进入下一阶段吧”。`gh pr view 3` 核实 PR #3 为 MERGED、目标 `main`、merge commit `d34d00130d8e8295278eb97995111f82fe258d77`；`git fetch origin main` 与 `git merge-base --is-ancestor` 核实合并提交在远端 `main`。没有自动 Merge。
+- 干净的 Stage 02 worktree 快进到远端 `main`，发现 README 仍写 Stage 02 PR 开放；做合并后文档收尾提交 `bdebf18 docs: close stage 02 after merged review` 并 Push。`git ls-remote origin refs/heads/main` 返回同一 SHA，随后从该提交建立独立 `stage-03-trajectory` 分支。主 checkout 的历史未提交 Gate 修改保持原样。
+- SOURCE-VERIFIED：官方固定 SHA `1cfe254e8d25b15f37048c3730134686abe60335`，`JobBenchAdapter.trajectory()` 选最新 JSONL，`OpencodeSubstrate.read_trajectory()` 调用 `render_events()` 把工具事件渲染为 ACTION/OBSERVATION/ERROR；不提供任务正确性判定。本地 Stage 01 `run_agent()` 追加内存消息，Stage 02 `dev-08` 真实生成“答案正确但案例级工具越权”轨迹，`val-04` 生成“工具结果正确但 final 错误”轨迹。
+- 本轮开始 Stage 03 七部分章节讲解；新 `trace_validator.py`、8 条 Bad Cases、结构化元数据与回放 CLI 尚未实现，未运行 Stage 03 新测试。学习记录保留 Stage 02 代码分母未获用户独立解释的限制；用户明确推进，不以旧评分流程阻断。Stage 03 PR NONE，不自动合并。
+- 阶段入口记录提交 `1c7ddc2 docs: start stage 03 trajectory analysis` 已 Push 到 `origin/stage-03-trajectory`；本轮只运行 `scripts/check_workspace.py`（exit 0），没有 Stage 03 新代码或测试结果。
+
+### 2026-11-08 | Stage 03 思考题反馈与轨迹工程
+
+- 用户正确定位 `dev-08` 首次越权在 assistant Tool Call、区分 `resolved` 与过程合规，正确解释 `val-04` 工具结果和 FakeModel 最终答错、基础设施错误不能判题、结构化事件优于截断渲染。第 5 题回答“是”；已纠正 replay 只展示已存事件，rerun 会重新执行并可能产生不同结果。尚未记录用户对新增代码的验收。
+- Codex 在 `stage-03-trajectory` 分支新增运行时事件元数据、脱敏写盘、`trace_validator.py`、`bad_case_registry.py`、回放 CLI、24 条本地结构化 Trace、候选清单及 8 条分析记录。Toy Runtime 的 `harness_sha` 留空，因为该代码不是官方 Harness² 执行器。
+- OBSERVED：`python -m unittest discover -s experiments/evaluators -p test_*.py -v` 为 19 项通过；Toy Runtime 回归 8 项通过；`python scripts/check_workspace.py` 退出 0；本地 FakeModel 案例成功捕获 24 条。无真实模型、SWE-bench 或性能提升数据。PR 尚未创建，未自动 Merge。
+- 工程实现与证据提交 `f258a85 feat: capture and validate stage 03 agent traces`；记录提交 `d4cbdf6`。两者已 Push 到 `origin/stage-03-trajectory`；`git ls-remote` 返回 `d4cbdf62c6564f897ea01a273df528c143a1b925`，工作树干净，`gh pr list --head stage-03-trajectory --state all` 返回空列表。
+
+### 2026-11-09 | Stage 03 教学节奏纠正
+
+- 用户明确纠正：一个 Stage 的全部内容应在一次回答中统一系统讲完。此前将 Stage 03 分为概念、代码回放和验收，违反用户意图。已修改 `AGENTS.md` 为阶段级一次性七部分教学；后续追问仅作定点补充，不再预设另一个代码章节。
+- 本轮核对官方固定 SHA `1cfe254e8d25b15f37048c3730134686abe60335` 与自研 `run_agent → run_case/run_suite → build_artifacts → validate_trace → candidate_from_result → replay` 真实函数。工程产物与测试沿用 2026-11-08 已验证证据；本轮未重新运行模型或 Benchmark。Stage 03 PR 尚无。
+
+### 2026-11-10 | Stage 03 PR 创建
+
+- 用户要求“推送pr”。核实工作树干净、远端 `stage-03-trajectory` 为 `9dcb3d3259546deab2b642040ce6110b88b8abcb`、`origin/main` 是当前 HEAD 祖先、此前无同分支 PR，GitHub 登录有效。PR diff 经 `git diff --check origin/main...HEAD` 检查通过。
+- 重新运行评测测试 19 项、Toy Runtime 回归 8 项和 `scripts/check_workspace.py`，均通过。没有新模型或 Benchmark 实验；24 条 FakeModel 轨迹与 8 条分析报告为此前已提交的本地证据。
+- 创建 [PR #4](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/4)，核实 base `main`、head `stage-03-trajectory`、OPEN、非 Draft、`mergedAt=null`。未自动 Merge。

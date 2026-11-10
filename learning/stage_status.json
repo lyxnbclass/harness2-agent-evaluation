@@ -1,8 +1,8 @@
 {
   "schema_version": "4.0",
-  "current_stage": "02",
-  "last_updated": "2026-11-05",
-  "note": "Stage 01 PR #2 merge commit 0b08058 is on main; post-merge README d02562c is pushed. Stage 02 local scripted-contract metrics are implemented and verified; no real model or SWE-bench run.",
+  "current_stage": "03",
+  "last_updated": "2026-11-10",
+  "note": "Stage 03 local trace capture, validator, bad-case registry and replay are implemented with FakeModel evidence. User requested PR #4; it is open for review and not merged. Replay versus rerun was explained; no real model or SWE-bench run.",
   "stages": {
     "00": {
       "status": "COMPLETED",
@@ -61,7 +61,7 @@
       }
     },
     "02": {
-      "status": "IN_PROGRESS",
+      "status": "COMPLETED",
       "required_evidence": [
         "experiments/datasets/stage02_multitool_cases.jsonl",
         "experiments/datasets/stage02_fake_decisions.jsonl",
@@ -72,22 +72,39 @@
         "reports/stage02_metrics_smoke.md",
         "learning/stages/02.md"
       ],
-      "user_approved_next": false,
+      "user_approved_next": true,
       "last_checked": "2026-11-05",
       "github": {
         "branch": "stage-02-metrics",
         "remote": "https://github.com/lyxnbclass/harness2-agent-evaluation.git",
-        "important_commits": ["ddce1dc"],
+        "important_commits": ["ddce1dc", "0e279a1"],
         "pr_url": "https://github.com/lyxnbclass/harness2-agent-evaluation/pull/3",
-        "pr_status": "OPEN",
-        "stage_branch_pushed": true
+        "pr_status": "MERGED",
+        "stage_branch_pushed": true,
+        "merge_commit": "d34d00130d8e8295278eb97995111f82fe258d77",
+        "post_merge_readme_commit": "bdebf186555393e6469b9f0542d22c49b761b0e3"
       }
     },
     "03": {
-      "status": "LOCKED",
-      "required_evidence": [],
+      "status": "IN_PROGRESS",
+      "required_evidence": [
+        "experiments/evaluators/trace_validator.py",
+        "experiments/evaluators/bad_case_registry.py",
+        "experiments/evaluators/stage03_trace.py",
+        "reports/stage03_fake_trace.jsonl",
+        "reports/bad_cases.md",
+        "learning/stages/03.md"
+      ],
       "user_approved_next": false,
-      "last_checked": null
+      "last_checked": "2026-11-10",
+      "github": {
+        "branch": "stage-03-trajectory",
+        "remote": "https://github.com/lyxnbclass/harness2-agent-evaluation.git",
+        "important_commits": ["1c7ddc2", "f258a85", "d4cbdf6"],
+        "pr_url": "https://github.com/lyxnbclass/harness2-agent-evaluation/pull/4",
+        "pr_status": "OPEN",
+        "stage_branch_pushed": true
+      }
     },
     "04": {
       "status": "LOCKED",
@@ -150,5 +167,5 @@
       "last_checked": null
     }
   },
-  "current_chapter": "02: 评测任务、结果状态与指标实现"
+  "current_chapter": "03: Trace 证据链、轨迹校验与 Bad Case"
 }

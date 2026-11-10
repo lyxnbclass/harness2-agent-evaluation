@@ -1,6 +1,6 @@
 # 章节理解矩阵（按实际回答更新）
 
-当前章节：Stage 02「评测任务、结果状态与指标实现」。定性状态：`未讲 / 已讲待验证 / 已理解 / 需补充`。不评分。Stage 01 PR 已合并、README 收尾已推送；用户此前明确要求进入 Stage 02。Stage 00–01 的局部理解与未完全独立解释项保留，历史细节见 `learning/KNOWLEDGE_MASTERY.md`、`learning/stages/01.md`。
+当前章节：Stage 03「Trace 证据链、轨迹校验与 Bad Case」。定性状态：`未讲 / 已讲待验证 / 已理解 / 需补充`。不评分。Stage 02 PR 已合并、README 收尾已推送，用户明确要求进入 Stage 03。此前阶段的局部理解与尚未独立解释项保留，历史细节见 `learning/KNOWLEDGE_MASTERY.md`、`learning/stages/01.md`、`learning/stages/02.md`。
 
 | 知识点 | 对应阶段 | 当前理解状态 | 最近回答/证据 | 关键薄弱点/后续复习 |
 |---|---|---|---|---|
@@ -14,9 +14,9 @@
 | Tool Call / Tool Result / Schema | 01–03 | 需补充 | 用户正确指出 Tool Call 来自模型、结果经 Runtime 回传；一步预算解释中混淆了输出校验与最终回答生成 | `run_tool()` 先校验输出，`run_agent()` 再写 Trace；仅下一轮模型决策因预算耗尽而未发生 |
 | Mock / FakeModel / 单元测试 | 01 | 需补充 | 用户知道 FakeModel 使用预设决策步骤，但尚未说明最终回答并非由工具结果推理得出 | 对比脚本决策与真实模型推理；阅读结果回传单测 |
 | Dataset / Splits / Evaluation Leakage | 02、08 | 已讲待验证 | 2026-11-05 已讲 dev/validation/local-held-out、公开集训练泄漏风险；24 条本地案例已建立 | 用户未独立解释数据切分与本地 held-out 被观察后的限制 |
-| Success Rate / Pass@k / 未评分样本 | 02、10 | 已讲待验证 | 用户正确手算 `8/(8+8)=50%`、覆盖率 `16/20=80%`，并指出各状态需单列；`metrics.py` 与 12 项测试已完成 | 本轮代码分母和真实五样本手算未独立验证；pass@k 未实测 |
-| Trace / Trajectory Evaluation | 03 | 未讲 | 尚未教学与验证 | 待验证 |
-| Bad Case / Root Cause | 03、05 | 未讲 | 尚未教学与验证 | 待验证 |
+| Success Rate / Pass@k / 未评分样本 | 02、10 | 已讲待验证 | 用户正确手算 `8/(8+8)=50%`、覆盖率 `16/20=80%`，并指出各状态需单列；`metrics.py` 与 13 项测试已完成 | 本轮代码分母和真实五样本手算未独立验证；pass@k 未实测 |
+| Trace / Trajectory Evaluation | 03 | 需补充 | 2026-11-08 用户正确定位 `dev-08` 第 1 条 assistant 工具调用，区分最终判题和轨迹，并说明结构化事件优于截断渲染 | 第 5 题把 replay 与重新执行混同；新代码链路尚未独立解释 |
+| Bad Case / Root Cause | 03、05 | 已讲待验证 | 用户正确区分 `val-04` 工具结果 `4`、FakeModel 最终回答 `5` 与未经验证的真实模型原因；8 条分析记录已建 | 结合新 Registry 代码解释证据、假设与回归用例 |
 | LLM-as-a-Judge / 校准 | 04 | 未讲 | 尚未教学与验证 | 待验证 |
 | Prompt / Tool Schema / Retry / Runtime 优化 | 05 | 未讲 | 尚未教学与验证 | 待验证 |
 | Harness² PPC、Parallel/Sequential | 00、06 | 已讲待验证 | Stage 00 已结合官方 `run_parallel/run_sequential` 和真实 Demo 产物讲解两模式；PPC 深入留在 06 | 用户尚未独立解释两模式与选择时序 |

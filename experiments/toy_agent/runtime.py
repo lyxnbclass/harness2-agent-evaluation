@@ -1,8 +1,11 @@
 """A deterministic local Agent loop for studying tool calls, without a model API."""
 
 from dataclasses import dataclass
+from datetime import datetime, timezone
 import subprocess
 import sys
+from time import perf_counter
+from typing import Callable
 
 
 class ToolError(Exception):
@@ -84,11 +87,32 @@ class FakeModel:
 
 
 def run_agent(
-    prompt: str, model: FakeModel, *, max_steps: int = 5, tool_timeout: float = 1.0
+    prompt: str, model: FakeModel, *, max_steps: int = 5, tool_timeout: float = 1.0,
+    event_sink: Callable[[dict], None] | None = None,
 ) -> RunResult:
     if type(max_steps) is not int or max_steps < 1 or tool_timeout <= 0:
         raise ValueError("max_steps and tool_timeout must be positive")
-    trace: list[dict] = [{"role": "user", "content": prompt}]
+    trace: list[dict] = []
+    started = perf_counter()
+
+    def record(event: dict) -> None:
+        trace.append(event)
+        if event_sink is not None:
+            event_type = (
+                "tool_call" if "tool_call" in event else
+                "tool_error" if event.get("role") == "tool" and "error" in event else
+                "tool_result" if event.get("role") == "tool" else
+                "final" if event.get("role") == "assistant" else "input"
+            )
+            event_sink({
+                "step": len(trace) - 1,
+                "event_type": event_type,
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "elapsed_ms": round((perf_counter() - started) * 1000, 3),
+                "message": dict(event),
+            })
+
+    record({"role": "user", "content": prompt})
     for _ in range(max_steps):
         try:
             decision = model.next(trace)
@@ -97,16 +121,16 @@ def run_agent(
         if not isinstance(decision, dict):
             return RunResult("invalid_model_output", None, trace)
         if decision.get("type") == "final" and isinstance(decision.get("answer"), str):
-            trace.append({"role": "assistant", "content": decision["answer"]})
+            record({"role": "assistant", "content": decision["answer"]})
             return RunResult("completed", decision["answer"], trace)
         if decision.get("type") != "tool_call":
             return RunResult("invalid_model_output", None, trace)
         name, args = decision.get("name"), decision.get("args")
-        trace.append({"role": "assistant", "tool_call": {"name": name, "args": args}})
+        record({"role": "assistant", "tool_call": {"name": name, "args": args}})
         try:
             output = run_tool(name, args, timeout=tool_timeout)
         except ToolError as exc:
-            trace.append({"role": "tool", "name": name, "error": str(exc)})
+            record({"role": "tool", "name": name, "error": str(exc)})
             return RunResult(exc.status, None, trace)
-        trace.append({"role": "tool", "name": name, "content": output})
+        record({"role": "tool", "name": name, "content": output})
     return RunResult("max_steps", None, trace)

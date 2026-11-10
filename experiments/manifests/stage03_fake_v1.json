@@ -1,0 +1,31 @@
+{
+  "run_id": "stage03-fake-v1",
+  "date_iso": "2026-11-08",
+  "status": "OBSERVED",
+  "kind": "local_scripted_contract_trace",
+  "stage": "03",
+  "upstream_commit": "1cfe254e8d25b15f37048c3730134686abe60335",
+  "harness_sha": null,
+  "model_id": "FakeModel/scripted",
+  "benchmark_name": null,
+  "dataset_path": "experiments/datasets/stage02_multitool_cases.jsonl",
+  "fixture_path": "experiments/datasets/stage02_fake_decisions.jsonl",
+  "task_count": 24,
+  "commands": [
+    "python -m experiments.evaluators.stage03_trace capture --output reports/stage03_fake_trace.jsonl --registry-output reports/stage03_bad_case_candidates.jsonl",
+    "python -m experiments.evaluators.stage03_trace replay --input reports/stage03_fake_trace.jsonl --run-id stage03-fake-v1 --case-id dev-08",
+    "python -m unittest discover -s experiments/evaluators -p test_*.py -v",
+    "python -m unittest discover -s experiments/toy_agent -p test_*.py -v"
+  ],
+  "output_paths": [
+    "reports/stage03_fake_trace.jsonl",
+    "reports/stage03_bad_case_candidates.jsonl",
+    "reports/bad_cases.md"
+  ],
+  "limitations": [
+    "Events are from this project's toy Runtime, not the official Harness2 substrate",
+    "FakeModel decisions are scripted; no real model capability is measured",
+    "Only common credential patterns are redacted; this is not a general secret-scanning guarantee",
+    "The inspected local-held-out examples cannot be claimed as untouched"
+  ]
+}
