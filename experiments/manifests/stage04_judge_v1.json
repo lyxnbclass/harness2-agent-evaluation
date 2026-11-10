@@ -1,0 +1,32 @@
+{
+  "run_id": "stage04-local-rule-v1",
+  "date_iso": "2026-11-10",
+  "status": "OBSERVED",
+  "kind": "local_deterministic_judge_calibration",
+  "dataset_path": "experiments/datasets/stage04_judge_cases.jsonl",
+  "rubric_path": "experiments/rubrics/stage04_local_judge.md",
+  "judge_path": "experiments/evaluators/judge.py",
+  "reference_annotation_source": "Codex-authored manual review; user review pending",
+  "task_count": 15,
+  "agreement_count": 12,
+  "disagreement_ids": ["j04", "j08", "j12"],
+  "model_id": null,
+  "benchmark_name": null,
+  "harness_sha": null,
+  "upstream_commit": "1cfe254e8d25b15f37048c3730134686abe60335",
+  "tokens": null,
+  "estimated_or_observed_cost": null,
+  "commands": [
+    "python -m experiments.evaluators.calibrate_judge --output reports/stage04_judge_calibration.json",
+    "python -m unittest discover -s experiments/evaluators -p test_*.py"
+  ],
+  "output_paths": [
+    "reports/stage04_judge_calibration.json",
+    "reports/stage04_judge_calibration.md"
+  ],
+  "limitations": [
+    "Synthetic examples and Codex-authored manual reference labels are not independent human validation",
+    "No LLM API, native benchmark evaluator, or real coding patch grading was run",
+    "The answer-only judge ignores separate trace findings and can misclassify process-safety cases"
+  ]
+}

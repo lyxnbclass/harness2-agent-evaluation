@@ -1,6 +1,6 @@
 # 章节理解矩阵（按实际回答更新）
 
-当前章节：Stage 03「Trace 证据链、轨迹校验与 Bad Case」。定性状态：`未讲 / 已讲待验证 / 已理解 / 需补充`。不评分。Stage 02 PR 已合并、README 收尾已推送，用户明确要求进入 Stage 03。此前阶段的局部理解与尚未独立解释项保留，历史细节见 `learning/KNOWLEDGE_MASTERY.md`、`learning/stages/01.md`、`learning/stages/02.md`。
+当前章节：Stage 04「Judge rubric、结构化输出校验与偏差校准」。定性状态：`未讲 / 已讲待验证 / 已理解 / 需补充`。不评分。Stage 03 PR 已合并、README 收尾已推送，用户明确要求进入 Stage 04。此前阶段的局部理解与尚未独立解释项保留，历史细节见 `learning/KNOWLEDGE_MASTERY.md`、`learning/stages/01.md`、`learning/stages/02.md`、`learning/stages/03.md`。
 
 | 知识点 | 对应阶段 | 当前理解状态 | 最近回答/证据 | 关键薄弱点/后续复习 |
 |---|---|---|---|---|
@@ -17,7 +17,7 @@
 | Success Rate / Pass@k / 未评分样本 | 02、10 | 已讲待验证 | 用户正确手算 `8/(8+8)=50%`、覆盖率 `16/20=80%`，并指出各状态需单列；`metrics.py` 与 13 项测试已完成 | 本轮代码分母和真实五样本手算未独立验证；pass@k 未实测 |
 | Trace / Trajectory Evaluation | 03 | 需补充 | 2026-11-08 用户正确定位 `dev-08` 第 1 条 assistant 工具调用，区分最终判题和轨迹，并说明结构化事件优于截断渲染 | 第 5 题把 replay 与重新执行混同；新代码链路尚未独立解释 |
 | Bad Case / Root Cause | 03、05 | 已讲待验证 | 用户正确区分 `val-04` 工具结果 `4`、FakeModel 最终回答 `5` 与未经验证的真实模型原因；8 条分析记录已建 | 结合新 Registry 代码解释证据、假设与回归用例 |
-| LLM-as-a-Judge / 校准 | 04 | 未讲 | 尚未教学与验证 | 待验证 |
+| LLM-as-a-Judge / 校准 | 04 | 已讲待验证 | 本轮本地确定性 Judge、15 条 Codex 人工参考标签、结构化输出校验与 3 条分歧已实现；阶段七部分讲解在本轮统一进行 | 用户尚未审阅参考标签或独立解释 Schema 拒绝条件；真实 LLM Judge 未运行 |
 | Prompt / Tool Schema / Retry / Runtime 优化 | 05 | 未讲 | 尚未教学与验证 | 待验证 |
 | Harness² PPC、Parallel/Sequential | 00、06 | 已讲待验证 | Stage 00 已结合官方 `run_parallel/run_sequential` 和真实 Demo 产物讲解两模式；PPC 深入留在 06 | 用户尚未独立解释两模式与选择时序 |
 | Harness² Reflection / 经验复用 | 06、11 | 未讲 | 尚未教学与验证 | 待验证 |
