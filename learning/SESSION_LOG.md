@@ -301,3 +301,17 @@
 - 用户要求“推送pr”。核实工作树干净、远端 `stage-03-trajectory` 为 `9dcb3d3259546deab2b642040ce6110b88b8abcb`、`origin/main` 是当前 HEAD 祖先、此前无同分支 PR，GitHub 登录有效。PR diff 经 `git diff --check origin/main...HEAD` 检查通过。
 - 重新运行评测测试 19 项、Toy Runtime 回归 8 项和 `scripts/check_workspace.py`，均通过。没有新模型或 Benchmark 实验；24 条 FakeModel 轨迹与 8 条分析报告为此前已提交的本地证据。
 - 创建 [PR #4](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/4)，核实 base `main`、head `stage-03-trajectory`、OPEN、非 Draft、`mergedAt=null`。未自动 Merge。
+
+### 2026-11-10 | Stage 03 合并收尾与 Stage 04 本地 Judge
+
+- 用户明确说 Stage 03 已合并并要求进入下一阶段。`gh pr view 4` 核实 [PR #4](https://github.com/lyxnbclass/harness2-agent-evaluation/pull/4) 为 MERGED、目标 `main`、merge commit `4358153ca47afbeb4d4da9fba399751ef4a02da7`。`git fetch origin main` 后 `git merge-base --is-ancestor` 确认合并提交在远端 `main`。干净 worktree 快进 `main`，合并后 README 收尾提交 `c943544` 已 Push，`git ls-remote` 与本地 HEAD 一致；随后建立独立 `stage-04-judge` 分支。
+- Codex 实现本地确定性 `judge.py`、严格结构化输出校验、有界错误/超时重试、pairwise 安全优先比较、15 条合成案例与 Codex 人工参考标签、校准 Runner、rubric 和报告。参考标签待用户审阅，未冒充外部人工标注。
+- OBSERVED：首次测试暴露 `casefold()` 把 `hello` 误判为 `HELLO`，已改为大小写敏感答案比较。修正后评测测试 25 项、Toy Runtime 回归 8 项通过，工作区检查退出 0。校准 15 条案例，12 条与参考标签一致，3 条分歧为 `j04/j08/j12`；一个 pairwise 顺序交换 probe 保持获胜候选不变。无真实模型、付费 API、公开 Benchmark 或总体可靠性结论。
+- 官方固定 SHA `1cfe254e8d25b15f37048c3730134686abe60335`：`core/selection.py:run_selection` 负责选交付，`core/judge.py:judge_one` 在选择后调用 `adapter.score`；本轮只做源码核实，未执行官方模型判题。Stage 04 当前 IN_PROGRESS，PR NONE。
+- 实现与证据提交 `d859141 feat: add deterministic judge calibration` 已 Push 到 `origin/stage-04-judge`，`source_commit` 写入运行 manifest。此前凭据模式扫描因 Windows 默认 GBK 解码失败，改用 UTF-8 后确认新增 diff 未匹配常见 API Key、GitHub Token、AWS Key 或私钥头；无密钥提交。
+
+### 2026-11-11 | Stage 04 思考题反馈
+
+- 用户正确解释结构化 Judge 输出的缺字段/内部矛盾必须拒绝，也指出一次 A/B 顺序交换不能证明未来 LLM 无位置偏差；追问“评测证据是程序获得，还是由 if/elif/LLM Judge 判定”。
+- 定点纠正：`j04` 和 `j08` 均为 Judge `fail`、Codex 参考 `pass`；`j04` 是 `five`/`5` 严格匹配，`j08` 是解释 `Adding`/关键词 `sum`。`j12` 的 `trace_findings` 存在于合成数据行，但没有传给当前 `judge_answer`；当前本地 Judge 不接收原生评测器 verdict，也不读取 Trace。官方 `run_selection()` 选择交付，之后 `judge_one()` 调 `adapter.score()`；未来公开 Benchmark 原生 evaluator 的判题仍应独立保留。
+- 未运行新模型、Benchmark 或新的校准实验；Stage 04 维持 IN_PROGRESS，PR NONE。
