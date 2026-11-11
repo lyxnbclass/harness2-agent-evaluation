@@ -19,6 +19,6 @@
 - 限制：无付费 API、真实模型或公开 Benchmark 运行；仅本地确定性 Judge、FakeModel 和合成案例。Stage 03 的脱敏仍只覆盖常见凭据模式；Stage 09 SWE-bench Adapter 尚未实现。Stage 05 PR 尚未创建，不自动 Merge。
 - Stage 04 理解：2026-11-11 用户已能解释 Judge 输出缺字段/内部矛盾需要拒绝，并指出单个顺序交换不足以证明 LLM 无偏差。需定点纠正 `j04/j08` 均为误拒、本地答案 Judge 不读取原生 verdict 或 Trace；用户追问证据是程序采集还是 LLM 判断，已针对 Stage 02–04 的不同来源说明。参考标签尚未由用户逐项审阅。
 - Stage 04 阶段出口：用户表示“大概懂了”并要求创建 PR，随后明确要求开始下一阶段。这是阶段推进确认，不表示已逐项审阅 15 条 Codex 参考标签或无提示掌握所有 Judge 细节；相关限制保留在 Stage 04 记录。
-- Stage 05 工程：Codex 新增 Toy Runtime 的按任务工具 allowlist、只对纯 `add`/`uppercase` 生效的有界超时重试与退避、重试次数 Trace；六组单变量本地探针和 ADR-001。2026-11-11 Runtime 12 项、Evaluator 29 项测试通过；数据见 `reports/stage05_optimization_probes.json` 与 `reports/optimization_loop.md`。其中 Prompt 改写对固定 FakeModel 决策无效；两步预算和纯工具重试在指定合成案例恢复 final；增加预算的另一个案例虽然完成，但执行了越权工具，不能采用。尚无真实模型效果或费用结论。
+- Stage 05 工程：Codex 新增 Toy Runtime 的按任务工具 allowlist、只对纯 `add`/`uppercase` 生效的有界超时重试与退避、重试次数 Trace；六组单变量本地探针和 ADR-001。实现提交 `ad9b76bb50642865c1f7ebf932a3a9d71730e9ac`。2026-11-11 Runtime 12 项、Evaluator 29 项测试通过；数据见 `reports/stage05_optimization_probes.json` 与 `reports/optimization_loop.md`。其中 Prompt 改写对固定 FakeModel 决策无效；两步预算和纯工具重试在指定合成案例恢复 final；增加预算的另一个案例虽然完成，但执行了越权工具，不能采用。尚无真实模型效果或费用结论。
 - Stage 05 理解：本轮按七部分统一讲解真实代码、六组对照及失败路径；用户尚未回答本阶段思考题。Stage 01 substrate 边界和 Stage 02 分母代码未独立解释项保留为面试复习。
 - 下一内容：等待用户集中回答 Stage 05 思考题，再针对实际回答定点反馈；阶段 PR 待用户验收，不自动 Merge。

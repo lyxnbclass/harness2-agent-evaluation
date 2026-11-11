@@ -4,7 +4,7 @@
   "status": "OBSERVED",
   "kind": "local_scripted_one_factor_probes",
   "branch": "stage-05-optimization",
-  "source_commit": null,
+  "source_commit": "ad9b76bb50642865c1f7ebf932a3a9d71730e9ac",
   "source_cases": ["val-04", "dev-08", "val-05", "stage05-schema", "stage05-transient-timeout", "stage05-budget-unsafe"],
   "probe_count": 6,
   "model_id": null,

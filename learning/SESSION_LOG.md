@@ -323,3 +323,4 @@
 - Codex 为 Toy Runtime 加入可选 per-task 工具 allowlist 和纯工具 `tool_timeout` 的有界指数退避重试；默认仍是无 allowlist、零重试。`optimization_loop.py` 对 Prompt、Schema、工具策略、预算、Retry、貌似提升但越权六种本地合成情形做单变量对照，写入 JSON、报告、ADR 和 manifest。
 - OBSERVED：`python -m experiments.evaluators.optimization_loop --output reports/stage05_optimization_probes.json` 生成六组结果；初次复跑 Runtime 12 项、Evaluator 29 项测试通过。Prompt 改写未改变 FakeModel 的错误 final；预算从 1 到 2 和纯工具一次超时重试在指定案例恢复 final；预算从 1 到 3 的另一案例虽 `completed`，但执行了越权工具，拒绝采用。工具 allowlist 的调用尝试仍被记录，但执行前已阻止。
 - 无真实模型、SWE-bench、付费 API 或总体性能提升证据。用户尚未回答 Stage 05 思考题；本轮按七部分统一教学，不将工程完成等同于理解。Stage 05 PR 尚无且不自动 Merge。
+- Stage 05 实现与证据提交 `ad9b76bb50642865c1f7ebf932a3a9d71730e9ac`；manifest 的 `source_commit` 回填该 SHA。提交前检查 `git diff --cached --check` 通过，常见密钥模式匹配数为 0。
