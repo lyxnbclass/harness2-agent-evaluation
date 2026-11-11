@@ -2,9 +2,10 @@
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
+from math import isfinite
 import subprocess
 import sys
-from time import perf_counter
+from time import perf_counter, sleep
 from typing import Callable
 
 
@@ -19,11 +20,23 @@ SCHEMAS = {
     "uppercase": {"args": {"text": str}, "output": str},
     "delay": {"args": {"seconds": int}, "output": str},
 }
+RETRYABLE_TOOLS = frozenset({"add", "uppercase"})
 
 
-def run_tool(name: str, args: dict, *, timeout: float = 1.0) -> str:
+def run_tool(
+    name: str, args: dict, *, timeout: float = 1.0,
+    allowed_tools: frozenset[str] | None = None,
+    max_retries: int = 0, retry_backoff: float = 0.01,
+    on_retry: Callable[[int, ToolError], None] | None = None,
+) -> str:
+    if type(max_retries) is not int or not 0 <= max_retries <= 3:
+        raise ValueError("max_retries must be between 0 and 3")
+    if type(retry_backoff) not in (int, float) or not isfinite(retry_backoff) or not 0 <= retry_backoff <= 1:
+        raise ValueError("retry_backoff must be between 0 and 1 second")
     if not isinstance(name, str):
         raise ToolError("invalid_args", "tool name must be a string")
+    if allowed_tools is not None and name not in allowed_tools:
+        raise ToolError("unauthorized_tool", f"tool {name!r} is outside task allowlist")
     schema = SCHEMAS.get(name)
     if schema is None:
         raise ToolError("unknown_tool", f"unknown tool: {name}")
@@ -32,7 +45,16 @@ def run_tool(name: str, args: dict, *, timeout: float = 1.0) -> str:
         raise ToolError("invalid_args", f"{name} expects {sorted(expected_args)}")
     if any(type(args[key]) is not kind for key, kind in expected_args.items()):
         raise ToolError("invalid_args", f"{name} argument types do not match schema")
-    output = _execute_tool(name, args, timeout=timeout)
+    for attempt in range(max_retries + 1):
+        try:
+            output = _execute_tool(name, args, timeout=timeout)
+            break
+        except ToolError as exc:
+            if exc.status != "tool_timeout" or name not in RETRYABLE_TOOLS or attempt == max_retries:
+                raise
+            if on_retry is not None:
+                on_retry(attempt + 1, exc)
+            sleep(retry_backoff * (2 ** attempt))
     if type(output) is not schema["output"]:
         raise ToolError(
             "invalid_tool_result",
@@ -89,9 +111,18 @@ class FakeModel:
 def run_agent(
     prompt: str, model: FakeModel, *, max_steps: int = 5, tool_timeout: float = 1.0,
     event_sink: Callable[[dict], None] | None = None,
+    allowed_tools: frozenset[str] | None = None,
+    max_tool_retries: int = 0, retry_backoff: float = 0.01,
 ) -> RunResult:
     if type(max_steps) is not int or max_steps < 1 or tool_timeout <= 0:
         raise ValueError("max_steps and tool_timeout must be positive")
+    if (allowed_tools is not None and
+            (not isinstance(allowed_tools, frozenset) or not allowed_tools.issubset(SCHEMAS))):
+        raise ValueError("allowed_tools must be a frozenset of known tool names")
+    if type(max_tool_retries) is not int or not 0 <= max_tool_retries <= 3:
+        raise ValueError("max_tool_retries must be between 0 and 3")
+    if type(retry_backoff) not in (int, float) or not isfinite(retry_backoff) or not 0 <= retry_backoff <= 1:
+        raise ValueError("retry_backoff must be between 0 and 1 second")
     trace: list[dict] = []
     started = perf_counter()
 
@@ -127,10 +158,21 @@ def run_agent(
             return RunResult("invalid_model_output", None, trace)
         name, args = decision.get("name"), decision.get("args")
         record({"role": "assistant", "tool_call": {"name": name, "args": args}})
+        retries: list[int] = []
         try:
-            output = run_tool(name, args, timeout=tool_timeout)
+            output = run_tool(
+                name, args, timeout=tool_timeout, allowed_tools=allowed_tools,
+                max_retries=max_tool_retries, retry_backoff=retry_backoff,
+                on_retry=lambda attempt, _error: retries.append(attempt),
+            )
         except ToolError as exc:
-            record({"role": "tool", "name": name, "error": str(exc)})
+            error_event = {"role": "tool", "name": name, "error": str(exc)}
+            if retries:
+                error_event["attempts"] = len(retries) + 1
+            record(error_event)
             return RunResult(exc.status, None, trace)
-        record({"role": "tool", "name": name, "content": output})
+        result_event = {"role": "tool", "name": name, "content": output}
+        if retries:
+            result_event["attempts"] = len(retries) + 1
+        record(result_event)
     return RunResult("max_steps", None, trace)

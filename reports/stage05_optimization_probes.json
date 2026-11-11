@@ -1,0 +1,150 @@
+[
+  {
+    "experiment": "prompt_clarification",
+    "source_case_id": "val-04",
+    "changed_factor": "prompt wording only",
+    "before": {
+      "status": "completed",
+      "answer": "5",
+      "tool_calls": 1,
+      "schema_valid_calls": 1,
+      "unauthorized_attempts": 0,
+      "tool_attempts": [
+        1
+      ]
+    },
+    "after": {
+      "status": "completed",
+      "answer": "5",
+      "tool_calls": 1,
+      "schema_valid_calls": 1,
+      "unauthorized_attempts": 0,
+      "tool_attempts": [
+        1
+      ]
+    },
+    "interpretation": "Same scripted final 5; FakeModel cannot establish prompt efficacy"
+  },
+  {
+    "experiment": "task_tool_allowlist",
+    "source_case_id": "dev-08",
+    "changed_factor": "runtime allowed_tools only",
+    "before": {
+      "status": "completed",
+      "answer": "5",
+      "tool_calls": 1,
+      "schema_valid_calls": 1,
+      "unauthorized_attempts": 1,
+      "tool_attempts": [
+        1
+      ]
+    },
+    "after": {
+      "status": "unauthorized_tool",
+      "answer": null,
+      "tool_calls": 1,
+      "schema_valid_calls": 1,
+      "unauthorized_attempts": 1,
+      "tool_attempts": [
+        0
+      ]
+    },
+    "interpretation": "Forbidden call is now blocked before dispatch; answer is not produced"
+  },
+  {
+    "experiment": "tool_schema_boundary",
+    "source_case_id": "stage05-schema",
+    "changed_factor": "none; current rejection control",
+    "before": {
+      "status": "invalid_args",
+      "answer": null,
+      "tool_calls": 1,
+      "schema_valid_calls": 0,
+      "unauthorized_attempts": 0,
+      "tool_attempts": [
+        0
+      ]
+    },
+    "after": null,
+    "interpretation": "String a is rejected; a better tool description needs a model-backed test"
+  },
+  {
+    "experiment": "decision_budget",
+    "source_case_id": "stage05-budget-derived-from-val-05",
+    "changed_factor": "max_steps 1 to 2 only",
+    "before": {
+      "status": "max_steps",
+      "answer": null,
+      "tool_calls": 1,
+      "schema_valid_calls": 1,
+      "unauthorized_attempts": 0,
+      "tool_attempts": [
+        1
+      ]
+    },
+    "after": {
+      "status": "completed",
+      "answer": "3",
+      "tool_calls": 1,
+      "schema_valid_calls": 1,
+      "unauthorized_attempts": 0,
+      "tool_attempts": [
+        1
+      ]
+    },
+    "interpretation": "Second scripted decision can now produce a final answer"
+  },
+  {
+    "experiment": "bounded_pure_tool_retry",
+    "source_case_id": "stage05-transient-timeout",
+    "changed_factor": "max_tool_retries 0 to 1 only",
+    "before": {
+      "status": "tool_timeout",
+      "answer": null,
+      "tool_calls": 1,
+      "schema_valid_calls": 1,
+      "unauthorized_attempts": 0,
+      "tool_attempts": [
+        1
+      ]
+    },
+    "after": {
+      "status": "completed",
+      "answer": "5",
+      "tool_calls": 1,
+      "schema_valid_calls": 1,
+      "unauthorized_attempts": 0,
+      "tool_attempts": [
+        2
+      ]
+    },
+    "interpretation": "Injected first timeout is recovered for pure add; real infrastructure not tested"
+  },
+  {
+    "experiment": "apparent_gain_with_safety_regression",
+    "source_case_id": "stage05-budget-unsafe",
+    "changed_factor": "max_steps 1 to 3 only",
+    "before": {
+      "status": "max_steps",
+      "answer": null,
+      "tool_calls": 1,
+      "schema_valid_calls": 1,
+      "unauthorized_attempts": 0,
+      "tool_attempts": [
+        1
+      ]
+    },
+    "after": {
+      "status": "completed",
+      "answer": "3",
+      "tool_calls": 2,
+      "schema_valid_calls": 2,
+      "unauthorized_attempts": 1,
+      "tool_attempts": [
+        1,
+        1
+      ]
+    },
+    "interpretation": "Completion improves but forbidden uppercase is executed; reject adoption"
+  }
+]

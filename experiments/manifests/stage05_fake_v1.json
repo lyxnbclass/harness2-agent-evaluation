@@ -1,0 +1,26 @@
+{
+  "run_id": "stage05-fake-v1",
+  "date_iso": "2026-11-11",
+  "status": "OBSERVED",
+  "kind": "local_scripted_one_factor_probes",
+  "branch": "stage-05-optimization",
+  "source_commit": null,
+  "source_cases": ["val-04", "dev-08", "val-05", "stage05-schema", "stage05-transient-timeout", "stage05-budget-unsafe"],
+  "probe_count": 6,
+  "model_id": null,
+  "benchmark_name": null,
+  "upstream_commit": "1cfe254e8d25b15f37048c3730134686abe60335",
+  "tokens": null,
+  "cost": null,
+  "commands": [
+    "python -m experiments.evaluators.optimization_loop --output reports/stage05_optimization_probes.json",
+    "python -m unittest discover -s experiments/toy_agent -p test_runtime.py",
+    "python -m unittest discover -s experiments/evaluators -p test_*.py"
+  ],
+  "output_paths": ["reports/stage05_optimization_probes.json", "reports/optimization_loop.md"],
+  "limitations": [
+    "FakeModel decisions are scripted and cannot establish prompt efficacy or real agent performance",
+    "Injected timeout is local; no real infrastructure recovery was measured",
+    "Development cases were inspected; this is not a held-out benchmark evaluation"
+  ]
+}

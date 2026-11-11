@@ -3,7 +3,7 @@
 import unittest
 from unittest.mock import patch
 
-from experiments.toy_agent.runtime import FakeModel, run_agent, run_tool
+from experiments.toy_agent.runtime import FakeModel, ToolError, run_agent, run_tool
 
 
 class RuntimeTests(unittest.TestCase):
@@ -84,6 +84,59 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual(len(result.trace), 3)
         self.assertEqual(result.trace[-1], {"role": "tool", "name": "add", "content": "5"})
         self.assertEqual(len(model.seen), 1)
+
+    def test_task_allowlist_blocks_dispatch_even_when_global_schema_allows_tool(self):
+        decisions = [
+            {"type": "tool_call", "name": "uppercase", "args": {"text": "5"}},
+            {"type": "final", "answer": "5"},
+        ]
+        with patch("experiments.toy_agent.runtime._execute_tool") as execute:
+            result = run_agent("Only add is allowed", FakeModel(decisions),
+                               allowed_tools=frozenset({"add"}))
+        self.assertEqual((result.status, result.answer), ("unauthorized_tool", None))
+        self.assertEqual(result.trace[-1]["role"], "tool")
+        execute.assert_not_called()
+
+    def test_transient_timeout_retries_only_pure_tool_and_records_attempts(self):
+        decisions = [
+            {"type": "tool_call", "name": "add", "args": {"a": 2, "b": 3}},
+            {"type": "final", "answer": "5"},
+        ]
+        with patch("experiments.toy_agent.runtime._execute_tool",
+                   side_effect=[ToolError("tool_timeout", "transient"), "5"]) as execute, \
+             patch("experiments.toy_agent.runtime.sleep") as wait:
+            result = run_agent("Add 2 and 3", FakeModel(decisions), max_tool_retries=1)
+        self.assertEqual((result.status, result.answer), ("completed", "5"))
+        self.assertEqual(execute.call_count, 2)
+        self.assertEqual(result.trace[2]["attempts"], 2)
+        wait.assert_called_once_with(0.01)
+
+    def test_delay_and_schema_errors_are_never_retried(self):
+        with patch("experiments.toy_agent.runtime._execute_tool",
+                   side_effect=ToolError("tool_timeout", "transient")) as execute:
+            result = run_agent("Delay", FakeModel([
+                {"type": "tool_call", "name": "delay", "args": {"seconds": 0}}
+            ]), max_tool_retries=2)
+        self.assertEqual(result.status, "tool_timeout")
+        self.assertEqual(execute.call_count, 1)
+        with patch("experiments.toy_agent.runtime._execute_tool") as execute:
+            result = run_agent("Bad args", FakeModel([
+                {"type": "tool_call", "name": "add", "args": {"a": "2", "b": 3}}
+            ]), max_tool_retries=2)
+        self.assertEqual(result.status, "invalid_args")
+        execute.assert_not_called()
+
+    def test_retry_exhaustion_keeps_timeout_status(self):
+        with patch("experiments.toy_agent.runtime._execute_tool",
+                   side_effect=ToolError("tool_timeout", "transient")) as execute, \
+             patch("experiments.toy_agent.runtime.sleep") as wait:
+            result = run_agent("Add", FakeModel([
+                {"type": "tool_call", "name": "add", "args": {"a": 2, "b": 3}}
+            ]), max_tool_retries=2)
+        self.assertEqual(result.status, "tool_timeout")
+        self.assertEqual(result.trace[-1]["attempts"], 3)
+        self.assertEqual(execute.call_count, 3)
+        self.assertEqual([call.args[0] for call in wait.call_args_list], [0.01, 0.02])
 
 
 if __name__ == "__main__":

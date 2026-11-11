@@ -1,6 +1,6 @@
 # 章节理解矩阵（按实际回答更新）
 
-当前章节：Stage 04「Judge rubric、结构化输出校验与偏差校准」。定性状态：`未讲 / 已讲待验证 / 已理解 / 需补充`。不评分。Stage 03 PR 已合并、README 收尾已推送，用户明确要求进入 Stage 04。此前阶段的局部理解与尚未独立解释项保留，历史细节见 `learning/KNOWLEDGE_MASTERY.md`、`learning/stages/01.md`、`learning/stages/02.md`、`learning/stages/03.md`。
+当前章节：Stage 05「评测驱动的优化闭环」。定性状态：`未讲 / 已讲待验证 / 已理解 / 需补充`。不评分。Stage 04 PR #5 已合并、README 收尾已推送，用户明确要求进入 Stage 05。Stage 04 的参考标签未由用户逐项审阅，局部理解与尚未独立解释项保留；历史细节见 `learning/KNOWLEDGE_MASTERY.md` 和各阶段记录。
 
 | 知识点 | 对应阶段 | 当前理解状态 | 最近回答/证据 | 关键薄弱点/后续复习 |
 |---|---|---|---|---|
@@ -18,7 +18,7 @@
 | Trace / Trajectory Evaluation | 03 | 需补充 | 2026-11-08 用户正确定位 `dev-08` 第 1 条 assistant 工具调用，区分最终判题和轨迹，并说明结构化事件优于截断渲染 | 第 5 题把 replay 与重新执行混同；新代码链路尚未独立解释 |
 | Bad Case / Root Cause | 03、05 | 已讲待验证 | 用户正确区分 `val-04` 工具结果 `4`、FakeModel 最终回答 `5` 与未经验证的真实模型原因；8 条分析记录已建 | 结合新 Registry 代码解释证据、假设与回归用例 |
 | LLM-as-a-Judge / 校准 | 04 | 需补充 | 2026-11-11 用户正确解释缺字段/内部矛盾应拒绝、单个顺序交换不能证明无偏差，并追问证据采集和规则/LLM 判定；`j12` 已意识到缺 Trace | `j04/j08` 均为误拒而非一正一反；本地答案 Judge 实际只读 answer/explanation/rubric，不读取原生判题或 Trace；官方 selection 与 adapter.score 边界待巩固 |
-| Prompt / Tool Schema / Retry / Runtime 优化 | 05 | 未讲 | 尚未教学与验证 | 待验证 |
+| Prompt / Tool Schema / Retry / Runtime 优化 | 05 | 已讲待验证 | 2026-11-11 Codex 实现六组本地单变量探针、工具 allowlist 与纯工具限次重试；Runtime 12 项、Evaluator 29 项测试通过；本轮按七部分统一讲解 | 用户尚未回答 Stage 05 思考题；需区分候选完成、越权工具执行与真实模型效果 |
 | Harness² PPC、Parallel/Sequential | 00、06 | 已讲待验证 | Stage 00 已结合官方 `run_parallel/run_sequential` 和真实 Demo 产物讲解两模式；PPC 深入留在 06 | 用户尚未独立解释两模式与选择时序 |
 | Harness² Reflection / 经验复用 | 06、11 | 未讲 | 尚未教学与验证 | 待验证 |
 | 官方 Benchmark Run/Judge/Report | 07 | 未讲 | 尚未教学与验证 | 待验证 |

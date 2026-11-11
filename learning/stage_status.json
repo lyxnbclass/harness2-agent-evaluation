@@ -1,8 +1,8 @@
 {
   "schema_version": "4.0",
-  "current_stage": "04",
-  "last_updated": "2026-11-10",
-  "note": "Stage 03 PR #4 merge commit 4358153 is on main and post-merge README c943544 is pushed. User explicitly entered Stage 04. Local deterministic judge calibration is in progress; Codex-authored manual labels await user review. No real model or SWE-bench run.",
+  "current_stage": "05",
+  "last_updated": "2026-11-11",
+  "note": "Stage 04 PR #5 merge commit f42bcb7 is on main and post-merge README f973209 is pushed. User explicitly entered Stage 05. Local scripted optimization probes are in progress; no real model or SWE-bench run.",
   "stages": {
     "00": {
       "status": "COMPLETED",
@@ -109,7 +109,7 @@
       }
     },
     "04": {
-      "status": "IN_PROGRESS",
+      "status": "COMPLETED",
       "required_evidence": [
         "experiments/evaluators/judge.py",
         "experiments/datasets/stage04_judge_cases.jsonl",
@@ -117,22 +117,38 @@
         "reports/stage04_judge_calibration.md",
         "learning/stages/04.md"
       ],
-      "user_approved_next": false,
-      "last_checked": "2026-11-10",
+      "user_approved_next": true,
+      "last_checked": "2026-11-11",
       "github": {
         "branch": "stage-04-judge",
         "remote": "https://github.com/lyxnbclass/harness2-agent-evaluation.git",
         "important_commits": ["d859141"],
-        "pr_url": null,
-        "pr_status": "NONE",
-        "stage_branch_pushed": true
+        "pr_url": "https://github.com/lyxnbclass/harness2-agent-evaluation/pull/5",
+        "pr_status": "MERGED",
+        "stage_branch_pushed": true,
+        "merge_commit": "f42bcb7146c30457bf6529f7e83d0fa8eeb2381d",
+        "post_merge_readme_commit": "f973209c6b24a45eea986beb28ee207170e0233f"
       }
     },
     "05": {
-      "status": "LOCKED",
-      "required_evidence": [],
+      "status": "IN_PROGRESS",
+      "required_evidence": [
+        "experiments/evaluators/optimization_loop.py",
+        "reports/stage05_optimization_probes.json",
+        "reports/optimization_loop.md",
+        "learning/decisions/ADR-001.md",
+        "learning/stages/05.md"
+      ],
       "user_approved_next": false,
-      "last_checked": null
+      "last_checked": "2026-11-11",
+      "github": {
+        "branch": "stage-05-optimization",
+        "remote": "https://github.com/lyxnbclass/harness2-agent-evaluation.git",
+        "important_commits": [],
+        "pr_url": null,
+        "pr_status": "NONE",
+        "stage_branch_pushed": false
+      }
     },
     "06": {
       "status": "LOCKED",
@@ -183,5 +199,5 @@
       "last_checked": null
     }
   },
-  "current_chapter": "04: Judge rubric、结构化输出校验与偏差校准"
+  "current_chapter": "05: 评测驱动的优化闭环（Prompt/Schema/Retry/Runtime）"
 }
