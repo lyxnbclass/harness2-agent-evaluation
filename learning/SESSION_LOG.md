@@ -309,3 +309,9 @@
 - OBSERVED：首次测试暴露 `casefold()` 把 `hello` 误判为 `HELLO`，已改为大小写敏感答案比较。修正后评测测试 25 项、Toy Runtime 回归 8 项通过，工作区检查退出 0。校准 15 条案例，12 条与参考标签一致，3 条分歧为 `j04/j08/j12`；一个 pairwise 顺序交换 probe 保持获胜候选不变。无真实模型、付费 API、公开 Benchmark 或总体可靠性结论。
 - 官方固定 SHA `1cfe254e8d25b15f37048c3730134686abe60335`：`core/selection.py:run_selection` 负责选交付，`core/judge.py:judge_one` 在选择后调用 `adapter.score`；本轮只做源码核实，未执行官方模型判题。Stage 04 当前 IN_PROGRESS，PR NONE。
 - 实现与证据提交 `d859141 feat: add deterministic judge calibration` 已 Push 到 `origin/stage-04-judge`，`source_commit` 写入运行 manifest。此前凭据模式扫描因 Windows 默认 GBK 解码失败，改用 UTF-8 后确认新增 diff 未匹配常见 API Key、GitHub Token、AWS Key 或私钥头；无密钥提交。
+
+### 2026-11-11 | Stage 04 思考题反馈
+
+- 用户正确解释结构化 Judge 输出的缺字段/内部矛盾必须拒绝，也指出一次 A/B 顺序交换不能证明未来 LLM 无位置偏差；追问“评测证据是程序获得，还是由 if/elif/LLM Judge 判定”。
+- 定点纠正：`j04` 和 `j08` 均为 Judge `fail`、Codex 参考 `pass`；`j04` 是 `five`/`5` 严格匹配，`j08` 是解释 `Adding`/关键词 `sum`。`j12` 的 `trace_findings` 存在于合成数据行，但没有传给当前 `judge_answer`；当前本地 Judge 不接收原生评测器 verdict，也不读取 Trace。官方 `run_selection()` 选择交付，之后 `judge_one()` 调 `adapter.score()`；未来公开 Benchmark 原生 evaluator 的判题仍应独立保留。
+- 未运行新模型、Benchmark 或新的校准实验；Stage 04 维持 IN_PROGRESS，PR NONE。

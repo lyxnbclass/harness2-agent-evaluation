@@ -17,4 +17,5 @@
 - Stage 03 工程：Codex 新增运行时事件时间戳与累计耗时、脱敏持久化、`trace_validator.py`、`bad_case_registry.py`、按 `run_id` 回放 CLI、24 条结构化本地 Trace 和 8 条分析记录。2026-11-08 本地评测 19 项测试、Runtime 8 项回归测试、工作区检查均通过。证据见 `reports/stage03_fake_trace.jsonl`、`reports/stage03_bad_case_candidates.jsonl`、`reports/bad_cases.md`。这些是 FakeModel 教学案例，不是官方 Harness² 或 SWE-bench 成绩。
 - Stage 04 工程：Codex 在已 Push 的 `stage-04-judge` 分支提交 `d859141`，实现确定性 `judge.py`、15 条合成案例及 Codex 人工参考标签、结构化输出 Schema 校验、有界失败重试、pairwise 顺序/冗长/伪指令反例和校准 Runner。2026-11-10 评测测试 25 项、Runtime 回归 8 项通过；本地 Judge 与参考标签一致 12/15，分歧 `j04/j08/j12`，详见 `reports/stage04_judge_calibration.md`。参考标签尚待用户审阅，不是独立人工标注或真实模型成绩。
 - 限制：无付费 API、真实模型或公开 Benchmark 运行；仅本地确定性 Judge 与合成案例。Stage 03 的脱敏仍只覆盖常见凭据模式；Stage 09 SWE-bench Adapter 尚未实现。Stage 04 PR 尚未创建，不自动 Merge。
-- 下一内容：在同一轮回答中统一讲解 Stage 04 的 rubric、Judge 代码、三类误判、官方 selection/judge 边界与面试表达，末尾集中给思考题；用户按需定点追问并审阅参考标签后，再准备阶段 PR。Stage 01 substrate 边界和 Stage 02 分母代码未独立解释项保留为面试复习。
+- Stage 04 理解：2026-11-11 用户已能解释 Judge 输出缺字段/内部矛盾需要拒绝，并指出单个顺序交换不足以证明 LLM 无偏差。需定点纠正 `j04/j08` 均为误拒、本地答案 Judge 不读取原生 verdict 或 Trace；用户追问证据是程序采集还是 LLM 判断，已针对 Stage 02–04 的不同来源说明。参考标签尚未由用户逐项审阅。
+- 下一内容：按用户实际疑问定点补充 Judge 输入与证据来源、官方 selection/adapter.score 边界及偏差实验设计；等待用户审阅参考标签和阶段工程，再准备 Stage 04 PR。Stage 01 substrate 边界和 Stage 02 分母代码未独立解释项保留为面试复习。
